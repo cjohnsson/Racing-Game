@@ -1,6 +1,5 @@
-/src/RaceGame/RaceGame/bin
-/src/RaceGame/RaceGame/obj
-
-/src/RaceGame/_ReSharper.RaceGame
-
-/src/RaceGame/*.suo
+bin
+obj
+_ReSharper.RaceGame
+*.suo
+*.user
