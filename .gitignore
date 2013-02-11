@@ -1,7 +1,9 @@
-# Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
-[Bb]in/
-[Oo]bj/
+/src/RaceGame/_ReSharper.RaceGame
+/src/RaceGame/*.suo
 
+/src/RaceGame/RaceGame/obj
+/src/RaceGame/RaceGame/bin
+/content/Thumbs.db
 # mstest test results
 TestResults
 
