@@ -1,2 +1,6 @@
 /src/RaceGame/RaceGame/bin
 /src/RaceGame/RaceGame/obj
+
+/src/RaceGame/_ReSharper.RaceGame
+
+/src/RaceGame/*.suo
