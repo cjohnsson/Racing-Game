@@ -1,6 +1,2 @@
-/src/RaceGame/_ReSharper.RaceGame
-/src/RaceGame/*.suo
-
-/src/RaceGame/RaceGame/obj
 /src/RaceGame/RaceGame/bin
-/content/Thumbs.db
+/src/RaceGame/RaceGame/obj
