@@ -38,9 +38,11 @@
     <StartupObject>RaceGame.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="MenuItems.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RaceGame.cs" />
+    <Compile Include="TerrainTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
