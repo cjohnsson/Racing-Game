@@ -72,14 +72,14 @@ namespace RaceGame
             Texture2D mapCollision = Content.Load<Texture2D>("mapcollision");
 
             System.Drawing.Bitmap bitmap = null;
-            Stream stream = new MemoryStream();
+            MemoryStream stream = new MemoryStream();
             
-            mapCollision.SaveAsPng(stream, mapCollision.Bounds.Width, mapCollision.Bounds.Height);
-            bitmap = new Bitmap(stream);
+           // mapCollision.SaveAsPng(stream, mapCollision.Bounds.Width, mapCollision.Bounds.Height);
+           // bitmap = new Bitmap(stream);
             
             List<Player> players = new List<Player>();
             players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), car_emilImage, new Vector2(50,50)));
-            world = new World(new Map(Content.Load<Texture2D>("map"),Content.Load<Texture2D>("mapforeground"), bitmap), players );
+            world = new World(new Map(Content.Load<Texture2D>("map"),Content.Load<Texture2D>("mapforeground"), null), players );
 
         }
 
