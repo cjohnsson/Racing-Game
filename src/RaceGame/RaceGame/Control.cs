@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RaceGame
 {
-    class Control
+    public class Control
     {
     }
 }
