@@ -19,13 +19,18 @@ namespace RaceGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private World world;
+        private KeyboardState _oldState;
+        Color backColor = Color.CornflowerBlue;
+
+
+        //Screen State variables to indicate what is the current screen
+        private bool _isGameMenuShowed;
 
         public RaceGame()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            world = new World();
         }
 
         /// <summary>
@@ -36,8 +41,9 @@ namespace RaceGame
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            world = new World();
             world.Players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D)));
+            _oldState = Keyboard.GetState();
             base.Initialize();
         }
 
@@ -69,31 +75,46 @@ namespace RaceGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            KeyboardState state = Keyboard.GetState();
+            KeyboardState newState = Keyboard.GetState();
 
-            if (state.IsKeyDown(Keys.Escape))
-                Exit();
-
-            foreach (Player player in world.Players)
+            if (newState.IsKeyDown(Keys.Escape))
             {
-                if (state.IsKeyDown(player.Control.Accelerate))
+                if (_isGameMenuShowed)
                 {
-                    player.Car.Accelerate();
+                    _isGameMenuShowed = false;
+                    backColor = Color.CornflowerBlue;
                 }
-                if (state.IsKeyDown(player.Control.Decelearte))
+                else
                 {
-                    player.Car.Break();
+                    _isGameMenuShowed = true;
+                    backColor = Color.Red;
                 }
-                if (state.IsKeyDown(player.Control.Left))
-                {
-                    player.Car.TurnLeft();
-                }
-                if (state.IsKeyDown(player.Control.Right))
-                {
-                    player.Car.TurnRight();
-                }
+
             }
 
+            if (!_isGameMenuShowed)
+            {
+                foreach (Player player in world.Players)
+                {
+                    if (newState.IsKeyDown(player.Control.Accelerate))
+                    {
+                        player.Car.Accelerate();
+                    }
+                    if (newState.IsKeyDown(player.Control.Decelearte))
+                    {
+                        player.Car.Break();
+                    }
+                    if (newState.IsKeyDown(player.Control.Left))
+                    {
+                        player.Car.TurnLeft();
+                    }
+                    if (newState.IsKeyDown(player.Control.Right))
+                    {
+                        player.Car.TurnRight();
+                    }
+                }
+            }
+            _oldState = newState;
             base.Update(gameTime);
         }
 
@@ -103,7 +124,7 @@ namespace RaceGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(backColor);
 
             // TODO: Add your drawing code here
 
