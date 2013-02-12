@@ -17,15 +17,14 @@ namespace RaceGame {
         // public Info Info { get; set; }
         public List<Player> Players { get; set; }
         private DateTime _startTime;
-        private TimeSpan _winnerTime;
 
         public World() {
             Players = new List<Player>();
             _startTime = DateTime.Now;
         }
 
-        private void StopCounter() {
-            _winnerTime =  _startTime.Subtract(DateTime.Now);
+        private TimeSpan GetWinnerTime() {
+            return  _startTime.Subtract(DateTime.Now);
         }
 
         public void Draw(SpriteBatch spriteBatch) {
@@ -33,7 +32,14 @@ namespace RaceGame {
         }
 
         public void Update() {
-
+            foreach (var player in Players)
+            {
+                player.Update();
+                if (player.Lap == Map.Laps)
+                {
+                    player.Time = GetWinnerTime();
+                }
+            }
         }
     }
 }
