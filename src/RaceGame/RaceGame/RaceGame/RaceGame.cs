@@ -14,6 +14,7 @@ using Color = Microsoft.Xna.Framework.Color;
 
 namespace RaceGame
 {
+
     /// <summary>
     /// This is the main type for your game
     /// </summary>
