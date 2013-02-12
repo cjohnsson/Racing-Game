@@ -1,12 +1,16 @@
 ﻿#region Using Statements
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using Color = Microsoft.Xna.Framework.Color;
+
 #endregion
 
 namespace RaceGame
@@ -24,7 +28,7 @@ namespace RaceGame
         private Keys _menuKey = Keys.P;
         private Keys _exitKey = Keys.Escape;
         private Texture2D transparentBackgroundImage;
-        private Texture2D car_emilImage;
+
         //Screen State variables to indicate what is the current screen
         private bool _isGameMenuShowed;
 
@@ -64,17 +68,19 @@ namespace RaceGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             transparentBackgroundImage = Content.Load<Texture2D>("transparentBackground");
-            car_emilImage = Content.Load<Texture2D>("car-emil");
+            Texture2D car_emilImage = Content.Load<Texture2D>("car-emil");
+            Texture2D mapCollision = Content.Load<Texture2D>("mapcollision");
 
-            world = new World();
-            world.Players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D)));
+            System.Drawing.Bitmap bitmap = null;
+            Stream stream = new MemoryStream();
+            
+            mapCollision.SaveAsPng(stream, mapCollision.Bounds.Width, mapCollision.Bounds.Height);
+            bitmap = new Bitmap(stream);
+            
+            List<Player> players = new List<Player>();
+            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), car_emilImage, new Vector2(50,50)));
+            world = new World(new Map(Content.Load<Texture2D>("map"),Content.Load<Texture2D>("mapforeground"), bitmap), players );
 
-            foreach (Player player in world.Players)
-            {
-                
-            }
-
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
@@ -148,11 +154,13 @@ namespace RaceGame
 
             spriteBatch.Begin();
 
+            world.Draw(spriteBatch);
+
             if (_isGameMenuShowed)
             {
                 spriteBatch.Draw(transparentBackgroundImage, Vector2.Zero, Color.White);
             }
-
+            
             spriteBatch.End();
            
             base.Draw(gameTime);

@@ -18,8 +18,10 @@ namespace RaceGame {
         public List<Player> Players { get; set; }
         private DateTime _startTime;
 
-        public World() {
-            Players = new List<Player>();
+        public World(Map map, List<Player> players)
+        {
+            Players = players;
+            Map = map;
             _startTime = DateTime.Now;
         }
 

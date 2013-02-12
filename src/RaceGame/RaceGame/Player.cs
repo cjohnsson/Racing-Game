@@ -19,10 +19,10 @@ namespace RaceGame
         public Control Control { get; set; }
         private string _name;
 
-        public Player(Control control)
+        public Player(Control control, Texture2D carImage, Vector2 position)
         {
             Control = control;
-            Car = new Car();
+            Car = new Car(carImage, position);
         }
 
         public string Name {
