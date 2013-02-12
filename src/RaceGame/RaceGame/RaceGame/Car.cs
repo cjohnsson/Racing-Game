@@ -93,7 +93,7 @@ namespace RaceGame
         {
             //inte 100% här om detta är korrekt
             float newX = x += (float)Math.Cos((double)rotation) * speed;
-            float newY = y -= (float)Math.Sin((double)rotation) * speed;
+            float newY = y += (float)Math.Sin((double)rotation) * speed;
 
             TerrainTypes newTerrain = GetTerrain(new Vector2(newX, newY));
             switch (newTerrain)
