@@ -33,6 +33,10 @@ namespace RaceGame
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            //Initialize screen size to an ideal resolution for the projector
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
         }
 
         /// <summary>
@@ -57,6 +61,11 @@ namespace RaceGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            foreach (Player player in world.Players)
+            {
+                this.Content.Load<Texture2D>("car-emil");    
+            }
+            
             // TODO: use this.Content to load your game content here
         }
 
