@@ -18,6 +18,11 @@ namespace RaceGame
         public Texture2D BackgroundImage { get; set; }
         public Texture2D ForegroundImage { get; set; }
 
+        public Map()
+        {
+            
+        }
+
         public Map(Texture2D backgroundImage, Texture2D foregroundImage, Bitmap collisionImage)
         {
             BackgroundImage = backgroundImage;

@@ -10,6 +10,7 @@ namespace RaceGame_Tests
     [TestFixture]
     class Map_Test
     {
+
         // StartX
         [Test]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]

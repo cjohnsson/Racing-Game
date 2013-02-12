@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{00FF9C9F-F002-421F-B2D8-2C8D406D3CFE}</ProjectGuid>
+    <ProjectGuid>{FF9C3440-04EE-4468-885D-4A58D4C4F9E2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RaceGame_Tests</RootNamespace>
@@ -31,8 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="nunit.framework">
-      <HintPath>..\..\..\tools\NUnit-2.6.2\bin\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\..\tools\NUnit-2.6.2\bin\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,8 +52,8 @@
     <Compile Include="World_Test.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RaceGame\RaceGame.csproj">
-      <Project>{D29DC05A-C11A-4847-AB1E-5C934D5E2474}</Project>
+    <ProjectReference Include="..\RaceGame\RaceGame\RaceGame.csproj">
+      <Project>{61E02F56-3ADC-4855-A56D-37904BE9F91D}</Project>
       <Name>RaceGame</Name>
     </ProjectReference>
   </ItemGroup>

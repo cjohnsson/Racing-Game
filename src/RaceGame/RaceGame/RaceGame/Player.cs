@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 
 namespace RaceGame
@@ -23,6 +22,11 @@ namespace RaceGame
         {
             Control = control;
             Car = new Car(carImage, position);
+        }
+
+        public Player(Control control)
+        {
+            Control = control;
         }
 
         public string Name {
