@@ -46,7 +46,6 @@ namespace RaceGame
             _oldState = Keyboard.GetState();
             base.Initialize();
         }
-
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
