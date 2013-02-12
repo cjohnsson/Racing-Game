@@ -27,7 +27,6 @@ namespace RaceGame_Tests {
             Player player = new Player(control);
 
             player.Name = "Mattias";
-            
             Assert.That("Mattias", Is.EqualTo(player.Name));
         }
     }

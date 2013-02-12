@@ -41,7 +41,7 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw()
+            Car.Draw(spriteBatch);
         }
 
         public void Update()
