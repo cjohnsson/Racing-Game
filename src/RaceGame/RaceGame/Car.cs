@@ -14,14 +14,17 @@ namespace RaceGame
     public class Car
     {
         Texture2D image;
-        private Rectangle Position;
 
-        public Car(Texture2D newImage)
+        public Car(Texture2D newImage, Vector2 position)
         {
             this.image = newImage;
+            width = newImage.Bounds.Width;
+            height = newImage.Bounds.Height;
+            x = position.X;
+            y = position.Y;
         }
 
-        public Rectangle position
+        public Rectangle Position
         {
             get 
             { 
@@ -92,7 +95,7 @@ namespace RaceGame
 
         public void Update()
         {
-            //inte 100% hät om detta är korrekt
+            //inte 100% här om detta är korrekt
             float newX = x += (float)Math.Cos((double)rotation) * speed;
             float newY = y -= (float)Math.Sin((double)rotation) * speed;
 
@@ -126,7 +129,6 @@ namespace RaceGame
                     break;
             
             }
-
         }
 
         public TerrainTypes GetTerrain()
@@ -152,7 +154,7 @@ namespace RaceGame
             //blå
            if (color.R > 10 && color.G < 10 && color.B < 245)
                return TerrainTypes.Obstacle;
-            //görn
+            //grön
            if (color.R > 10 && color.G < 245 && color.B < 10)
                return TerrainTypes.FinishLine;
             //alla andra färger
@@ -162,12 +164,12 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, position, Color.White);
+            spriteBatch.Draw(image, Position, Color.White);
         }
 
         Vector2 GetOrigin()
         {
-            return new Vector2((x + position.X/2),(y+position.Y/2));
+            return new Vector2((x + Position.X/2),(y+Position.Y/2));
         }
     }
 }
