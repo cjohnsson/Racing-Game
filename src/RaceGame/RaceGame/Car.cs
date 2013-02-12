@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace RaceGame
 {
-    class Car
+    public class Car
     {
         Texture2D image;
         private Rectangle Position;
@@ -35,12 +35,13 @@ namespace RaceGame
         int height;
         int width;
 
+        const float ROTATION_SPEED = 0.1f;
         const float MAXSPEED = 1.5f;
         const float ACCELERATION = 0.1f;
         const float DECELERATION = 0.1f;
         const float BREAK_DECELERATION = 0.1f;
 
-        void Accelerate()
+        public void Accelerate()
         {
             if (speed < MAXSPEED)
                 speed += ACCELERATION;
@@ -50,7 +51,7 @@ namespace RaceGame
  
         }
 
-        void Break()
+        public void Break()
         {
             if (speed <= 0)
                 speed = 0;
@@ -58,34 +59,39 @@ namespace RaceGame
                 speed -= BREAK_DECELERATION;
         }
 
-        void TurnLeft()
-        {             
-
+        public void TurnLeft()
+        {
+            rotation -= ROTATION_SPEED;
         }
 
-        void TurnRight()
+        public void TurnRight()
+        {
+            rotation -= ROTATION_SPEED;
+        }
+
+        public void Update()
         {
 
         }
 
-        void Update()
+        public TerrainTypes GetTerrain()
         {
+           System.Drawing.Bitmap bitMap = null;
+
+           Vector2 position = GetOrigin();
+           System.Drawing.Color color = bitMap.GetPixel((int)position.X,(int)position.Y);
+
 
         }
 
-        TerrainTypes GetTerrain()
-        {
-            return null;
-        }
-
-        void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(image, position, Color.White);
         }
 
         Vector2 GetOrigin()
         {
-            return new Vector2(1, 2);
+            return new Vector2((x + position.X/2),(y+position.Y/2));
         }
     }
 }
