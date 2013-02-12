@@ -13,14 +13,20 @@ namespace RaceGame
 {
     class Player
     {
-        Car car;
-        int lap;
-        Control control;
-        string name;
+        public Car Car { get; set; }
+        public int Lap { get; set; }
+        public TimeSpan Time { get; set; }
+        //public Control Control { get; set; }
+        private string _name;
 
         public Player()
         {
 
+        }
+
+        public string Name {
+            get { return _name; }
+            set { _name = value; }
         }
 
         public void Draw(SpriteBatch spriteBatch)
