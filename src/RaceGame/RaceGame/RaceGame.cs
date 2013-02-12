@@ -20,11 +20,11 @@ namespace RaceGame
         SpriteBatch spriteBatch;
         private World world;
         private KeyboardState _oldState;
-        Color backColor = Color.CornflowerBlue;
+        private Color backColor;
         private Keys _menuKey = Keys.P;
         private Keys _exitKey = Keys.Escape;
-
-
+        private Texture2D transparentBackgroundImage;
+        private Texture2D car_emilImage;
         //Screen State variables to indicate what is the current screen
         private bool _isGameMenuShowed;
 
@@ -47,10 +47,12 @@ namespace RaceGame
         /// </summary>
         protected override void Initialize()
         {
-            world = new World();
-            world.Players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D)));
+            
             _oldState = Keyboard.GetState();
+            
+            backColor = Color.CornflowerBlue;
             base.Initialize();
+            
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -61,11 +63,17 @@ namespace RaceGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            transparentBackgroundImage = Content.Load<Texture2D>("transparentBackground");
+            car_emilImage = Content.Load<Texture2D>("car-emil");
+
+            world = new World();
+            world.Players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D)));
+
             foreach (Player player in world.Players)
             {
-                this.Content.Load<Texture2D>("car-emil");    
+                
             }
-            
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -95,12 +103,12 @@ namespace RaceGame
                 if (_isGameMenuShowed && _oldState.IsKeyUp(_menuKey))
                 {
                     _isGameMenuShowed = false;
-                    backColor = Color.CornflowerBlue;
+                    
                 }
                 else if (_oldState.IsKeyUp(_menuKey))
                 {
                     _isGameMenuShowed = true;
-                    backColor = Color.Red;
+                    
                 }
             }
 
@@ -138,8 +146,15 @@ namespace RaceGame
         {
             GraphicsDevice.Clear(backColor);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
 
+            if (_isGameMenuShowed)
+            {
+                spriteBatch.Draw(transparentBackgroundImage, Vector2.Zero, Color.White);
+            }
+
+            spriteBatch.End();
+           
             base.Draw(gameTime);
         }
     }
