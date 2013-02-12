@@ -21,7 +21,7 @@ namespace RaceGame
                 if (value >= 0 && value <= 800)
                     _startX = value;
                 else
-                    throw new ArgumentOutOfRangeException("Negative coordinates!");
+                    throw new ArgumentOutOfRangeException("Invalid coordinates!");
             } 
         }
         public int StartY 
@@ -32,7 +32,7 @@ namespace RaceGame
                 if (value >= 0 && value <= 600)
                     _startY = value;
                 else
-                    throw new ArgumentOutOfRangeException("Negative coordinates!");
+                    throw new ArgumentOutOfRangeException("Invalid coordinates!");
             }
         }
 
@@ -41,10 +41,10 @@ namespace RaceGame
             get { return _laps; }
             set 
             {
-                if (value >= 0)
+                if (value > 0)
                     _laps = value;
                 else
-                    throw new ArgumentOutOfRangeException("Negative lap number!");
+                    throw new ArgumentOutOfRangeException("Invalid lap number!");
             }
         }
 

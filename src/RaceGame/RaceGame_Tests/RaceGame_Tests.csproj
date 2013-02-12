@@ -44,9 +44,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Car_Test.cs" />
+<<<<<<< HEAD
     <Compile Include="Player_Test.cs" />
+=======
+    <Compile Include="Map_Test.cs" />
+>>>>>>> 2c98aedadcf61f6188a042b7161a276fe23c2b27
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="World_Test.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RaceGame\RaceGame.csproj">
+      <Project>{D29DC05A-C11A-4847-AB1E-5C934D5E2474}</Project>
+      <Name>RaceGame</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RaceGame\RaceGame.csproj">
