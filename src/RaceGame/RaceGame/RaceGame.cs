@@ -76,6 +76,7 @@ namespace RaceGame
         {
             KeyboardState newState = Keyboard.GetState();
 
+            
             if (newState.IsKeyDown(Keys.Escape))
             {
                 if (_isGameMenuShowed)
@@ -88,7 +89,6 @@ namespace RaceGame
                     _isGameMenuShowed = true;
                     backColor = Color.Red;
                 }
-
             }
 
             if (!_isGameMenuShowed)
