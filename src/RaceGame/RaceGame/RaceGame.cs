@@ -19,12 +19,14 @@ namespace RaceGame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private World world;
 
         public RaceGame()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            world = new World();
         }
 
         /// <summary>
@@ -36,10 +38,9 @@ namespace RaceGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            world.Players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D)));
             base.Initialize();
         }
-
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -68,10 +69,30 @@ namespace RaceGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            KeyboardState state = Keyboard.GetState();
+
+            if (state.IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            foreach (Player player in world.Players)
+            {
+                if (state.IsKeyDown(player.Control.Accelerate))
+                {
+                    player.Car.Accelerate();
+                }
+                if (state.IsKeyDown(player.Control.Decelearte))
+                {
+                    player.Car.Break();
+                }
+                if (state.IsKeyDown(player.Control.Left))
+                {
+                    player.Car.TurnLeft();
+                }
+                if (state.IsKeyDown(player.Control.Right))
+                {
+                    player.Car.TurnRight();
+                }
+            }
 
             base.Update(gameTime);
         }

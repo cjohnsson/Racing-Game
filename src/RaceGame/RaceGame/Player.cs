@@ -11,21 +11,37 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace RaceGame
 {
-    class Player
+    public class Player
     {
-        Car car;
-        int lap;
-        Control control;
-        string name;
+        public Car Car { get; set; }
+        public int Lap { get; set; }
+        public TimeSpan Time { get; set; }
+        public Control Control { get; set; }
+        private string _name;
 
-        public Player()
+        public Player(Control control)
         {
+            Control = control;
+        }
 
+        public string Name {
+            get {
+                if (_name == "") {
+                    _name = "Unknown Player";
+                    return _name;
+                }
+                else { return _name; }
+            }
+            set {
+                if (value == "") {
+                    throw new ArgumentException("Please insert a valid name!");
+                } else { _name = value; }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw()
+            Car.Draw(spriteBatch);
         }
 
         public void Update()
