@@ -13,6 +13,11 @@ namespace RaceGame
         private int _startY;
         private int _laps;
 
+        public float StartRotation { get; set; }
+        public static Bitmap CollisionImage { get; set; }
+        public Texture2D BackgroundImage { get; set; }
+        public Texture2D ForegroundImage { get; set; }
+
         public int StartX 
         {
             get { return _startX; } 
@@ -47,11 +52,6 @@ namespace RaceGame
                     throw new ArgumentOutOfRangeException("Invalid lap number!");
             }
         }
-
-        public float StartRotation { get; set; }
-        public static Bitmap CollisionImage { get; set; }
-        public Texture2D BackgroundImage { get; set; }
-        public Texture2D ForegroundImage { get; set; }
 
         public void Draw(SpriteBatch spriteBatch) 
         {

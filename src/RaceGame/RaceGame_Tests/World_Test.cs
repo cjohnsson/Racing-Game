@@ -13,6 +13,7 @@ namespace RaceGame_Tests {
         public void StopCounter_GetAValidWinnerTime_CalculateAValidTime()
         {
             World world = new World();
+            world.
         }
     }
 }
