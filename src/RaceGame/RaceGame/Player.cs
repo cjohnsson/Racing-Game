@@ -19,9 +19,9 @@ namespace RaceGame
         //public Control Control { get; set; }
         private string _name;
 
-        public Player()
+        public Player(Control control)
         {
-
+            Control = control;
         }
 
         public string Name {
