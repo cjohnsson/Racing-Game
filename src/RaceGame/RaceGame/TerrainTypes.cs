@@ -10,6 +10,7 @@ namespace RaceGame
         Road,
         Terrain,
         CheckPoint,
-        FinishLine
+        FinishLine,
+        Obstacle
     };
 }
