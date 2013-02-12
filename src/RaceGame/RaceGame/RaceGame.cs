@@ -18,14 +18,14 @@ namespace RaceGame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private List<Player> players;
+        private World world;
 
         public RaceGame()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            players = new List<Player>(); 
+            world = new World();
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace RaceGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            players.Add(new Player());
+            world.Players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D)));
             base.Initialize();
         }
 
@@ -74,15 +74,25 @@ namespace RaceGame
             if (state.IsKeyDown(Keys.Escape))
                 Exit();
 
-            foreach (Player player in players)
+            foreach (Player player in world.Players)
             {
-                if (state.IsKeyDown(player.Control.Upkey))
+                if (state.IsKeyDown(player.Control.Accelerate))
                 {
                     player.Car.Accelerate();
                 }
+                if (state.IsKeyDown(player.Control.Decelearte))
+                {
+                    player.Car.Break();
+                }
+                if (state.IsKeyDown(player.Control.Left))
+                {
+                    player.Car.TurnLeft();
+                }
+                if (state.IsKeyDown(player.Control.Right))
+                {
+                    player.Car.TurnRight();
+                }
             }
-
-            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
