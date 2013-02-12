@@ -86,7 +86,7 @@ namespace RaceGame
 
         public void TurnRight()
         {
-            rotation -= ROTATION_SPEED;
+            rotation += ROTATION_SPEED;
         }
 
         public void Update()
@@ -155,7 +155,7 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_image, Position, Color.White);
+            spriteBatch.Draw(_image, Position, null, Color.White, rotation, new Vector2(0,0), SpriteEffects.None, 0 );
         }
 
         Vector2 GetOrigin()
