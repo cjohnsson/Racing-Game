@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace RaceGame
 {
+
     /// <summary>
     /// This is the main type for your game
     /// </summary>
