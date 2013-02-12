@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Timers;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.GamerServices;
 
 namespace RaceGame {
     public class World
@@ -30,11 +26,12 @@ namespace RaceGame {
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Map.Draw(spriteBatch);
+            Map.DrawBackground(spriteBatch);
             foreach (var player in Players)
             {
                 player.Draw(spriteBatch);
             }
+            Map.DrawForeground(spriteBatch);
         }
 
         public void Update() {

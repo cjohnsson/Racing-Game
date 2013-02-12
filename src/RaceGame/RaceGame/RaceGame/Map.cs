@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using Microsoft.Xna.Framework.Graphics;
+using Color = Microsoft.Xna.Framework.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace RaceGame
 {
@@ -65,9 +67,14 @@ namespace RaceGame
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch) 
+        public void DrawForeground(SpriteBatch spriteBatch) 
         {
-            //spriteBatch.Draw();
+            spriteBatch.Draw(ForegroundImage, new Rectangle(0, 0, ForegroundImage.Bounds.Width, ForegroundImage.Bounds.Height), Color.White);
+        }
+
+        public void DrawBackground(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(BackgroundImage, new Rectangle(0, 0, BackgroundImage.Bounds.Width, BackgroundImage.Bounds.Height), Color.White);   
         }
     }
 }
