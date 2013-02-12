@@ -104,12 +104,10 @@ namespace RaceGame
                 if (_isGameMenuShowed && _oldState.IsKeyUp(_menuKey))
                 {
                     _isGameMenuShowed = false;
-                    
                 }
                 else if (_oldState.IsKeyUp(_menuKey))
                 {
                     _isGameMenuShowed = true;
-                    
                 }
             }
 
@@ -133,7 +131,6 @@ namespace RaceGame
                     {
                         player.Car.TurnRight();
                     }
-
                     world.Update();
                 }
             }

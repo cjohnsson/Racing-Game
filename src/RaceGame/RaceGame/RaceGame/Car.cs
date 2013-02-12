@@ -60,6 +60,7 @@ namespace RaceGame
         const float DECELERATION = 0.1f;
         const float BREAK_DECELERATION = 0.1f;
         const float TERRAIN_SPEED = 0.01f;
+        
         public void Accelerate()
         {
             if (speed < MAXSPEED)

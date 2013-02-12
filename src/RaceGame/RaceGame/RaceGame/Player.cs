@@ -49,6 +49,7 @@ namespace RaceGame
 
         public void Update()
         {
+            Car.Update();
             while (Car.HasFinishedLap)
             {
                 Lap++;
