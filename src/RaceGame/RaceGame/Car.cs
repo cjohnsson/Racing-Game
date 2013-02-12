@@ -25,7 +25,24 @@ namespace RaceGame
             }
         }
 
-        bool checkPoint;
+        public bool checkPoint;
+        public bool passedFinishLine;
+        public bool HasFinishedLap
+        {
+            get
+            {
+                if (checkPoint && passedFinishLine)
+                {
+                    checkPoint = false;
+                    passedFinishLine = false;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
         float speed;
         float rotation;
         Vector2 origin;
@@ -40,7 +57,7 @@ namespace RaceGame
         const float ACCELERATION = 0.1f;
         const float DECELERATION = 0.1f;
         const float BREAK_DECELERATION = 0.1f;
-
+        const float TERRAIN_SPEED = 0.01f;
         public void Accelerate()
         {
             if (speed < MAXSPEED)
@@ -71,13 +88,34 @@ namespace RaceGame
 
         public void Update()
         {
+            //inte 100% hät om detta är korrekt
             float newX = x += (float)Math.Cos((double)rotation) * speed;
             float newY = y -= (float)Math.Sin((double)rotation) * speed;
 
-            GetTerrain(new Vector2(newX, newY));
+            TerrainTypes newTerrain = GetTerrain(new Vector2(newX, newY));
+            switch (newTerrain)
+            { 
+                case TerrainTypes.CheckPoint:
 
+                    break;
+                case TerrainTypes.FinishLine:
 
+                    break;
+                case TerrainTypes.Obstacle:
+
+                    break;
+                case TerrainTypes.Road:
+
+                    break;
+                case TerrainTypes.Terrain:
+                    speed = TERRAIN_SPEED;
+                    break;
+                default:
+
+                    break;
             
+            }
+
         }
 
         public TerrainTypes GetTerrain()
