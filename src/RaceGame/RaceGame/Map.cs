@@ -44,11 +44,7 @@ namespace RaceGame
             }
         }
 
-        public float StartRotation
-        {
-            get;
-            set;
-        }
+        public float StartRotation { get; set; }
         public static Bitmap CollisionImage { get; set; }
         public Texture2D BackgroundImage { get; set; }
         public Texture2D ForegroundImage { get; set; }
