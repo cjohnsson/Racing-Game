@@ -74,18 +74,13 @@ namespace RaceGame
             if (state.IsKeyDown(Keys.Escape))
                 Exit();
 
-            Player player = new Player();
-            
-            if (state.IsKeyDown(player.Controls.Upkey))
+            foreach (Player player in players)
             {
-                player.Accelerate();
+                if (state.IsKeyDown(player.Control.Upkey))
+                {
+                    player.Car.Accelerate();
+                }
             }
-
-            if(downkey)
-            {
-                player1.Deccelerate
-            }
-            
 
             // TODO: Add your update logic here
 

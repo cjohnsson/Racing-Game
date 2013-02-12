@@ -11,12 +11,12 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace RaceGame
 {
-    class Player
+    public class Player
     {
         public Car Car { get; set; }
         public int Lap { get; set; }
         public TimeSpan Time { get; set; }
-        //public Control Control { get; set; }
+        public Control Control { get; set; }
         private string _name;
 
         public Player(Control control)

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RaceGame
 {
-    class Map
+    public class Map
     {
         public int StartX 
         {

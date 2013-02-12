@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 
 namespace RaceGame {
-    class World
+    public class World
     {
         // public Map Map { get; set; }
         // public Info Info { get; set; }
