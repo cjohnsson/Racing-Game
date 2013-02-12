@@ -3,3 +3,5 @@ obj
 _ReSharper.RaceGame
 *.suo
 *.user
+Thumbs.db
+*.db
