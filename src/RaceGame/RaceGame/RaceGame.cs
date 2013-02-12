@@ -1,12 +1,16 @@
 ﻿#region Using Statements
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using Color = Microsoft.Xna.Framework.Color;
+
 #endregion
 
 namespace RaceGame
@@ -21,8 +25,10 @@ namespace RaceGame
         SpriteBatch spriteBatch;
         private World world;
         private KeyboardState _oldState;
-        Color backColor = Color.CornflowerBlue;
-
+        private Color backColor;
+        private Keys _menuKey = Keys.P;
+        private Keys _exitKey = Keys.Escape;
+        private Texture2D transparentBackgroundImage;
 
         //Screen State variables to indicate what is the current screen
         private bool _isGameMenuShowed;
@@ -32,6 +38,10 @@ namespace RaceGame
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            //Initialize screen size to an ideal resolution for the projector
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
         }
 
         /// <summary>
@@ -42,10 +52,12 @@ namespace RaceGame
         /// </summary>
         protected override void Initialize()
         {
-            world = new World();
-            world.Players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D)));
+            
             _oldState = Keyboard.GetState();
+            
+            backColor = Color.CornflowerBlue;
             base.Initialize();
+            
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -56,7 +68,20 @@ namespace RaceGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            transparentBackgroundImage = Content.Load<Texture2D>("transparentBackground");
+            Texture2D car_emilImage = Content.Load<Texture2D>("car-emil");
+            Texture2D mapCollision = Content.Load<Texture2D>("mapcollision");
+
+            System.Drawing.Bitmap bitmap = null;
+            Stream stream = new MemoryStream();
+            
+            mapCollision.SaveAsPng(stream, mapCollision.Bounds.Width, mapCollision.Bounds.Height);
+            bitmap = new Bitmap(stream);
+            
+            List<Player> players = new List<Player>();
+            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), car_emilImage, new Vector2(50,50)));
+            world = new World(new Map(Content.Load<Texture2D>("map"),Content.Load<Texture2D>("mapforeground"), bitmap), players );
+
         }
 
         /// <summary>
@@ -77,19 +102,21 @@ namespace RaceGame
         {
             KeyboardState newState = Keyboard.GetState();
 
-            if (newState.IsKeyDown(Keys.Escape))
+            if(newState.IsKeyDown(_exitKey))
+                this.Exit();
+
+            if (newState.IsKeyDown(_menuKey))
             {
-                if (_isGameMenuShowed)
+                if (_isGameMenuShowed && _oldState.IsKeyUp(_menuKey))
                 {
                     _isGameMenuShowed = false;
-                    backColor = Color.CornflowerBlue;
+                    
                 }
-                else
+                else if (_oldState.IsKeyUp(_menuKey))
                 {
                     _isGameMenuShowed = true;
-                    backColor = Color.Red;
+                    
                 }
-
             }
 
             if (!_isGameMenuShowed)
@@ -126,8 +153,17 @@ namespace RaceGame
         {
             GraphicsDevice.Clear(backColor);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
 
+            world.Draw(spriteBatch);
+
+            if (_isGameMenuShowed)
+            {
+                spriteBatch.Draw(transparentBackgroundImage, Vector2.Zero, Color.White);
+            }
+            
+            spriteBatch.End();
+           
             base.Draw(gameTime);
         }
     }

@@ -14,10 +14,17 @@ namespace RaceGame
     public class Car
     {
         Texture2D image;
-        private Rectangle Position;
-        
 
-        public Rectangle position
+        public Car(Texture2D newImage, Vector2 position)
+        {
+            this.image = newImage;
+            width = newImage.Bounds.Width;
+            height = newImage.Bounds.Height;
+            x = position.X;
+            y = position.Y;
+        }
+
+        public Rectangle Position
         {
             get 
             { 
@@ -25,7 +32,24 @@ namespace RaceGame
             }
         }
 
-        bool checkPoint;
+        public bool passedCheckPoint = false;
+        public bool passedFinishLine = false;
+        public bool HasFinishedLap
+        {
+            get
+            {
+                if (passedCheckPoint && passedFinishLine)
+                {
+                    passedCheckPoint = false;
+                    passedFinishLine = false;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
         float speed;
         float rotation;
         Vector2 origin;
@@ -40,7 +64,7 @@ namespace RaceGame
         const float ACCELERATION = 0.1f;
         const float DECELERATION = 0.1f;
         const float BREAK_DECELERATION = 0.1f;
-
+        const float TERRAIN_SPEED = 0.01f;
         public void Accelerate()
         {
             if (speed < MAXSPEED)
@@ -71,13 +95,40 @@ namespace RaceGame
 
         public void Update()
         {
+            //inte 100% här om detta är korrekt
             float newX = x += (float)Math.Cos((double)rotation) * speed;
             float newY = y -= (float)Math.Sin((double)rotation) * speed;
 
-            GetTerrain(new Vector2(newX, newY));
+            TerrainTypes newTerrain = GetTerrain(new Vector2(newX, newY));
+            switch (newTerrain)
+            { 
+                case TerrainTypes.CheckPoint:
+                    x = newX;
+                    y = newY;
+                    passedCheckPoint = true;
+                    break;
+                case TerrainTypes.FinishLine:
+                    x = newX;
+                    y = newY;
+                    passedFinishLine = true;
+                    break;
+                case TerrainTypes.Obstacle:
+                    //krock
+                    break;
+                case TerrainTypes.Road:
+                    x = newX;
+                    y = newY;
+                    break;
+                case TerrainTypes.Terrain:
+                    x = newX;
+                    y = newY;
+                    speed = TERRAIN_SPEED;
+                    break;
+                default:
 
-
+                    break;
             
+            }
         }
 
         public TerrainTypes GetTerrain()
@@ -103,7 +154,7 @@ namespace RaceGame
             //blå
            if (color.R > 10 && color.G < 10 && color.B < 245)
                return TerrainTypes.Obstacle;
-            //görn
+            //grön
            if (color.R > 10 && color.G < 245 && color.B < 10)
                return TerrainTypes.FinishLine;
             //alla andra färger
@@ -113,12 +164,12 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, position, Color.White);
+            spriteBatch.Draw(image, Position, Color.White);
         }
 
         Vector2 GetOrigin()
         {
-            return new Vector2((x + position.X/2),(y+position.Y/2));
+            return new Vector2((x + Position.X/2),(y+Position.Y/2));
         }
     }
 }
