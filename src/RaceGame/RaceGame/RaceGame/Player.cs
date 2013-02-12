@@ -21,11 +21,6 @@ namespace RaceGame
             Car = new Car(carImage, position);
         }
 
-        public Player(Control control)
-        {
-            Control = control;
-        }
-
         public string Name
         {
             get
