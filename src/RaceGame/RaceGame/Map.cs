@@ -13,6 +13,11 @@ namespace RaceGame
         private int _startY;
         private int _laps;
 
+        public float StartRotation { get; set; }
+        public static Bitmap CollisionImage { get; set; }
+        public Texture2D BackgroundImage { get; set; }
+        public Texture2D ForegroundImage { get; set; }
+
         public int StartX 
         {
             get { return _startX; } 
@@ -21,7 +26,7 @@ namespace RaceGame
                 if (value >= 0 && value <= 800)
                     _startX = value;
                 else
-                    throw new ArgumentOutOfRangeException("Negative coordinates!");
+                    throw new ArgumentOutOfRangeException("Invalid coordinates!");
             } 
         }
         public int StartY 
@@ -32,7 +37,7 @@ namespace RaceGame
                 if (value >= 0 && value <= 600)
                     _startY = value;
                 else
-                    throw new ArgumentOutOfRangeException("Negative coordinates!");
+                    throw new ArgumentOutOfRangeException("Invalid coordinates!");
             }
         }
 
@@ -41,17 +46,12 @@ namespace RaceGame
             get { return _laps; }
             set 
             {
-                if (value >= 0)
+                if (value > 0)
                     _laps = value;
                 else
-                    throw new ArgumentOutOfRangeException("Negative lap number!");
+                    throw new ArgumentOutOfRangeException("Invalid lap number!");
             }
         }
-
-        public float StartRotation { get; set; }
-        public static Bitmap CollisionImage { get; set; }
-        public Texture2D BackgroundImage { get; set; }
-        public Texture2D ForegroundImage { get; set; }
 
         public void Draw(SpriteBatch spriteBatch) 
         {

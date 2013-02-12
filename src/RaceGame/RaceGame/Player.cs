@@ -25,13 +25,23 @@ namespace RaceGame
         }
 
         public string Name {
-            get { return _name; }
-            set { _name = value; }
+            get {
+                if (_name == "") {
+                    _name = "Unknown Player";
+                    return _name;
+                }
+                else { return _name; }
+            }
+            set {
+                if (value == "") {
+                    throw new ArgumentException("Please insert a valid name!");
+                } else { _name = value; }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw()
+            Car.Draw(spriteBatch);
         }
 
         public void Update()
