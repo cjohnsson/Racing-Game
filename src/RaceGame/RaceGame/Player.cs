@@ -22,6 +22,7 @@ namespace RaceGame
         public Player(Control control)
         {
             Control = control;
+            Car = new Car();
         }
 
         public string Name {
