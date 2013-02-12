@@ -40,7 +40,6 @@ namespace RaceGame
             world.Players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D)));
             base.Initialize();
         }
-
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.

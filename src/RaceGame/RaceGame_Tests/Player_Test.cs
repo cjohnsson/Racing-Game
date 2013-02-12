@@ -11,13 +11,24 @@ namespace RaceGame_Tests {
     class Player_Test {
 
         [Test]
-        public void SetName_InsertName_CheckIfStringIsEmpty()
+        [ExpectedException(typeof(ArgumentException))]
+        public void SetName_InsertsAnEmptyString_ThrowsAnArgumentException()
         {
             Control control = new Control();
             Player player = new Player(control);
 
             player.Name = "";
-            Assert.That(player.Name, Is.StringContaining(""),"Please type a valid name!");
+        }
+
+        [Test]
+        public void GetName_GetAValidName_ReturnsAValidName()
+        {
+            Control control = new Control();
+            Player player = new Player(control);
+
+            player.Name = "Mattias";
+            
+            Assert.That("Mattias", Is.EqualTo(player.Name));
         }
     }
 }
