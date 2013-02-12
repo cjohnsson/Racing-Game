@@ -21,6 +21,8 @@ namespace RaceGame
         private World world;
         private KeyboardState _oldState;
         Color backColor = Color.CornflowerBlue;
+        private Keys _menuKey = Keys.P;
+        private Keys _exitKey = Keys.Escape;
 
 
         //Screen State variables to indicate what is the current screen
@@ -31,6 +33,10 @@ namespace RaceGame
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            //Initialize screen size to an ideal resolution for the projector
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
         }
 
         /// <summary>
@@ -55,6 +61,11 @@ namespace RaceGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            foreach (Player player in world.Players)
+            {
+                this.Content.Load<Texture2D>("car-emil");    
+            }
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -76,14 +87,17 @@ namespace RaceGame
         {
             KeyboardState newState = Keyboard.GetState();
 
-            if (newState.IsKeyDown(Keys.Escape))
+            if(newState.IsKeyDown(_exitKey))
+                this.Exit();
+
+            if (newState.IsKeyDown(_menuKey))
             {
-                if (_isGameMenuShowed && _oldState.IsKeyUp(Keys.Escape))
+                if (_isGameMenuShowed && _oldState.IsKeyUp(_menuKey))
                 {
                     _isGameMenuShowed = false;
                     backColor = Color.CornflowerBlue;
                 }
-                else if (_oldState.IsKeyUp(Keys.Escape))
+                else if (_oldState.IsKeyUp(_menuKey))
                 {
                     _isGameMenuShowed = true;
                     backColor = Color.Red;

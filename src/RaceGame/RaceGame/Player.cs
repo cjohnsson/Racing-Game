@@ -22,6 +22,7 @@ namespace RaceGame
         public Player(Control control)
         {
             Control = control;
+            Car = new Car();
         }
 
         public string Name {
@@ -46,7 +47,10 @@ namespace RaceGame
 
         public void Update()
         {
-
+            while (Car.HasFinishedLap == true)
+            {
+                Lap++;
+            }
         }
     }
 }
