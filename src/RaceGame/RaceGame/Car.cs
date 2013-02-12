@@ -15,7 +15,11 @@ namespace RaceGame
     {
         Texture2D image;
         private Rectangle Position;
-        
+
+        public Car(Texture2D newImage)
+        {
+            this.image = newImage;
+        }
 
         public Rectangle position
         {
@@ -25,15 +29,15 @@ namespace RaceGame
             }
         }
 
-        public bool checkPoint;
-        public bool passedFinishLine;
+        public bool passedCheckPoint = false;
+        public bool passedFinishLine = false;
         public bool HasFinishedLap
         {
             get
             {
-                if (checkPoint && passedFinishLine)
+                if (passedCheckPoint && passedFinishLine)
                 {
-                    checkPoint = false;
+                    passedCheckPoint = false;
                     passedFinishLine = false;
                     return true;
                 }
@@ -96,13 +100,17 @@ namespace RaceGame
             switch (newTerrain)
             { 
                 case TerrainTypes.CheckPoint:
-
+                    x = newX;
+                    y = newY;
+                    passedCheckPoint = true;
                     break;
                 case TerrainTypes.FinishLine:
-
+                    x = newX;
+                    y = newY;
+                    passedFinishLine = true;
                     break;
                 case TerrainTypes.Obstacle:
-
+                    //krock
                     break;
                 case TerrainTypes.Road:
                     x = newX;
