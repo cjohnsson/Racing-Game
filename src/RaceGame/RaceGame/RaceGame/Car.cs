@@ -9,11 +9,13 @@ namespace RaceGame
 {
     public class Car
     {
-        Texture2D image;
+        Texture2D _image;
+        private System.Drawing.Bitmap _bitMap;
 
-        public Car(Texture2D newImage, Vector2 position)
+        public Car(Texture2D newImage, Vector2 position, System.Drawing.Bitmap bitmap)
         {
-            image = newImage;
+            _image = newImage;
+            _bitMap = bitmap;
             width = newImage.Bounds.Width;
             height = newImage.Bounds.Height;
             x = position.X;
@@ -129,9 +131,7 @@ namespace RaceGame
 
         public TerrainTypes GetTerrain(Vector2 position)
         {
-            System.Drawing.Bitmap bitMap = null;
-
-            System.Drawing.Color color = bitMap.GetPixel((int)position.X, (int)position.Y);
+            System.Drawing.Color color = _bitMap.GetPixel((int)position.X, (int)position.Y);
 
             //svart
             if (color.R < 10 && color.G < 10 && color.B < 10)
@@ -154,7 +154,7 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, Position, Color.White);
+            spriteBatch.Draw(_image, Position, Color.White);
         }
 
         Vector2 GetOrigin()

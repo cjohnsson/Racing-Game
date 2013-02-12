@@ -13,7 +13,7 @@ namespace RaceGame_Tests
     {
         private Player MakePlayer()
         {
-            return new Player(null,null,new Vector2());
+            return new Player(null,null,new Vector2(),null);
         }
 
         [Test]

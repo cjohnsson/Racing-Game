@@ -15,10 +15,10 @@ namespace RaceGame
         public Control Control { get; set; }
         private string _name;
 
-        public Player(Control control, Texture2D carImage, Vector2 position)
+        public Player(Control control, Texture2D carImage, Vector2 position,System.Drawing.Bitmap bitmap)
         {
             Control = control;
-            Car = new Car(carImage, position);
+            Car = new Car(carImage, position,bitmap);
         }
 
         public string Name

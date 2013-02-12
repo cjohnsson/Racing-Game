@@ -74,9 +74,8 @@ namespace RaceGame
             bitmap = new Bitmap(stream);
             
             List<Player> players = new List<Player>();
-            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), Content.Load<Texture2D>("car-emil"), new Vector2(50,50)));
-            world = new World(new Map(Content.Load<Texture2D>("map"),Content.Load<Texture2D>("mapforeground"), bitmap), players );
-
+            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), Content.Load<Texture2D>("car-emil"), new Vector2(50, 50), bitmap));
+            world = new World(new Map(Content.Load<Texture2D>("map"),Content.Load<Texture2D>("mapforeground")), players );
         }
 
         /// <summary>
