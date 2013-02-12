@@ -23,7 +23,7 @@ namespace RaceGame {
             _startTime = DateTime.Now;
         }
 
-        private TimeSpan StopCounter() {
+        private TimeSpan GetWinnerTime() {
             return  _startTime.Subtract(DateTime.Now);
         }
 
@@ -37,7 +37,7 @@ namespace RaceGame {
                 player.Update();
                 if (player.Lap == Map.Laps)
                 {
-                    player.Time = StopCounter();
+                    player.Time = GetWinnerTime();
                 }
             }
         }
