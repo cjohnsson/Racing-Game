@@ -15,9 +15,13 @@ namespace RaceGame {
     {
         public Map Map { get; set; }
         // public Info Info { get; set; }
-        public List<Player> Players  { get; set; }
+        public List<Player> Players { get; set; }
         private DateTime _startTime;
         private TimeSpan _winnerTime;
+
+        public World() {
+            Players = new List<Player>();
+        }
 
         private void StartCounter() {
             _startTime = DateTime.Now;
