@@ -18,12 +18,14 @@ namespace RaceGame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private List<Player> players;
 
         public RaceGame()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            players = new List<Player>(); 
         }
 
         /// <summary>
@@ -35,7 +37,7 @@ namespace RaceGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            players.Add(new Player());
             base.Initialize();
         }
 
@@ -67,8 +69,23 @@ namespace RaceGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            KeyboardState state = Keyboard.GetState();
+
+            if (state.IsKeyDown(Keys.Escape))
                 Exit();
+
+            Player player = new Player();
+            
+            if (state.IsKeyDown(player.Controls.Upkey))
+            {
+                player.Accelerate();
+            }
+
+            if(downkey)
+            {
+                player1.Deccelerate
+            }
+            
 
             // TODO: Add your update logic here
 
