@@ -10,8 +10,9 @@ namespace RaceGame_Tests {
     class World_Test {
 
         [Test]
-        public void StopCounter_GetAValidWinnerTime_CalculateAValidTime() {
-            
+        public void StopCounter_GetAValidWinnerTime_CalculateAValidTime()
+        {
+            World world = new World();
         }
     }
 }

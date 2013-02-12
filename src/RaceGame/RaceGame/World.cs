@@ -21,9 +21,6 @@ namespace RaceGame {
 
         public World() {
             Players = new List<Player>();
-        }
-
-        private void StartCounter() {
             _startTime = DateTime.Now;
         }
 
