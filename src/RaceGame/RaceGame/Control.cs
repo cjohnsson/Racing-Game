@@ -9,11 +9,9 @@ namespace RaceGame
     public class Control
     {
         public Control()
+            : this(Keys.W, Keys.S, Keys.A, Keys.D)
         {
-            Accelerate = Keys.W;
-            Decelearte = Keys.S;
-            Left = Keys.A;
-            Right = Keys.D;
+
         }
 
         public Control(Keys accelerateKey, Keys decelerateKey, Keys leftKey, Keys rightKey)
