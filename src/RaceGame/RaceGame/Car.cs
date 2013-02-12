@@ -81,7 +81,24 @@ namespace RaceGame
            Vector2 position = GetOrigin();
            System.Drawing.Color color = bitMap.GetPixel((int)position.X,(int)position.Y);
 
-
+            //svart
+           if (color.R < 10 && color.G < 10 && color.B < 10)
+               return TerrainTypes.Road;
+            //vit
+           if (color.R > 245 && color.G > 245 && color.B > 245)
+               return TerrainTypes.Terrain;
+            //röd
+           if (color.R > 245 && color.G < 10 && color.B < 10)
+               return TerrainTypes.CheckPoint;
+            //blå
+           if (color.R > 10 && color.G < 10 && color.B < 245)
+               return TerrainTypes.Obstacle;
+            //görn
+           if (color.R > 10 && color.G < 245 && color.B < 10)
+               return TerrainTypes.FinishLine;
+            //svart
+            else
+               return TerrainTypes.Road;
         }
 
         public void Draw(SpriteBatch spriteBatch)
