@@ -138,6 +138,8 @@ namespace RaceGame
                     {
                         player.Car.TurnRight();
                     }
+
+                    world.Update();
                 }
             }
             _oldState = newState;
