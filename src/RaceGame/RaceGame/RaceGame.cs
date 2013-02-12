@@ -76,15 +76,14 @@ namespace RaceGame
         {
             KeyboardState newState = Keyboard.GetState();
 
-            
             if (newState.IsKeyDown(Keys.Escape))
             {
-                if (_isGameMenuShowed)
+                if (_isGameMenuShowed && _oldState.IsKeyUp(Keys.Escape))
                 {
                     _isGameMenuShowed = false;
                     backColor = Color.CornflowerBlue;
                 }
-                else
+                else if (_oldState.IsKeyUp(Keys.Escape))
                 {
                     _isGameMenuShowed = true;
                     backColor = Color.Red;
