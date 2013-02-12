@@ -44,19 +44,10 @@ namespace RaceGame
             }
         }
 
-        public float StartRotation 
-        {
-            get;
-            set 
-            {
-                if (value >= 0.00F && value < 360.00F)
-                    StartRotation = value;
-                else
-                    throw new ArgumentOutOfRangeException("Angle out of range!");
-            } 
-        }
+        public float StartRotation { get; set; }
         public static Bitmap CollisionImage { get; set; }
         public Texture2D BackgroundImage { get; set; }
+        public Texture2D ForegroundImage { get; set; }
 
         public void Draw(SpriteBatch spriteBatch) 
         {
