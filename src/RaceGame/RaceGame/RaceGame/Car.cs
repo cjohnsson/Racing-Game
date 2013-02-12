@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.GamerServices;
 
 namespace RaceGame
 {
@@ -16,7 +13,7 @@ namespace RaceGame
 
         public Car(Texture2D newImage, Vector2 position)
         {
-            this.image = newImage;
+            image = newImage;
             width = newImage.Bounds.Width;
             height = newImage.Bounds.Height;
             x = position.X;
@@ -25,9 +22,9 @@ namespace RaceGame
 
         public Rectangle Position
         {
-            get 
-            { 
-                return new Rectangle((int)x, (int)y, width, height); 
+            get
+            {
+                return new Rectangle((int)x, (int)y, width, height);
             }
         }
 
@@ -43,10 +40,7 @@ namespace RaceGame
                     passedFinishLine = false;
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
         }
         float speed;
@@ -71,7 +65,7 @@ namespace RaceGame
 
             if (speed > MAXSPEED)
                 speed = MAXSPEED;
- 
+
         }
 
         public void Break()
@@ -100,7 +94,7 @@ namespace RaceGame
 
             TerrainTypes newTerrain = GetTerrain(new Vector2(newX, newY));
             switch (newTerrain)
-            { 
+            {
                 case TerrainTypes.CheckPoint:
                     x = newX;
                     y = newY;
@@ -124,9 +118,7 @@ namespace RaceGame
                     speed = TERRAIN_SPEED;
                     break;
                 default:
-
                     break;
-            
             }
         }
 
@@ -137,28 +129,27 @@ namespace RaceGame
 
         public TerrainTypes GetTerrain(Vector2 position)
         {
-           System.Drawing.Bitmap bitMap = null;
+            System.Drawing.Bitmap bitMap = null;
 
-           System.Drawing.Color color = bitMap.GetPixel((int)position.X,(int)position.Y);
+            System.Drawing.Color color = bitMap.GetPixel((int)position.X, (int)position.Y);
 
             //svart
-           if (color.R < 10 && color.G < 10 && color.B < 10)
-               return TerrainTypes.Road;
+            if (color.R < 10 && color.G < 10 && color.B < 10)
+                return TerrainTypes.Road;
             //vit
-           if (color.R > 245 && color.G > 245 && color.B > 245)
-               return TerrainTypes.Terrain;
+            if (color.R > 245 && color.G > 245 && color.B > 245)
+                return TerrainTypes.Terrain;
             //röd
-           if (color.R > 245 && color.G < 10 && color.B < 10)
-               return TerrainTypes.CheckPoint;
+            if (color.R > 245 && color.G < 10 && color.B < 10)
+                return TerrainTypes.CheckPoint;
             //blå
-           if (color.R > 10 && color.G < 10 && color.B < 245)
-               return TerrainTypes.Obstacle;
+            if (color.R > 10 && color.G < 10 && color.B < 245)
+                return TerrainTypes.Obstacle;
             //grön
-           if (color.R > 10 && color.G < 245 && color.B < 10)
-               return TerrainTypes.FinishLine;
+            if (color.R > 10 && color.G < 245 && color.B < 10)
+                return TerrainTypes.FinishLine;
             //alla andra färger
-            else
-               return TerrainTypes.Road;
+            return TerrainTypes.Road;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -168,7 +159,7 @@ namespace RaceGame
 
         Vector2 GetOrigin()
         {
-            return new Vector2((x + Position.X/2),(y+Position.Y/2));
+            return new Vector2((x + Position.X / 2), (y + Position.Y / 2));
         }
     }
 }

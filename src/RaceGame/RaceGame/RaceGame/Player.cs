@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.GamerServices;
 
 namespace RaceGame
 {
@@ -29,18 +26,24 @@ namespace RaceGame
             Control = control;
         }
 
-        public string Name {
-            get {
-                if (_name == "") {
+        public string Name
+        {
+            get
+            {
+                if (_name == "")
+                {
                     _name = "Unknown Player";
                     return _name;
                 }
-                else { return _name; }
+                return _name;
             }
-            set {
-                if (value == "") {
+            set
+            {
+                if (value == "")
+                {
                     throw new ArgumentException("Please insert a valid name!");
-                } else { _name = value; }
+                }
+                _name = value;
             }
         }
 
@@ -51,7 +54,7 @@ namespace RaceGame
 
         public void Update()
         {
-            while (Car.HasFinishedLap == true)
+            while (Car.HasFinishedLap)
             {
                 Lap++;
             }

@@ -20,14 +20,13 @@ namespace RaceGame
     /// </summary>
     public class RaceGame : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
         private World world;
         private KeyboardState _oldState;
-        private Color backColor;
         private Keys _menuKey = Keys.P;
         private Keys _exitKey = Keys.Escape;
-        private Texture2D transparentBackgroundImage;
+        private Texture2D _transparentBackgroundImage;
 
         //Screen State variables to indicate what is the current screen
         private bool _isGameMenuShowed;
@@ -51,12 +50,9 @@ namespace RaceGame
         /// </summary>
         protected override void Initialize()
         {
-            
             _oldState = Keyboard.GetState();
             
-            backColor = Color.CornflowerBlue;
-            base.Initialize();
-            
+            base.Initialize();   
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -67,19 +63,19 @@ namespace RaceGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            transparentBackgroundImage = Content.Load<Texture2D>("transparentBackground");
-            Texture2D car_emilImage = Content.Load<Texture2D>("car-emil");
+            _transparentBackgroundImage = Content.Load<Texture2D>("transparentBackground");
+            
             Texture2D mapCollision = Content.Load<Texture2D>("mapcollision");
 
-            System.Drawing.Bitmap bitmap = null;
+            Bitmap bitmap;
             MemoryStream stream = new MemoryStream();
             
             mapCollision.SaveAsPng(stream, mapCollision.Bounds.Width, mapCollision.Bounds.Height);
             bitmap = new Bitmap(stream);
             
             List<Player> players = new List<Player>();
-            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), car_emilImage, new Vector2(50,50)));
-            world = new World(new Map(Content.Load<Texture2D>("map"),Content.Load<Texture2D>("mapforeground"), null), players );
+            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), Content.Load<Texture2D>("car-emil"), new Vector2(50,50)));
+            world = new World(new Map(Content.Load<Texture2D>("map"),Content.Load<Texture2D>("mapforeground"), bitmap), players );
 
         }
 
@@ -152,7 +148,7 @@ namespace RaceGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(backColor);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
 
@@ -160,7 +156,7 @@ namespace RaceGame
 
             if (_isGameMenuShowed)
             {
-                spriteBatch.Draw(transparentBackgroundImage, Vector2.Zero, Color.White);
+                spriteBatch.Draw(_transparentBackgroundImage, Vector2.Zero, Color.White);
             }
             
             spriteBatch.End();

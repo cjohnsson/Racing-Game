@@ -20,11 +20,6 @@ namespace RaceGame
         public Texture2D BackgroundImage { get; set; }
         public Texture2D ForegroundImage { get; set; }
 
-        public Map()
-        {
-            
-        }
-
         public Map(Texture2D backgroundImage, Texture2D foregroundImage, Bitmap collisionImage)
         {
             BackgroundImage = backgroundImage;
@@ -32,21 +27,21 @@ namespace RaceGame
             CollisionImage = collisionImage;
         }
 
-        public int StartX 
+        public int StartX
         {
-            get { return _startX; } 
-            set 
+            get { return _startX; }
+            set
             {
                 if (value >= 0 && value <= 800)
                     _startX = value;
                 else
                     throw new ArgumentOutOfRangeException("Invalid coordinates!");
-            } 
+            }
         }
-        public int StartY 
+        public int StartY
         {
             get { return _startY; }
-            set 
+            set
             {
                 if (value >= 0 && value <= 600)
                     _startY = value;
@@ -55,10 +50,10 @@ namespace RaceGame
             }
         }
 
-        public int Laps 
+        public int Laps
         {
             get { return _laps; }
-            set 
+            set
             {
                 if (value > 0)
                     _laps = value;
@@ -67,14 +62,14 @@ namespace RaceGame
             }
         }
 
-        public void DrawForeground(SpriteBatch spriteBatch) 
+        public void DrawForeground(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(ForegroundImage, new Rectangle(0, 0, ForegroundImage.Bounds.Width, ForegroundImage.Bounds.Height), Color.White);
         }
 
         public void DrawBackground(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(BackgroundImage, new Rectangle(0, 0, BackgroundImage.Bounds.Width, BackgroundImage.Bounds.Height), Color.White);   
+            spriteBatch.Draw(BackgroundImage, new Rectangle(0, 0, BackgroundImage.Bounds.Width, BackgroundImage.Bounds.Height), Color.White);
         }
     }
 }
