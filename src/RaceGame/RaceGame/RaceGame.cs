@@ -21,6 +21,8 @@ namespace RaceGame
         private World world;
         private KeyboardState _oldState;
         Color backColor = Color.CornflowerBlue;
+        private Keys _menuKey = Keys.P;
+        private Keys _exitKey = Keys.Escape;
 
 
         //Screen State variables to indicate what is the current screen
@@ -76,14 +78,17 @@ namespace RaceGame
         {
             KeyboardState newState = Keyboard.GetState();
 
-            if (newState.IsKeyDown(Keys.Escape))
+            if(newState.IsKeyDown(_exitKey))
+                this.Exit();
+
+            if (newState.IsKeyDown(_menuKey))
             {
-                if (_isGameMenuShowed && _oldState.IsKeyUp(Keys.Escape))
+                if (_isGameMenuShowed && _oldState.IsKeyUp(_menuKey))
                 {
                     _isGameMenuShowed = false;
                     backColor = Color.CornflowerBlue;
                 }
-                else if (_oldState.IsKeyUp(Keys.Escape))
+                else if (_oldState.IsKeyUp(_menuKey))
                 {
                     _isGameMenuShowed = true;
                     backColor = Color.Red;
