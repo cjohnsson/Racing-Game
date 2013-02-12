@@ -71,14 +71,24 @@ namespace RaceGame
 
         public void Update()
         {
+            float newX = x += (float)Math.Cos((double)rotation) * speed;
+            float newY = y -= (float)Math.Sin((double)rotation) * speed;
 
+            GetTerrain(new Vector2(newX, newY));
+
+
+            
         }
 
         public TerrainTypes GetTerrain()
         {
+            return GetTerrain(GetOrigin());
+        }
+
+        public TerrainTypes GetTerrain(Vector2 position)
+        {
            System.Drawing.Bitmap bitMap = null;
 
-           Vector2 position = GetOrigin();
            System.Drawing.Color color = bitMap.GetPixel((int)position.X,(int)position.Y);
 
             //svart
@@ -96,7 +106,7 @@ namespace RaceGame
             //görn
            if (color.R > 10 && color.G < 245 && color.B < 10)
                return TerrainTypes.FinishLine;
-            //svart
+            //alla andra färger
             else
                return TerrainTypes.Road;
         }
