@@ -27,8 +27,13 @@ namespace RaceGame {
             return  _startTime.Subtract(DateTime.Now);
         }
 
-        public void Draw(SpriteBatch spriteBatch) {
-            //spriteBatch.Draw()
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Map.Draw(spriteBatch);
+            foreach (var player in Players)
+            {
+                player.Draw(spriteBatch);
+            }
         }
 
         public void Update() {
