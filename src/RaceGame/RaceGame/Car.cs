@@ -15,10 +15,14 @@ namespace RaceGame
     {
         Texture2D image;
         private Rectangle Position;
+        
 
         public Rectangle position
         {
-            get { return Position; }
+            get 
+            { 
+                return new Rectangle((int)x, (int)y, width, height); 
+            }
         }
 
         bool checkPoint;
@@ -31,24 +35,31 @@ namespace RaceGame
         int height;
         int width;
 
+        const float MAXSPEED = 1.5f;
         const float ACCELERATION = 0.1f;
         const float DECELERATION = 0.1f;
         const float BREAK_DECELERATION = 0.1f;
 
         void Accelerate()
         {
+            if (speed < MAXSPEED)
+                speed += ACCELERATION;
 
+            if (speed > MAXSPEED)
+                speed = MAXSPEED;
+ 
         }
 
         void Break()
         {
-
+            if (speed <= 0)
+                speed = 0;
+            else
+                speed -= BREAK_DECELERATION;
         }
 
         void TurnLeft()
-        {
-            if(Keyboard.GetState().IsKeyDown(Keys.Left)
-                
+        {             
 
         }
 
@@ -62,10 +73,10 @@ namespace RaceGame
 
         }
 
-        //TerrainType GetTerrain()
-        //{ 
-        //    return null;
-        //}
+        TerrainTypes GetTerrain()
+        {
+            return null;
+        }
 
         void Draw(SpriteBatch spriteBatch)
         {
@@ -76,6 +87,5 @@ namespace RaceGame
         {
             return new Vector2(1, 2);
         }
-
     }
 }
