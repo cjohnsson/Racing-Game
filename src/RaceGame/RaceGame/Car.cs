@@ -105,9 +105,12 @@ namespace RaceGame
 
                     break;
                 case TerrainTypes.Road:
-
+                    x = newX;
+                    y = newY;
                     break;
                 case TerrainTypes.Terrain:
+                    x = newX;
+                    y = newY;
                     speed = TERRAIN_SPEED;
                     break;
                 default:
