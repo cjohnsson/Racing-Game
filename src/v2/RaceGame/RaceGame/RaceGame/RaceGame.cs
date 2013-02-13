@@ -79,7 +79,7 @@ namespace RaceGame
             List<Player> players = new List<Player>();
             players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), Content.Load<Texture2D>("car-emil"), new Vector2(80, 270)));
             players.Add(new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), Content.Load<Texture2D>("car-emil"), new Vector2(80, 270)));
-            world = new World(new Map(Content.Load<Texture2D>("map"), Content.Load<Texture2D>("mapforeground"), bitmap), players);
+            world = new World(new Map(Content.Load<Texture2D>("map"), Content.Load<Texture2D>("mapforeground"), bitmap), players, Content.Load<SpriteFont>("SpriteFont1"));
         }
 
         /// <summary>
