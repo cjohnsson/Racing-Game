@@ -91,7 +91,7 @@ namespace RaceGame
 
         public void Update()
         {
-            //inte 100% här om detta är korrekt
+            //inte 100% här om detta är korrekt - Svar: Det är korrekt nu :)
             float newX = x += (float)Math.Cos((double)rotation) * speed;
             float newY = y += (float)Math.Sin((double)rotation) * speed;
 
@@ -110,6 +110,7 @@ namespace RaceGame
                     break;
                 case TerrainTypes.Obstacle:
                     //krock
+                    speed = 0;
                     break;
                 case TerrainTypes.Road:
                     x = newX;
@@ -144,10 +145,10 @@ namespace RaceGame
             if (color.R > 245 && color.G < 10 && color.B < 10)
                 return TerrainTypes.CheckPoint;
             //blå
-            if (color.R > 10 && color.G < 10 && color.B < 245)
+            if (color.R < 10 && color.G < 10 && color.B > 245)
                 return TerrainTypes.Obstacle;
             //grön
-            if (color.R > 10 && color.G < 245 && color.B < 10)
+            if (color.R < 10 && color.G > 245 && color.B < 10)
                 return TerrainTypes.FinishLine;
             //alla andra färger
             return TerrainTypes.Road;
@@ -155,7 +156,7 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_image, Position, null, Color.White, rotation, new Vector2(0,0), SpriteEffects.None, 0 );
+            spriteBatch.Draw(_image, Position, null, Color.White, rotation, new Vector2(width/2,height/2), SpriteEffects.None, 0 );
         }
 
         Vector2 GetOrigin()
