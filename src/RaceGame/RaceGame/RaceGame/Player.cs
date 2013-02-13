@@ -11,7 +11,7 @@ namespace RaceGame
     {
         public Car Car { get; set; }
         public int Lap { get; set; }
-        public TimeSpan Time { get; set; }
+        
         public Control Control { get; set; }
         private string _name;
 
@@ -50,7 +50,7 @@ namespace RaceGame
         public void Update()
         {
             Car.Update();
-            while (Car.HasFinishedLap)
+            if (Car.HasFinishedLap)
             {
                 Lap++;
             }

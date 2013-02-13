@@ -10,18 +10,19 @@ namespace RaceGame {
         public Map Map { get; set; }
         // public Info Info { get; set; }
         public List<Player> Players { get; set; }
-        private DateTime _startTime;
+        private static DateTime _startTime;
+        public static TimeSpan ElapsedTime { get { return DateTime.Now.Subtract(_startTime); } }
 
         public World(Map map, List<Player> players)
         {
             Players = players;
-            Map = map;
+            Map = map; 
             _startTime = DateTime.Now;
         }
 
-        private TimeSpan GetWinnerTime() {
-            return  _startTime.Subtract(DateTime.Now);
-        }
+        //private TimeSpan GetWinnerTime() {
+        //    return  _startTime.Subtract(DateTime.Now);
+        //}
 
         public void Draw(SpriteBatch spriteBatch)
         {
