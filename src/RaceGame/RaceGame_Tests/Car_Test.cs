@@ -8,16 +8,8 @@ using RaceGame;
 
 namespace RaceGame_Tests
 {
-    public class Class1
+    public class Car_Test
     {
-        [Test]
-        public void Method_Scenario_Expected()
-        {
-            MockCar car = new MockCar();
 
-            car.Accelerate();
-
-            Assert.That(car.Speed,Is.GreaterThan(0));
-        }
     }
 }
