@@ -9,11 +9,11 @@ namespace RaceGame
 {
     public class Car
     {
-        Texture2D _image;
+        Texture2D image;
 
         public Car(Texture2D newImage, Vector2 position)
         {
-            _image = newImage;
+            image = newImage;
             width = newImage.Bounds.Width;
             height = newImage.Bounds.Height;
             x = position.X;
@@ -98,8 +98,8 @@ namespace RaceGame
         public void Update()
         {
             //inte 100% här om detta är korrekt - Svar: Det är korrekt nu :)
-            float newX = x += (float)Math.Cos((double)rotation) * speed;
-            float newY = y += (float)Math.Sin((double)rotation) * speed;
+            float newX = x + (float)Math.Cos((double)rotation) * speed;
+            float newY = y + (float)Math.Sin((double)rotation) * speed;
 
             TerrainTypes newTerrain = GetTerrain(new Vector2(newX, newY));
             switch (newTerrain)
@@ -162,7 +162,7 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_image, Position, null, Color.White, rotation, new Vector2(width/2,height/2), SpriteEffects.None, 0 );
+            spriteBatch.Draw(image, Position, null, Color.White, rotation, new Vector2(width/2,height/2), SpriteEffects.None, 0 );
         }
 
         Vector2 GetOrigin()
