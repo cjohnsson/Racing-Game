@@ -5,10 +5,11 @@ using System.Text;
 
 namespace RaceGame
 {
-    public enum MenuItems
+    public enum BState
     {
-        Start = 0,
-        Continue = 1,
-        Exit = 2
-    };
+        HOVER,
+        UP,
+        JUST_RELEASED,
+        DOWN
+    }
 }

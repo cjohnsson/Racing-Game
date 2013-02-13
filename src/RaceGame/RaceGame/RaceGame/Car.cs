@@ -108,7 +108,6 @@ namespace RaceGame
                     break;
                 case TerrainTypes.Obstacle:
                     //krock
-                    speed = 0;
                     break;
                 case TerrainTypes.Road:
                     x = newX;
