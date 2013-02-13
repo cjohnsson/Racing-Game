@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FF9C3440-04EE-4468-885D-4A58D4C4F9E2}</ProjectGuid>
+    <ProjectGuid>{1ADB73EF-6656-4E3E-922F-97DA0A7C6134}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RaceGame_Tests</RootNamespace>
@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RaceGame\RaceGame\RaceGame.csproj">
-      <Project>{61E02F56-3ADC-4855-A56D-37904BE9F91D}</Project>
+      <Project>{6B4C05DC-F501-439C-A3BB-749F90E1B000}</Project>
       <Name>RaceGame</Name>
     </ProjectReference>
   </ItemGroup>

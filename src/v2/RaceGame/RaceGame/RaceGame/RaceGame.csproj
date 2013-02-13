@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{61E02F56-3ADC-4855-A56D-37904BE9F91D}</ProjectGuid>
+    <ProjectGuid>{6B4C05DC-F501-439C-A3BB-749F90E1B000}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -14,7 +14,7 @@
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaProfile>Reach</XnaProfile>
-    <XnaCrossPlatformGroupID>c1c841ab-21b2-4a73-920d-cab650eec4eb</XnaCrossPlatformGroupID>
+    <XnaCrossPlatformGroupID>990957e5-edeb-438c-9512-89fbc4f53d5b</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
@@ -81,8 +81,9 @@
     <Compile Include="Menu.cs" />
     <Compile Include="MenuItems.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Game1.cs" />
     <Compile Include="RaceGame.cs" />
     <Compile Include="TerrainTypes.cs" />
     <Compile Include="World.cs" />
