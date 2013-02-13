@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="BState.cs" />
     <Compile Include="Car.cs" />
+    <Compile Include="Clouds.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Menu.cs" />
