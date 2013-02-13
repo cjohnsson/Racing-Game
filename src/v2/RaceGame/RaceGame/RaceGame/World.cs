@@ -12,12 +12,16 @@ namespace RaceGame {
         public List<Player> Players { get; set; }
         private static DateTime _startTime;
         public static TimeSpan ElapsedTime { get { return DateTime.Now.Subtract(_startTime); } }
-
-        public World(Map map, List<Player> players)
+        public SpriteFont font;
+        public Info info; 
+        
+        public World(Map map, List<Player> players, SpriteFont font)
         {
             Players = players;
             Map = map; 
             _startTime = DateTime.Now;
+            this.font = font;
+            info = new Info(font, Map , Players);
         }
 
         //private TimeSpan GetWinnerTime() {
@@ -32,6 +36,7 @@ namespace RaceGame {
                 player.Draw(spriteBatch);
             }
             Map.DrawForeground(spriteBatch);
+            info.Draw(spriteBatch);
         }
 
         public void Update() {
