@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RaceGame
 {
-    public class Car
+    public class Car: ICar
     {
         Texture2D image;
 
@@ -43,7 +43,7 @@ namespace RaceGame
                 return false;
             }
         }
-        float speed;
+        public float Speed { get; private set; }
         float rotation;
         Vector2 origin;
 
@@ -61,28 +61,28 @@ namespace RaceGame
         
         public void Accelerate()
         {
-            if (speed < MAXSPEED)
-                speed += ACCELERATION;
+            if (Speed < MAXSPEED)
+                Speed += ACCELERATION;
 
-            if (speed > MAXSPEED)
-                speed = MAXSPEED;
+            if (Speed > MAXSPEED)
+                Speed = MAXSPEED;
 
         }
 
         private void Decelerate()
         {
-            if (speed <= 0)
-                speed = 0;
+            if (Speed <= 0)
+                Speed = 0;
             else
-                speed -= DECELERATION;
+                Speed -= DECELERATION;
         }
 
         public void Break()
         {
-            if (speed <= 0)
-                speed = 0;
+            if (Speed <= 0)
+                Speed = 0;
             else
-                speed -= BREAK_DECELERATION;
+                Speed -= BREAK_DECELERATION;
         }
 
         public void TurnLeft()
@@ -98,8 +98,8 @@ namespace RaceGame
         public void Update()
         {
             //inte 100% här om detta är korrekt - Svar: Det är korrekt nu :) svar till stoffe: Nej det var inte korrekt, vi ändrade din ändring
-            float newX = x + (float)Math.Cos((double)rotation) * speed;
-            float newY = y + (float)Math.Sin((double)rotation) * speed;
+            float newX = x + (float)Math.Cos((double)rotation) * Speed;
+            float newY = y + (float)Math.Sin((double)rotation) * Speed;
 
             TerrainTypes newTerrain = GetTerrain(new Vector2(newX, newY));
             switch (newTerrain)
@@ -124,7 +124,7 @@ namespace RaceGame
                 case TerrainTypes.Terrain:
                     x = newX;
                     y = newY;
-                    speed = TERRAIN_SPEED;
+                    Speed = TERRAIN_SPEED;
                     break;
                 default:
                     break;
@@ -132,12 +132,12 @@ namespace RaceGame
             Decelerate();
         }
 
-        public TerrainTypes GetTerrain()
+        private TerrainTypes GetTerrain()
         {
             return GetTerrain(GetOrigin());
         }
 
-        public TerrainTypes GetTerrain(Vector2 position)
+        private TerrainTypes GetTerrain(Vector2 position)
         {
             //if (Map.CollisionImage.Height -1 <= x || Map.CollisionImage.Width -1 <= y || x <= 1 || y <= 1)
             //    return TerrainTypes.Obstacle;
@@ -168,7 +168,7 @@ namespace RaceGame
             spriteBatch.Draw(image, Position, null, Color.White, rotation, new Vector2(width/2,height/2), SpriteEffects.None, 0 );
         }
 
-        Vector2 GetOrigin()
+        private Vector2 GetOrigin()
         {
             return new Vector2((x + Position.X / 2), (y + Position.Y / 2));
         }
