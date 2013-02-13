@@ -40,7 +40,8 @@ namespace RaceGame {
                 player.Update();
                 if (player.Lap == Map.Laps)
                 {
-                    player.Time = GetWinnerTime();
+                    //något ska hända när en spelare vunnit
+                    //player.Time = GetWinnerTime();
                 }
             }
         }
