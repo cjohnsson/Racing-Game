@@ -24,9 +24,9 @@ namespace RaceGame
         private SpriteBatch spriteBatch;
         private World world;
         private KeyboardState _oldState;
-        private Keys _menuKey = Keys.P;
-        private Keys _exitKey = Keys.Escape;
-        private Texture2D _transparentBackgroundImage;
+        private Keys _menuKey;
+        private Keys _exitKey;
+        private Menu _menu;
 
         //Screen State variables to indicate what is the current screen
         private bool _isGameMenuShowed;
@@ -36,6 +36,9 @@ namespace RaceGame
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            _menuKey = Keys.P;
+            _exitKey = Keys.Escape;
 
             //Initialize screen size to an ideal resolution for the projector
             graphics.PreferredBackBufferWidth = 800;
@@ -51,8 +54,8 @@ namespace RaceGame
         protected override void Initialize()
         {
             _oldState = Keyboard.GetState();
-            
-            base.Initialize();   
+
+            base.Initialize();
         }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -63,20 +66,20 @@ namespace RaceGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _transparentBackgroundImage = Content.Load<Texture2D>("transparentBackground");
-            
+            _menu = new Menu(Content.Load<Texture2D>("transparentBackground"));
+
             Texture2D mapCollision = Content.Load<Texture2D>("mapcollision");
 
             Bitmap bitmap;
             MemoryStream stream = new MemoryStream();
-            
+
             mapCollision.SaveAsPng(stream, mapCollision.Bounds.Width, mapCollision.Bounds.Height);
             bitmap = new Bitmap(stream);
-            
+
             List<Player> players = new List<Player>();
-            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), Content.Load<Texture2D>("car-emil"), new Vector2(80, 270), bitmap));
-            players.Add(new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), Content.Load<Texture2D>("car-emil"), new Vector2(80, 270), bitmap));
-            world = new World(new Map(Content.Load<Texture2D>("map"), Content.Load<Texture2D>("mapforeground")), players);
+            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), Content.Load<Texture2D>("car-emil"), new Vector2(80, 270)));
+            players.Add(new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), Content.Load<Texture2D>("car-emil"), new Vector2(80, 270)));
+            world = new World(new Map(Content.Load<Texture2D>("map"), Content.Load<Texture2D>("mapforeground"), bitmap), players);
         }
 
         /// <summary>
@@ -97,7 +100,7 @@ namespace RaceGame
         {
             KeyboardState newState = Keyboard.GetState();
 
-            if(newState.IsKeyDown(_exitKey))
+            if (newState.IsKeyDown(_exitKey))
                 this.Exit();
 
             if (newState.IsKeyDown(_menuKey))
@@ -153,11 +156,11 @@ namespace RaceGame
 
             if (_isGameMenuShowed)
             {
-                spriteBatch.Draw(_transparentBackgroundImage, Vector2.Zero, Color.White);
+                _menu.Draw(spriteBatch);
             }
-            
+
             spriteBatch.End();
-           
+
             base.Draw(gameTime);
         }
     }

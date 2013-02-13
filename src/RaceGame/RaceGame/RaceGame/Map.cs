@@ -18,11 +18,13 @@ namespace RaceGame
         public float StartRotation { get; set; }
         public Texture2D BackgroundImage { get; set; }
         public Texture2D ForegroundImage { get; set; }
+        public static Bitmap CollisionImage { get; set; }
 
-        public Map(Texture2D backgroundImage, Texture2D foregroundImage)
+        public Map(Texture2D backgroundImage, Texture2D foregroundImage, Bitmap collisionImage)
         {
             BackgroundImage = backgroundImage;
             ForegroundImage = foregroundImage;
+            CollisionImage = collisionImage;
         }
 
         public int StartX
