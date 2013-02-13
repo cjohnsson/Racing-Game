@@ -7,9 +7,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RaceGame
 {
-    public class Car: ICar
+    public class Car : ICar
     {
         private Texture2D image;
+
+        public Car()
+        {
+
+        }
 
         public Car(Texture2D newImage, Vector2 position)
         {
@@ -45,7 +50,7 @@ namespace RaceGame
         }
         public float Speed { get; private set; }
         public float Rotation { get; private set; }
-        
+
         Vector2 origin;
 
         float x;
@@ -59,7 +64,7 @@ namespace RaceGame
         const float DECELERATION = 0.01f;
         const float BREAK_DECELERATION = 0.1f;
         const float TERRAIN_SPEED = 0.01f;
-        
+
         public void Accelerate()
         {
             if (Speed < MAXSPEED)
@@ -166,7 +171,7 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, Position, null, Color.White, Rotation, new Vector2(width/2,height/2), SpriteEffects.None, 0 );
+            spriteBatch.Draw(image, Position, null, Color.White, Rotation, new Vector2(width / 2, height / 2), SpriteEffects.None, 0);
         }
 
         private Vector2 GetOrigin()
