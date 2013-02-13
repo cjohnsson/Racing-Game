@@ -97,7 +97,7 @@ namespace RaceGame
 
         public void Update()
         {
-            //inte 100% här om detta är korrekt - Svar: Det är korrekt nu :)
+            //inte 100% här om detta är korrekt - Svar: Det är korrekt nu :) svar till stoffe: Nej det var inte korrekt, vi ändrade din ändring
             float newX = x + (float)Math.Cos((double)rotation) * speed;
             float newY = y + (float)Math.Sin((double)rotation) * speed;
 
@@ -139,6 +139,9 @@ namespace RaceGame
 
         public TerrainTypes GetTerrain(Vector2 position)
         {
+            //if (Map.CollisionImage.Height -1 <= x || Map.CollisionImage.Width -1 <= y || x <= 1 || y <= 1)
+            //    return TerrainTypes.Obstacle;
+
             System.Drawing.Color color = Map.CollisionImage.GetPixel((int)position.X, (int)position.Y);
 
             //svart
