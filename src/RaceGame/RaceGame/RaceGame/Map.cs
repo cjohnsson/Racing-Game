@@ -14,17 +14,18 @@ namespace RaceGame
         private int _startX;
         private int _startY;
         private int _laps;
-
+        private Clouds clouds;
         public float StartRotation { get; set; }
         public Texture2D BackgroundImage { get; set; }
         public Texture2D ForegroundImage { get; set; }
         public static Bitmap CollisionImage { get; set; }
 
-        public Map(Texture2D backgroundImage, Texture2D foregroundImage, Bitmap collisionImage)
+        public Map(Texture2D backgroundImage, Texture2D foregroundImage, Bitmap collisionImage, Texture2D cloudImage)
         {
             BackgroundImage = backgroundImage;
             ForegroundImage = foregroundImage;
             CollisionImage = collisionImage;
+            clouds = new Clouds(cloudImage);
         }
 
         public int StartX
@@ -62,9 +63,15 @@ namespace RaceGame
             }
         }
 
+        public  void Update()
+        {
+            clouds.Update();
+        }
+
         public void DrawForeground(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(ForegroundImage, new Rectangle(0, 0, ForegroundImage.Bounds.Width, ForegroundImage.Bounds.Height), Color.White);
+            clouds.Draw(spriteBatch);
         }
 
         public void DrawBackground(SpriteBatch spriteBatch)

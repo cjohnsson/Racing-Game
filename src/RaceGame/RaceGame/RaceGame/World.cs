@@ -49,6 +49,7 @@ namespace RaceGame {
                     //player.Time = GetWinnerTime();
                 }
             }
+            Map.Update();
         }
     }
 }

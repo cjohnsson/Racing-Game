@@ -43,6 +43,7 @@ namespace RaceGame
             //Initialize screen size to an ideal resolution for the projector
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
+            graphics.IsFullScreen = true;
         }
 
         /// <summary>
@@ -79,7 +80,7 @@ namespace RaceGame
             List<Player> players = new List<Player>();
             players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), Content.Load<Texture2D>("car-emil"), new Vector2(80, 270)));
             players.Add(new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), Content.Load<Texture2D>("car-emil"), new Vector2(80, 270)));
-            world = new World(new Map(Content.Load<Texture2D>("map"), Content.Load<Texture2D>("mapforeground"), bitmap), players, Content.Load<SpriteFont>("SpriteFont1"));
+            world = new World(new Map(Content.Load<Texture2D>("map"), Content.Load<Texture2D>("mapforeground"), bitmap, Content.Load<Texture2D>("clouds")), players, Content.Load<SpriteFont>("spritefont1"));
         }
 
         /// <summary>
