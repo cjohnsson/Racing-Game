@@ -55,7 +55,7 @@ namespace RaceGame
         const float ROTATION_SPEED = 0.1f;
         const float MAXSPEED = 1.5f;
         const float ACCELERATION = 0.1f;
-        const float DECELERATION = 0.1f;
+        const float DECELERATION = 0.01f;
         const float BREAK_DECELERATION = 0.1f;
         const float TERRAIN_SPEED = 0.01f;
         
@@ -67,6 +67,14 @@ namespace RaceGame
             if (speed > MAXSPEED)
                 speed = MAXSPEED;
 
+        }
+
+        private void Decelerate()
+        {
+            if (speed <= 0)
+                speed = 0;
+            else
+                speed -= DECELERATION;
         }
 
         public void Break()
@@ -121,6 +129,7 @@ namespace RaceGame
                 default:
                     break;
             }
+            Decelerate();
         }
 
         public TerrainTypes GetTerrain()
