@@ -77,7 +77,6 @@
     <Compile Include="Clouds.cs" />
     <Compile Include="ComputerPlayer.cs" />
     <Compile Include="Control.cs" />
-    <Compile Include="ICar.cs" />
     <Compile Include="Info.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Menu.cs" />
@@ -85,7 +84,6 @@
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
     <Compile Include="RaceGame.cs" />
     <Compile Include="TerrainTypes.cs" />
     <Compile Include="World.cs" />
