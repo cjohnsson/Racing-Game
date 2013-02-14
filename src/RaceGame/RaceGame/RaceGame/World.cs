@@ -16,14 +16,16 @@ namespace RaceGame {
         private Info _info;
         public static Bitmap CollisionImage { get; set; }
         public Player Winner { get; set; }
+        public Texture2D hud;
         
-        public World(Map map, List<Player> players, SpriteFont font)
+        public World(Map map, List<Player> players, SpriteFont font, Texture2D hud )
         {
             Players = players;
             Map = map; 
             _startTime = DateTime.Now;
             this.font = font;
-            _info = new Info(font, Map , Players);
+            this.hud = hud;
+            _info = new Info(font, Map , Players, hud);
             CollisionImage = map.CollisionImage;
             Winner = null;
         }
