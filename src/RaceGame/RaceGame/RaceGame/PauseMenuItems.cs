@@ -5,10 +5,10 @@ using System.Text;
 
 namespace RaceGame
 {
-    public enum MenuItems
+    public enum PauseMenuItems
     {
-        Start = 0,
-        Continue = 1,
+        Continue = 0,
+        MainMenu = 1,
         Exit = 2
     };
 }

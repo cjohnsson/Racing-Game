@@ -46,7 +46,7 @@ namespace RaceGame
 
             _menuKey = Keys.P;
             _exitKey = Keys.Escape;
-            
+
             //Initialize screen size to an ideal resolution for the projector
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
@@ -79,9 +79,13 @@ namespace RaceGame
 
             Texture2D[] buttons = new Texture2D[NR_OF_PAUSE_BUTTONS];
 
-            //_menu = new Menu(Content.Load<Texture2D>("transparentBackground"));
+            buttons[0] = Content.Load<Texture2D>("menu_continue");
+            buttons[1] = Content.Load<Texture2D>("menu_mainmenu");
+            buttons[2] = Content.Load<Texture2D>("menu_exit");
 
-            
+            _menu = new Menu(Content.Load<Texture2D>("transparentBackground"), buttons);
+
+
             Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapForegrounds = new Texture2D[NR_OF_MAPS];
@@ -123,7 +127,7 @@ namespace RaceGame
 
             for (int i = 0; i < _maps.Length; i++)
             {
-                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"),_nr_of_laps);
+                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"), _nr_of_laps);
             }
 
             List<Player> players = new List<Player>();
@@ -185,8 +189,8 @@ namespace RaceGame
                     {
                         player.Car.TurnRight();
                     }
-                    world.Update();
                 }
+                world.Update();
             }
             else
             {
@@ -208,7 +212,18 @@ namespace RaceGame
                 {
                     if (_oldState.IsKeyUp(Keys.Enter))
                     {
-                        
+                        switch (_menu.Index)
+                        {
+                            case (int)PauseMenuItems.Continue:
+                                _isGameMenuShowed = false;
+                                break;
+                            case (int)PauseMenuItems.MainMenu:
+                                //go to main menu
+                                break;
+                            case(int)PauseMenuItems.Exit:
+                                this.Exit();
+                                break;
+                        }
                     }
                 }
             }
@@ -217,6 +232,7 @@ namespace RaceGame
             {
                 this.Exit();
                 //Spelet är över... spara tiden till highscoren och celebrate
+
             }
 
             _oldState = newState;
