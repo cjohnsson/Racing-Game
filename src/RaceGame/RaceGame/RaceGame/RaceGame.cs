@@ -67,8 +67,9 @@ namespace RaceGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _menu = new Menu(Content.Load<Texture2D>("transparentBackground"), Content.Load<Texture2D>("START"), Content.Load<Texture2D>("CONTINUE"), Content.Load<Texture2D>("EXIT"));
+            _menu = new Menu(Content.Load<Texture2D>("transparentBackground"), Content.Load<Texture2D>("menu_start"), Content.Load<Texture2D>("menu_continue"), Content.Load<Texture2D>("menu_exit"));
 
+            
             Texture2D mapCollision = Content.Load<Texture2D>("mapcollision");
 
             Bitmap bitmap;
@@ -141,8 +142,6 @@ namespace RaceGame
                     world.Update();
                 }
             }
-            else
-                _menu.Update();
             _oldState = newState;
             base.Update(gameTime);
         }
