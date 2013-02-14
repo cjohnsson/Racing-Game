@@ -93,6 +93,7 @@ namespace RaceGame
             mapCollisions[2] = Content.Load<Texture2D>("map3_collision");
             mapCollisions[3] = Content.Load<Texture2D>("map4_collision");
 
+
             mapBackgrounds[0] = Content.Load<Texture2D>("map1_background");
             mapBackgrounds[1] = Content.Load<Texture2D>("map2_background");
             mapBackgrounds[2] = Content.Load<Texture2D>("map3_background");
