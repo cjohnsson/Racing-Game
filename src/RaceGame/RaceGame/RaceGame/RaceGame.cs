@@ -30,9 +30,12 @@ namespace RaceGame
 
         private const int NR_OF_MAPS = 5;
         private const int NR_OF_CARS = 5;
+        private const int NR_OF_PAUSE_BUTTONS = 3;
+        private const int MAP_INDEX = 0;
         private Map[] _maps;
         private Texture2D[] _cars;
-
+        private int _nr_of_laps = 1;
+        private ComputerPlayer computerPlayer;
         //Screen State variables to indicate what is the current screen
         private bool _isGameMenuShowed;
 
@@ -74,8 +77,10 @@ namespace RaceGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            computerPlayer = new ComputerPlayer();
+            Texture2D[] buttons = new Texture2D[NR_OF_PAUSE_BUTTONS];
 
-            _menu = new Menu(Content.Load<Texture2D>("transparentBackground"), Content.Load<Texture2D>("menu_start"), Content.Load<Texture2D>("menu_continue"), Content.Load<Texture2D>("menu_exit"));
+            //_menu = new Menu(Content.Load<Texture2D>("transparentBackground"));
 
             
             Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
@@ -96,7 +101,6 @@ namespace RaceGame
             mapCollisions[2] = Content.Load<Texture2D>("map3_collision");
             mapCollisions[3] = Content.Load<Texture2D>("map4_collision");
             mapCollisions[4] = Content.Load<Texture2D>("map6_collision");
-
 
             mapBackgrounds[0] = Content.Load<Texture2D>("map1_background");
             mapBackgrounds[1] = Content.Load<Texture2D>("map2_background");
@@ -120,13 +124,21 @@ namespace RaceGame
 
             for (int i = 0; i < _maps.Length; i++)
             {
-                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"));
+                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"),_nr_of_laps, 80, 270, 8.0f);
             }
 
             List<Player> players = new List<Player>();
-            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[0], new Vector2(80, 270)));
-            players.Add(new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[1], new Vector2(80, 270)));
-            world = new World(_maps[0], players, Content.Load<SpriteFont>("spritefont1"));
+            Player player1 = new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[0], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
+            Player player2 = new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[1], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
+            Player player3 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[0], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
+         //   Player player4 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[1], new Vector2(80, 270));
+            players.Add(player1);
+            players.Add(player2);
+            players.Add(player3);
+         //   players.Add(player4);
+            computerPlayer.Players.Add(player3);
+           // computerPlayer.Players.Add(player4);
+            world = new World(_maps[MAP_INDEX], players, Content.Load<SpriteFont>("spritefont1"));
         }
 
         /// <summary>
@@ -155,12 +167,10 @@ namespace RaceGame
                 if (_isGameMenuShowed && _oldState.IsKeyUp(_menuKey))
                 {
                     _isGameMenuShowed = false;
-                    IsMouseVisible = false;
                 }
                 else if (_oldState.IsKeyUp(_menuKey))
                 {
                     _isGameMenuShowed = true;
-                    IsMouseVisible = true;
                 }
             }
 
@@ -184,23 +194,40 @@ namespace RaceGame
                     {
                         player.Car.TurnRight();
                     }
-                    world.Update();
+                    
                 }
+                computerPlayer.Update();
+                world.Update();
             }
             else
             {
                 if (newState.IsKeyDown(Keys.Up))
                 {
-                    
+                    if (_oldState.IsKeyUp(Keys.Up))
+                    {
+                        _menu.ScrollUp();
+                    }
                 }
                 if (newState.IsKeyDown(Keys.Down))
                 {
-                    
+                    if (_oldState.IsKeyUp(Keys.Down))
+                    {
+                        _menu.ScrollDown();
+                    }
                 }
                 if (newState.IsKeyDown(Keys.Enter))
                 {
-                    
+                    if (_oldState.IsKeyUp(Keys.Enter))
+                    {
+                        
+                    }
                 }
+            }
+
+            if (world.Winner != null)
+            {
+                this.Exit();
+                //Spelet är över... spara tiden till highscoren och celebrate
             }
 
             _oldState = newState;

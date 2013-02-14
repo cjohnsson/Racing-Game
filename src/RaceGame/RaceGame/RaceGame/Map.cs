@@ -20,12 +20,16 @@ namespace RaceGame
         public Texture2D ForegroundImage { get; set; }
         public Bitmap CollisionImage { get; set; }
 
-        public Map(Texture2D backgroundImage, Texture2D foregroundImage, Bitmap collisionImage, Texture2D cloudImage)
+        public Map(Texture2D backgroundImage, Texture2D foregroundImage, Bitmap collisionImage, Texture2D cloudImage, int laps, int startX, int startY, float startRotation)
         {
             BackgroundImage = backgroundImage;
             ForegroundImage = foregroundImage;
             CollisionImage = collisionImage;
             clouds = new Clouds(cloudImage);
+            Laps = laps;
+            StartX = startX;
+            StartY = startY;
+            StartRotation = startRotation;
         }
 
         public int StartX
