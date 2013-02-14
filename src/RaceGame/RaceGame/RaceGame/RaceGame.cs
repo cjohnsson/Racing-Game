@@ -37,7 +37,7 @@ namespace RaceGame
         private int _nr_of_laps = 1;
         private ComputerPlayer computerPlayer;
         //Screen State variables to indicate what is the current screen
-        private bool _isGameMenuShowed;
+        private bool _isPauseScreenShowed;
 
         public RaceGame()
             : base()
@@ -166,17 +166,17 @@ namespace RaceGame
 
             if (newState.IsKeyDown(_menuKey))
             {
-                if (_isGameMenuShowed && _oldState.IsKeyUp(_menuKey))
+                if (_isPauseScreenShowed && _oldState.IsKeyUp(_menuKey))
                 {
-                    _isGameMenuShowed = false;
+                    _isPauseScreenShowed = false;
                 }
                 else if (_oldState.IsKeyUp(_menuKey))
                 {
-                    _isGameMenuShowed = true;
+                    _isPauseScreenShowed = true;
                 }
             }
 
-            if (!_isGameMenuShowed)
+            if (!_isPauseScreenShowed)
             {
                 foreach (Player player in world.Players)
                 {
@@ -224,7 +224,7 @@ namespace RaceGame
                         switch (_menu.Index)
                         {
                             case (int)PauseMenuItems.Continue:
-                                _isGameMenuShowed = false;
+                                _isPauseScreenShowed = false;
                                 break;
                             case (int)PauseMenuItems.MainMenu:
                                 //go to main menu
@@ -259,7 +259,7 @@ namespace RaceGame
 
             world.Draw(spriteBatch);
 
-            if (_isGameMenuShowed)
+            if (_isPauseScreenShowed)
             {
                 _menu.Draw(spriteBatch);
             }
