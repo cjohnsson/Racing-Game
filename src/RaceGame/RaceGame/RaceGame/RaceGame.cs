@@ -43,7 +43,7 @@ namespace RaceGame
 
             _menuKey = Keys.P;
             _exitKey = Keys.Escape;
-            _maps = new Map[NR_OF_MAPS];
+            
             //Initialize screen size to an ideal resolution for the projector
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
@@ -78,6 +78,7 @@ namespace RaceGame
             Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapForegrounds = new Texture2D[NR_OF_MAPS];
             Bitmap[] bitmaps = new Bitmap[NR_OF_MAPS];
+            _maps = new Map[NR_OF_MAPS];
 
             cars[0] = Content.Load<Texture2D>("car1");
             cars[1] = Content.Load<Texture2D>("car2");
