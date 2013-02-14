@@ -52,9 +52,21 @@ namespace RaceGame
         private float _speed;
         private float _rotation;
         public float Speed { get { return _speed; } }
-        public float Rotation { get { return _rotation; } }
-        public float X { get { return x; } }
-        public float Y { get { return y; } }
+        public float Rotation
+        {
+            get { return _rotation; }
+            set { _rotation = value; }
+        }
+        public float X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+        public float Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
 
         Vector2 origin;
 
