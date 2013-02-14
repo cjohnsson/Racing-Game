@@ -151,8 +151,9 @@ namespace RaceGame
 
         private TerrainTypes GetTerrain(Vector2 position)
         {
-            //if (Map.CollisionImage.Height -1 <= x || Map.CollisionImage.Width -1 <= y || x <= 1 || y <= 1)
-            //    return TerrainTypes.Obstacle;
+            //kollar så att inte bilens mitt inte är utanför vänster/höger/up/ner kanten
+            if (position.X >= World.CollisionImage.Width || position.Y >= World.CollisionImage.Height || position.X <= 0 || position.Y <= 0)
+               return TerrainTypes.Obstacle;
 
             System.Drawing.Color color = World.CollisionImage.GetPixel((int)position.X, (int)position.Y);
 
