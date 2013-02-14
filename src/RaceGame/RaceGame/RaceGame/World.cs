@@ -22,6 +22,7 @@ namespace RaceGame {
             _startTime = DateTime.Now;
             this.font = font;
             info = new Info(font, Map , Players);
+            
         }
 
         //private TimeSpan GetWinnerTime() {
