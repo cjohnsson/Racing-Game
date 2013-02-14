@@ -47,11 +47,10 @@ namespace RaceGame
             //Initialize screen size to an ideal resolution for the projector
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
-<<<<<<< HEAD
+
             //graphics.IsFullScreen = true;
-=======
             graphics.IsFullScreen = false;
->>>>>>> 717024cdeabb07a459518c0cf0b5bea641f7fde9
+
         }
 
         /// <summary>
@@ -104,7 +103,7 @@ namespace RaceGame
             mapForegrounds[2] = Content.Load<Texture2D>("default_foreground");
             mapForegrounds[3] = Content.Load<Texture2D>("default_foreground");
 
-            for (int i = 0; i < NR_OF_MAPS; i++)
+            for (int i = 0; i < bitmaps.Length; i++)
             {
                 MemoryStream stream = new MemoryStream();
 
@@ -112,7 +111,7 @@ namespace RaceGame
                 bitmaps[i] = new Bitmap(stream);
             }
 
-            for (int i = 0; i < NR_OF_MAPS; i++)
+            for (int i = 0; i < _maps.Length; i++)
             {
                 _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"));
             }
