@@ -14,7 +14,6 @@ namespace RaceGame
         private int BUTTON_HEIGHT;
         private int BUTTON_WIDTH;
         private Rectangle[] button_rectangles = new Rectangle[NUMBER_OF_BUTTONS];
-        private BState[] button_states = new BState[NUMBER_OF_BUTTONS];
         private Texture2D[] button_textures = new Texture2D[NUMBER_OF_BUTTONS];
 
         public Menu(Texture2D backgroundImage, Texture2D startButtonImage, Texture2D continueButtonImage, Texture2D exitButtonImage)
