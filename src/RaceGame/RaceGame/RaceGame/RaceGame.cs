@@ -28,6 +28,10 @@ namespace RaceGame
         private Keys _exitKey;
         private Menu _menu;
 
+        private const int NR_OF_MAPS = 4;
+        private const int NR_OF_CARS = 4;
+        private Map[] _maps;
+
         //Screen State variables to indicate what is the current screen
         private bool _isGameMenuShowed;
 
@@ -39,7 +43,7 @@ namespace RaceGame
 
             _menuKey = Keys.P;
             _exitKey = Keys.Escape;
-
+            _maps = new Map[NR_OF_MAPS];
             //Initialize screen size to an ideal resolution for the projector
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
@@ -69,19 +73,49 @@ namespace RaceGame
 
             _menu = new Menu(Content.Load<Texture2D>("transparentBackground"), Content.Load<Texture2D>("menu_start"), Content.Load<Texture2D>("menu_continue"), Content.Load<Texture2D>("menu_exit"));
 
-            
-            Texture2D mapCollision = Content.Load<Texture2D>("mapcollision");
+            Texture2D[] cars = new Texture2D[NR_OF_CARS];
+            Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
+            Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
+            Texture2D[] mapForegrounds = new Texture2D[NR_OF_MAPS];
+            Bitmap[] bitmaps = new Bitmap[NR_OF_MAPS];
 
-            Bitmap bitmap;
-            MemoryStream stream = new MemoryStream();
+            cars[0] = Content.Load<Texture2D>("car1");
+            cars[1] = Content.Load<Texture2D>("car2");
+            cars[2] = Content.Load<Texture2D>("car3");
+            cars[3] = Content.Load<Texture2D>("car4");
 
-            mapCollision.SaveAsPng(stream, mapCollision.Bounds.Width, mapCollision.Bounds.Height);
-            bitmap = new Bitmap(stream);
+            mapCollisions[0] = Content.Load<Texture2D>("map1_collision");
+            mapCollisions[1] = Content.Load<Texture2D>("map2_collision");
+            mapCollisions[2] = Content.Load<Texture2D>("map3_collision");
+            mapCollisions[3] = Content.Load<Texture2D>("map4_collision");
+
+            mapBackgrounds[0] = Content.Load<Texture2D>("map1_background");
+            mapBackgrounds[1] = Content.Load<Texture2D>("map2_background");
+            mapBackgrounds[2] = Content.Load<Texture2D>("map3_background");
+            mapBackgrounds[3] = Content.Load<Texture2D>("map4_background");
+
+            mapForegrounds[0] = Content.Load<Texture2D>("map1_foreground1");
+            mapForegrounds[1] = Content.Load<Texture2D>("default_foreground");
+            mapForegrounds[2] = Content.Load<Texture2D>("default_foreground");
+            mapForegrounds[3] = Content.Load<Texture2D>("default_foreground");
+
+            for (int i = 0; i < NR_OF_MAPS; i++)
+            {
+                MemoryStream stream = new MemoryStream();
+
+                mapCollisions[i].SaveAsPng(stream, mapCollisions[i].Bounds.Width, mapCollisions[i].Bounds.Height);
+                bitmaps[i] = new Bitmap(stream);
+            }
+
+            for (int i = 0; i < NR_OF_MAPS; i++)
+            {
+                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"));
+            }
 
             List<Player> players = new List<Player>();
-            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), Content.Load<Texture2D>("car-emil"), new Vector2(80, 270)));
-            players.Add(new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), Content.Load<Texture2D>("car-emil"), new Vector2(80, 270)));
-            world = new World(new Map(Content.Load<Texture2D>("map"), Content.Load<Texture2D>("mapforeground"), bitmap, Content.Load<Texture2D>("clouds")), players, Content.Load<SpriteFont>("spritefont1"));
+            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), cars[0], new Vector2(80, 270)));
+            players.Add(new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), cars[1], new Vector2(80, 270)));
+            world = new World(_maps[0], players, Content.Load<SpriteFont>("spritefont1"));
         }
 
         /// <summary>

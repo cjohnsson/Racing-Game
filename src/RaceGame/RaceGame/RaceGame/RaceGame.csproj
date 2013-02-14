@@ -73,7 +73,6 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BState.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="Clouds.cs" />
     <Compile Include="Control.cs" />
