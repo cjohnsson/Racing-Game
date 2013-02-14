@@ -47,7 +47,7 @@ namespace RaceGame
 
             _menuKey = Keys.P;
             _exitKey = Keys.Escape;
-            
+
             //Initialize screen size to an ideal resolution for the projector
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
@@ -78,11 +78,13 @@ namespace RaceGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             computerPlayer = new ComputerPlayer();
-            Texture2D[] buttons = new Texture2D[NR_OF_PAUSE_BUTTONS];
+            Texture2D[] pauseButtons = new Texture2D[NR_OF_PAUSE_BUTTONS];
+            pauseButtons[0] = Content.Load<Texture2D>("menu_continue");
+            pauseButtons[1] = Content.Load<Texture2D>("menu_mainmenu");
+            pauseButtons[2] = Content.Load<Texture2D>("menu_exit");
 
-            //_menu = new Menu(Content.Load<Texture2D>("transparentBackground"));
+            _menu = new Menu(Content.Load<Texture2D>("transparentBackground"), pauseButtons);
 
-            
             Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapForegrounds = new Texture2D[NR_OF_MAPS];
@@ -124,7 +126,7 @@ namespace RaceGame
 
             for (int i = 0; i < _maps.Length; i++)
             {
-                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"),_nr_of_laps, 80, 270, 8.0f);
+                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"), _nr_of_laps, 80, 270, 8.0f);
             }
 
             List<Player> players = new List<Player>();
@@ -135,9 +137,9 @@ namespace RaceGame
             players.Add(player1);
             players.Add(player2);
             players.Add(player3);
-           players.Add(player4);
+            players.Add(player4);
             computerPlayer.Players.Add(player3);
-           computerPlayer.Players.Add(player4);
+            computerPlayer.Players.Add(player4);
             world = new World(_maps[MAP_INDEX], players, Content.Load<SpriteFont>("spritefont1"));
         }
 
@@ -194,7 +196,7 @@ namespace RaceGame
                     {
                         player.Car.TurnRight();
                     }
-                    
+
                 }
                 computerPlayer.Update();
                 world.Update();
@@ -219,7 +221,18 @@ namespace RaceGame
                 {
                     if (_oldState.IsKeyUp(Keys.Enter))
                     {
-                        
+                        switch (_menu.Index)
+                        {
+                            case (int)PauseMenuItems.Continue:
+                                _isGameMenuShowed = false;
+                                break;
+                            case (int)PauseMenuItems.MainMenu:
+                                //go to main menu
+                                break;
+                            case (int)PauseMenuItems.Exit:
+                                this.Exit();
+                                break;
+                        }
                     }
                 }
             }
