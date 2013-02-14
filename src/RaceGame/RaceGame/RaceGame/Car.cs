@@ -112,7 +112,10 @@ namespace RaceGame
                 case TerrainTypes.FinishLine:
                     x = newX;
                     y = newY;
-                    passedFinishLine = true;
+                    if (passedCheckPoint)
+                    {
+                        passedFinishLine = true;
+                    }
                     break;
                 case TerrainTypes.Obstacle:
                     //krock

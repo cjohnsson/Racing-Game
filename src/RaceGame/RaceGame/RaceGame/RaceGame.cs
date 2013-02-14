@@ -43,7 +43,7 @@ namespace RaceGame
             //Initialize screen size to an ideal resolution for the projector
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
         }
 
         /// <summary>
