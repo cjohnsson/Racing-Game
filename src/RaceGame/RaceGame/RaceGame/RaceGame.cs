@@ -34,7 +34,7 @@ namespace RaceGame
         private Map[] _maps;
         private Texture2D[] _cars;
         private int _nr_of_laps = 1;
-
+        private ComputerPlayer computerPlayer;
         //Screen State variables to indicate what is the current screen
         private bool _isGameMenuShowed;
 
@@ -76,7 +76,7 @@ namespace RaceGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            computerPlayer = new ComputerPlayer();
             Texture2D[] buttons = new Texture2D[NR_OF_PAUSE_BUTTONS];
 
             //_menu = new Menu(Content.Load<Texture2D>("transparentBackground"));
@@ -127,8 +127,16 @@ namespace RaceGame
             }
 
             List<Player> players = new List<Player>();
-            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[0], new Vector2(80, 270)));
-            players.Add(new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[1], new Vector2(80, 270)));
+            Player player1 = new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[0], new Vector2(80, 270));
+            Player player2 = new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[1], new Vector2(80, 270));
+            Player player3 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[0], new Vector2(80, 270));
+            Player player4 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[1], new Vector2(80, 270));
+            players.Add(player1);
+            players.Add(player2);
+            players.Add(player3);
+            players.Add(player4);
+          //  computerPlayer.Players.Add(player3);
+           // computerPlayer.Players.Add(player4);
             world = new World(_maps[0], players, Content.Load<SpriteFont>("spritefont1"));
         }
 
@@ -185,6 +193,7 @@ namespace RaceGame
                     {
                         player.Car.TurnRight();
                     }
+                   // computerPlayer.Update();
                     world.Update();
                 }
             }
