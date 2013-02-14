@@ -6,41 +6,44 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-//using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 
 namespace RaceGame
 {
     public class Info
     {
-        Map map;
-        List<Player> players;
-        SpriteFont font;
+        private Map _map;
+        private List<Player> _players;
+        private SpriteFont _font;
+        private Texture2D _hud;
 
-        
+        //public Info(SpriteFont newFont, Map newMap, List<Player> newPlayers, Texture2D hud)
         public Info(SpriteFont newFont, Map newMap, List<Player> newPlayers)
         {
-            this.font = newFont;
-            this.map = newMap;
-            this.players = newPlayers;
+            if (newFont == null) throw new ArgumentNullException("newFont");
+            if (newMap == null) throw new ArgumentNullException("newMap");
+            if (newPlayers == null) throw new ArgumentNullException("newPlayers");
+            //if (hud == null) throw new ArgumentNullException("newHud");
+
+            _font = newFont;
+            _map = newMap;
+            _players = newPlayers;
+            //_hud = hud;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
-            spriteBatch.DrawString(font, "P1 Lap : " + players[0].Lap + "/" + map.Laps, new Vector2(10, 5), Color.Black);
-            spriteBatch.DrawString(font, "P2 Lap : " + players[1].Lap + "/" + map.Laps, new Vector2(150, 5), Color.Black);
+            //spriteBatch.Draw(hud, new Vector2(0,0), Color.White);
+            spriteBatch.DrawString(_font, string.Format("Time: {0}:{1}:{2} ", World.ElapsedTime.Minutes, World.ElapsedTime.Seconds, World.ElapsedTime.Milliseconds), new Vector2(300, 5), Color.Black);
             
-            spriteBatch.DrawString(font, "Lap : " + World.ElapsedTime, new Vector2(300, 5), Color.Black);
+            spriteBatch.DrawString(_font, "P1 Lap : " + _players[0].Lap + "/" + _map.Laps, new Vector2(10, 5), Color.Black);
+            if (_players.Count > 1)
+            {
+                spriteBatch.DrawString(_font, "P2 Lap : " + _players[1].Lap + "/" + _map.Laps, new Vector2(150, 5), Color.Black);
+            }
 
+            
         }
 
-        
-
-        public void LoadSpriteFont()
-        {
-
-
-        }
     }
 }
