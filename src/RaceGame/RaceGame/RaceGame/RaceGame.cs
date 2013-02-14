@@ -187,6 +187,22 @@ namespace RaceGame
                     world.Update();
                 }
             }
+            else
+            {
+                if (newState.IsKeyDown(Keys.Up))
+                {
+                    
+                }
+                if (newState.IsKeyDown(Keys.Down))
+                {
+                    
+                }
+                if (newState.IsKeyDown(Keys.Enter))
+                {
+                    
+                }
+            }
+
             _oldState = newState;
             base.Update(gameTime);
         }
