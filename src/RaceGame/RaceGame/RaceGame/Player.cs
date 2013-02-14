@@ -15,10 +15,13 @@ namespace RaceGame
         public Control Control { get; set; }
         private string _name;
 
-        public Player(Control control, Texture2D carImage, Vector2 position)
+        public Player(Control control, Texture2D carImage, Vector2 position, float startRotation)
         {
             Control = control;
             Car = new Car(carImage, position);
+            Car.X = position.X;
+            Car.Y = position.Y;
+            Car.Rotation = startRotation;
         }
 
         public string Name

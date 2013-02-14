@@ -52,7 +52,21 @@ namespace RaceGame
         private float _speed;
         private float _rotation;
         public float Speed { get { return _speed; } }
-        public float Rotation { get { return _rotation; } }
+        public float Rotation
+        {
+            get { return _rotation; }
+            set { _rotation = value; }
+        }
+        public float X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+        public float Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
 
         Vector2 origin;
 
@@ -149,7 +163,7 @@ namespace RaceGame
             return GetTerrain(GetOrigin());
         }
 
-        private TerrainTypes GetTerrain(Vector2 position)
+       public TerrainTypes GetTerrain(Vector2 position)
         {
             //kollar så att inte bilens mitt inte är utanför vänster/höger/up/ner kanten
             if (position.X >= World.CollisionImage.Width || position.Y >= World.CollisionImage.Height || position.X <= 0 || position.Y <= 0)

@@ -31,10 +31,11 @@ namespace RaceGame
         private const int NR_OF_MAPS = 5;
         private const int NR_OF_CARS = 5;
         private const int NR_OF_PAUSE_BUTTONS = 3;
+        private const int MAP_INDEX = 0;
         private Map[] _maps;
         private Texture2D[] _cars;
         private int _nr_of_laps = 1;
-
+        private ComputerPlayer computerPlayer;
         //Screen State variables to indicate what is the current screen
         private bool _isGameMenuShowed;
 
@@ -46,7 +47,7 @@ namespace RaceGame
 
             _menuKey = Keys.P;
             _exitKey = Keys.Escape;
-
+            
             //Initialize screen size to an ideal resolution for the projector
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
@@ -76,16 +77,12 @@ namespace RaceGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            computerPlayer = new ComputerPlayer();
             Texture2D[] buttons = new Texture2D[NR_OF_PAUSE_BUTTONS];
 
-            buttons[0] = Content.Load<Texture2D>("menu_continue");
-            buttons[1] = Content.Load<Texture2D>("menu_mainmenu");
-            buttons[2] = Content.Load<Texture2D>("menu_exit");
+            //_menu = new Menu(Content.Load<Texture2D>("transparentBackground"));
 
-            _menu = new Menu(Content.Load<Texture2D>("transparentBackground"), buttons);
-
-
+            
             Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapForegrounds = new Texture2D[NR_OF_MAPS];
@@ -127,13 +124,21 @@ namespace RaceGame
 
             for (int i = 0; i < _maps.Length; i++)
             {
-                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"), _nr_of_laps);
+                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"),_nr_of_laps, 80, 270, 8.0f);
             }
 
             List<Player> players = new List<Player>();
-            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[0], new Vector2(80, 270)));
-            players.Add(new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[1], new Vector2(80, 270)));
-            world = new World(_maps[0], players, Content.Load<SpriteFont>("spritefont1"));
+            Player player1 = new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[0], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
+            Player player2 = new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[1], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
+            Player player3 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[0], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
+         //   Player player4 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[1], new Vector2(80, 270));
+            players.Add(player1);
+            players.Add(player2);
+            players.Add(player3);
+         //   players.Add(player4);
+            computerPlayer.Players.Add(player3);
+           // computerPlayer.Players.Add(player4);
+            world = new World(_maps[MAP_INDEX], players, Content.Load<SpriteFont>("spritefont1"));
         }
 
         /// <summary>
@@ -189,7 +194,9 @@ namespace RaceGame
                     {
                         player.Car.TurnRight();
                     }
+                    
                 }
+                computerPlayer.Update();
                 world.Update();
             }
             else
@@ -212,18 +219,7 @@ namespace RaceGame
                 {
                     if (_oldState.IsKeyUp(Keys.Enter))
                     {
-                        switch (_menu.Index)
-                        {
-                            case (int)PauseMenuItems.Continue:
-                                _isGameMenuShowed = false;
-                                break;
-                            case (int)PauseMenuItems.MainMenu:
-                                //go to main menu
-                                break;
-                            case(int)PauseMenuItems.Exit:
-                                this.Exit();
-                                break;
-                        }
+                        
                     }
                 }
             }
@@ -232,7 +228,6 @@ namespace RaceGame
             {
                 this.Exit();
                 //Spelet är över... spara tiden till highscoren och celebrate
-
             }
 
             _oldState = newState;

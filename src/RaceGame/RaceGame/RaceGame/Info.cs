@@ -23,7 +23,8 @@ namespace RaceGame
             if (newFont == null) throw new ArgumentNullException("newFont");
             if (newMap == null) throw new ArgumentNullException("newMap");
             if (newPlayers == null) throw new ArgumentNullException("newPlayers");
-            //if (hud == null) throw new ArgumentNullException("newHud");
+            //if (hud == null) throw new ArgumentNullException("hud");
+
 
             _font = newFont;
             _map = newMap;
@@ -33,7 +34,7 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw(hud, new Vector2(0,0), Color.White);
+            //spriteBatch.Draw(_hud, new Vector2(0,0), Color.White);
             spriteBatch.DrawString(_font, string.Format("Time: {0}:{1}:{2} ", World.ElapsedTime.Minutes, World.ElapsedTime.Seconds, World.ElapsedTime.Milliseconds), new Vector2(300, 5), Color.Black);
             
             spriteBatch.DrawString(_font, "P1 Lap : " + _players[0].Lap + "/" + _map.Laps, new Vector2(10, 5), Color.Black);

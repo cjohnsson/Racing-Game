@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Car.cs" />
     <Compile Include="Clouds.cs" />
+    <Compile Include="ComputerPlayer.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="ICar.cs" />
     <Compile Include="Info.cs" />
