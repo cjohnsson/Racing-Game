@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,12 +9,12 @@ namespace RaceGame {
     public class World
     {
         public Map Map { get; set; }
-        // public Info Info { get; set; }
         public List<Player> Players { get; set; }
         private static DateTime _startTime;
         public static TimeSpan ElapsedTime { get { return DateTime.Now.Subtract(_startTime); } }
         public SpriteFont font;
-        public Info info; 
+        private Info _info;
+        public static Bitmap CollisionImage { get; set; }
         
         public World(Map map, List<Player> players, SpriteFont font)
         {
@@ -21,8 +22,8 @@ namespace RaceGame {
             Map = map; 
             _startTime = DateTime.Now;
             this.font = font;
-            info = new Info(font, Map , Players);
-            
+            _info = new Info(font, Map , Players);
+            CollisionImage = map.CollisionImage;
         }
 
         //private TimeSpan GetWinnerTime() {
@@ -37,7 +38,7 @@ namespace RaceGame {
                 player.Draw(spriteBatch);
             }
             Map.DrawForeground(spriteBatch);
-            info.Draw(spriteBatch);
+            _info.Draw(spriteBatch);
         }
 
         public void Update() {

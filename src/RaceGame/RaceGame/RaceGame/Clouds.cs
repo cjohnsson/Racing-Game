@@ -34,13 +34,13 @@ namespace RaceGame
         public void Update()
         {
 
-            if (x[0] + width < 0 && y[0] > 600)
+            if (x[0] + width < 0 && y[0] > height)
             {
                 x[0] = width;
                 y[0] = -height;
             }
 
-            if (x[1] + width < 0 && y[1] > 600)
+            if (x[1] + width < 0 && y[1] > height)
             {
                 x[1] = width;
                 y[1] = -height;
@@ -52,7 +52,7 @@ namespace RaceGame
                 y[2] = -height;
             }
 
-            if (y[3] > 600)
+            if (y[3] > height)
             {
                 x[3] = width;
                 y[3] = 0;

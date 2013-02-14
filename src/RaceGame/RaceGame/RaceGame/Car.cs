@@ -7,9 +7,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RaceGame
 {
-    public class Car
+    public class Car : ICar
     {
-        Texture2D image;
+        private Texture2D image;
+
+        public Car()
+        {
+
+        }
 
         public Car(Texture2D newImage, Vector2 position)
         {
@@ -43,8 +48,12 @@ namespace RaceGame
                 return false;
             }
         }
-        float speed;
-        float rotation;
+
+        private float _speed;
+        private float _rotation;
+        //public float Speed { get { return _speed; } }
+       // public float Rotation { get { return _rotation; } }
+
         Vector2 origin;
 
         float x;
@@ -58,48 +67,48 @@ namespace RaceGame
         const float DECELERATION = 0.01f;
         const float BREAK_DECELERATION = 0.1f;
         const float TERRAIN_SPEED = 0.01f;
-        
+
         public void Accelerate()
         {
-            if (speed < MAXSPEED)
-                speed += ACCELERATION;
+            if (_speed < MAXSPEED)
+                _speed += ACCELERATION;
 
-            if (speed > MAXSPEED)
-                speed = MAXSPEED;
+            if (_speed > MAXSPEED)
+                _speed = MAXSPEED;
 
         }
 
         private void Decelerate()
         {
-            if (speed <= 0)
-                speed = 0;
+            if (_speed <= 0)
+                _speed = 0;
             else
-                speed -= DECELERATION;
+                _speed -= DECELERATION;
         }
 
         public void Break()
         {
-            if (speed <= 0)
-                speed = 0;
+            if (_speed <= 0)
+                _speed = 0;
             else
-                speed -= BREAK_DECELERATION;
+                _speed -= BREAK_DECELERATION;
         }
 
         public void TurnLeft()
         {
-            rotation -= ROTATION_SPEED;
+            _rotation -= ROTATION_SPEED;
         }
 
         public void TurnRight()
         {
-            rotation += ROTATION_SPEED;
+            _rotation += ROTATION_SPEED;
         }
 
         public void Update()
         {
-            //inte 100% här om detta är korrekt - Svar: Det är korrekt nu :)
-            float newX = x + (float)Math.Cos((double)rotation) * speed;
-            float newY = y + (float)Math.Sin((double)rotation) * speed;
+            //inte 100% här om detta är korrekt - Svar: Det är korrekt nu :) svar till stoffe: Nej det var inte korrekt, vi ändrade din ändring
+            float newX = x + (float)Math.Cos((double)_rotation) * _speed;
+            float newY = y + (float)Math.Sin((double)_rotation) * _speed;
 
             TerrainTypes newTerrain = GetTerrain(new Vector2(newX, newY));
             switch (newTerrain)
@@ -112,7 +121,10 @@ namespace RaceGame
                 case TerrainTypes.FinishLine:
                     x = newX;
                     y = newY;
-                    passedFinishLine = true;
+                    if (passedCheckPoint)
+                    {
+                        passedFinishLine = true;
+                    }
                     break;
                 case TerrainTypes.Obstacle:
                     //krock
@@ -124,7 +136,7 @@ namespace RaceGame
                 case TerrainTypes.Terrain:
                     x = newX;
                     y = newY;
-                    speed = TERRAIN_SPEED;
+                    _speed = TERRAIN_SPEED;
                     break;
                 default:
                     break;
@@ -132,14 +144,17 @@ namespace RaceGame
             Decelerate();
         }
 
-        public TerrainTypes GetTerrain()
+        private TerrainTypes GetTerrain()
         {
             return GetTerrain(GetOrigin());
         }
 
-        public TerrainTypes GetTerrain(Vector2 position)
+        private TerrainTypes GetTerrain(Vector2 position)
         {
-            System.Drawing.Color color = Map.CollisionImage.GetPixel((int)position.X, (int)position.Y);
+            //if (Map.CollisionImage.Height -1 <= x || Map.CollisionImage.Width -1 <= y || x <= 1 || y <= 1)
+            //    return TerrainTypes.Obstacle;
+
+            System.Drawing.Color color = World.CollisionImage.GetPixel((int)position.X, (int)position.Y);
 
             //svart
             if (color.R < 10 && color.G < 10 && color.B < 10)
@@ -162,10 +177,10 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, Position, null, Color.White, rotation, new Vector2(width/2,height/2), SpriteEffects.None, 0 );
+            spriteBatch.Draw(image, Position, null, Color.White, _rotation, new Vector2(width / 2, height / 2), SpriteEffects.None, 0);
         }
 
-        Vector2 GetOrigin()
+        private Vector2 GetOrigin()
         {
             return new Vector2((x + Position.X / 2), (y + Position.Y / 2));
         }

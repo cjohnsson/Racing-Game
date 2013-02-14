@@ -28,6 +28,11 @@ namespace RaceGame
         private Keys _exitKey;
         private Menu _menu;
 
+        private const int NR_OF_MAPS = 5;
+        private const int NR_OF_CARS = 5;
+        private Map[] _maps;
+        private Texture2D[] _cars;
+
         //Screen State variables to indicate what is the current screen
         private bool _isGameMenuShowed;
 
@@ -39,11 +44,14 @@ namespace RaceGame
 
             _menuKey = Keys.P;
             _exitKey = Keys.Escape;
-
+            
             //Initialize screen size to an ideal resolution for the projector
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
+
+            //graphics.IsFullScreen = true;
             graphics.IsFullScreen = false;
+
         }
 
         /// <summary>
@@ -67,20 +75,58 @@ namespace RaceGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _menu = new Menu(Content.Load<Texture2D>("transparentBackground"), Content.Load<Texture2D>("START"), Content.Load<Texture2D>("CONTINUE"), Content.Load<Texture2D>("EXIT"));
+            _menu = new Menu(Content.Load<Texture2D>("transparentBackground"), Content.Load<Texture2D>("menu_start"), Content.Load<Texture2D>("menu_continue"), Content.Load<Texture2D>("menu_exit"));
 
-            Texture2D mapCollision = Content.Load<Texture2D>("mapcollision");
+            
+            Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
+            Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
+            Texture2D[] mapForegrounds = new Texture2D[NR_OF_MAPS];
+            Bitmap[] bitmaps = new Bitmap[NR_OF_MAPS];
+            _maps = new Map[NR_OF_MAPS];
+            _cars = new Texture2D[NR_OF_CARS];
 
-            Bitmap bitmap;
-            MemoryStream stream = new MemoryStream();
+            _cars[0] = Content.Load<Texture2D>("car1");
+            _cars[1] = Content.Load<Texture2D>("car2");
+            _cars[2] = Content.Load<Texture2D>("car3");
+            _cars[3] = Content.Load<Texture2D>("car4");
+            _cars[4] = Content.Load<Texture2D>("car6");
 
-            mapCollision.SaveAsPng(stream, mapCollision.Bounds.Width, mapCollision.Bounds.Height);
-            bitmap = new Bitmap(stream);
+            mapCollisions[0] = Content.Load<Texture2D>("map1_collision");
+            mapCollisions[1] = Content.Load<Texture2D>("map2_collision");
+            mapCollisions[2] = Content.Load<Texture2D>("map3_collision");
+            mapCollisions[3] = Content.Load<Texture2D>("map4_collision");
+            mapCollisions[4] = Content.Load<Texture2D>("map6_collision");
+
+
+            mapBackgrounds[0] = Content.Load<Texture2D>("map1_background");
+            mapBackgrounds[1] = Content.Load<Texture2D>("map2_background");
+            mapBackgrounds[2] = Content.Load<Texture2D>("map3_background");
+            mapBackgrounds[3] = Content.Load<Texture2D>("map4_background");
+            mapBackgrounds[4] = Content.Load<Texture2D>("map6_background");
+
+            mapForegrounds[0] = Content.Load<Texture2D>("map1_foreground1");
+            mapForegrounds[1] = Content.Load<Texture2D>("default_foreground");
+            mapForegrounds[2] = Content.Load<Texture2D>("default_foreground");
+            mapForegrounds[3] = Content.Load<Texture2D>("default_foreground");
+            mapForegrounds[4] = Content.Load<Texture2D>("default_foreground");
+
+            for (int i = 0; i < bitmaps.Length; i++)
+            {
+                MemoryStream stream = new MemoryStream();
+
+                mapCollisions[i].SaveAsPng(stream, mapCollisions[i].Bounds.Width, mapCollisions[i].Bounds.Height);
+                bitmaps[i] = new Bitmap(stream);
+            }
+
+            for (int i = 0; i < _maps.Length; i++)
+            {
+                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"));
+            }
 
             List<Player> players = new List<Player>();
-            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), Content.Load<Texture2D>("car-emil"), new Vector2(80, 270)));
-            players.Add(new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), Content.Load<Texture2D>("car-emil"), new Vector2(80, 270)));
-            world = new World(new Map(Content.Load<Texture2D>("map"), Content.Load<Texture2D>("mapforeground"), bitmap, Content.Load<Texture2D>("clouds")), players, Content.Load<SpriteFont>("spritefont1"));
+            players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[0], new Vector2(80, 270)));
+            players.Add(new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[1], new Vector2(80, 270)));
+            world = new World(_maps[0], players, Content.Load<SpriteFont>("spritefont1"));
         }
 
         /// <summary>
@@ -141,8 +187,6 @@ namespace RaceGame
                     world.Update();
                 }
             }
-            else
-                _menu.Update();
             _oldState = newState;
             base.Update(gameTime);
         }
