@@ -15,6 +15,7 @@ namespace RaceGame {
         public SpriteFont font;
         private Info _info;
         public static Bitmap CollisionImage { get; set; }
+        public Player Winner { get; set; }
         
         public World(Map map, List<Player> players, SpriteFont font)
         {
@@ -24,6 +25,7 @@ namespace RaceGame {
             this.font = font;
             _info = new Info(font, Map , Players);
             CollisionImage = map.CollisionImage;
+            Winner = null;
         }
 
         //private TimeSpan GetWinnerTime() {
@@ -47,8 +49,7 @@ namespace RaceGame {
                 player.Update();
                 if (player.Lap == Map.Laps)
                 {
-                    //något ska hända när en spelare vunnit
-                    //player.Time = GetWinnerTime();
+                    Winner = player;
                 }
             }
             Map.Update();
