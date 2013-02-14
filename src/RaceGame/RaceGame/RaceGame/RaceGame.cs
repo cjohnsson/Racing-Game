@@ -30,8 +30,10 @@ namespace RaceGame
 
         private const int NR_OF_MAPS = 5;
         private const int NR_OF_CARS = 5;
+        private const int NR_OF_PAUSE_BUTTONS = 3;
         private Map[] _maps;
         private Texture2D[] _cars;
+        private int _nr_of_laps = 1;
 
         //Screen State variables to indicate what is the current screen
         private bool _isGameMenuShowed;
@@ -75,7 +77,9 @@ namespace RaceGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _menu = new Menu(Content.Load<Texture2D>("transparentBackground"), Content.Load<Texture2D>("menu_start"), Content.Load<Texture2D>("menu_continue"), Content.Load<Texture2D>("menu_exit"));
+            Texture2D[] buttons = new Texture2D[NR_OF_PAUSE_BUTTONS];
+
+            //_menu = new Menu(Content.Load<Texture2D>("transparentBackground"));
 
             
             Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
@@ -96,7 +100,6 @@ namespace RaceGame
             mapCollisions[2] = Content.Load<Texture2D>("map3_collision");
             mapCollisions[3] = Content.Load<Texture2D>("map4_collision");
             mapCollisions[4] = Content.Load<Texture2D>("map6_collision");
-
 
             mapBackgrounds[0] = Content.Load<Texture2D>("map1_background");
             mapBackgrounds[1] = Content.Load<Texture2D>("map2_background");
@@ -120,7 +123,7 @@ namespace RaceGame
 
             for (int i = 0; i < _maps.Length; i++)
             {
-                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"));
+                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"),_nr_of_laps);
             }
 
             List<Player> players = new List<Player>();
@@ -155,12 +158,10 @@ namespace RaceGame
                 if (_isGameMenuShowed && _oldState.IsKeyUp(_menuKey))
                 {
                     _isGameMenuShowed = false;
-                    IsMouseVisible = false;
                 }
                 else if (_oldState.IsKeyUp(_menuKey))
                 {
                     _isGameMenuShowed = true;
-                    IsMouseVisible = true;
                 }
             }
 
@@ -191,16 +192,31 @@ namespace RaceGame
             {
                 if (newState.IsKeyDown(Keys.Up))
                 {
-                    
+                    if (_oldState.IsKeyUp(Keys.Up))
+                    {
+                        _menu.ScrollUp();
+                    }
                 }
                 if (newState.IsKeyDown(Keys.Down))
                 {
-                    
+                    if (_oldState.IsKeyUp(Keys.Down))
+                    {
+                        _menu.ScrollDown();
+                    }
                 }
                 if (newState.IsKeyDown(Keys.Enter))
                 {
-                    
+                    if (_oldState.IsKeyUp(Keys.Enter))
+                    {
+                        
+                    }
                 }
+            }
+
+            if (world.Winner != null)
+            {
+                this.Exit();
+                //Spelet är över... spara tiden till highscoren och celebrate
             }
 
             _oldState = newState;
