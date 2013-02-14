@@ -115,7 +115,7 @@ namespace RaceGame
             List<Player> players = new List<Player>();
             players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), cars[0], new Vector2(80, 270)));
             players.Add(new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), cars[1], new Vector2(80, 270)));
-            world = new World(_maps[0], players, Content.Load<SpriteFont>("spritefont1"));
+            world = new World(_maps[1], players, Content.Load<SpriteFont>("spritefont1"));
         }
 
         /// <summary>
