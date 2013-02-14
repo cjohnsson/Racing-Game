@@ -13,7 +13,7 @@ namespace RaceGame_Tests
         [ExpectedException(typeof(ArgumentNullException))]
         public void Create_Info_with_nullParams_Expect_ArgumentNullException()
         {
-            Info info = new Info(null,null,null);
+            Info info = new Info(null,null,null,null);
         }
         
     }

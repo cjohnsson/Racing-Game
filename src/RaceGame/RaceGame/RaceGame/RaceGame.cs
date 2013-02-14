@@ -140,7 +140,7 @@ namespace RaceGame
             players.Add(player4);
             computerPlayer.Players.Add(player3);
             computerPlayer.Players.Add(player4);
-            world = new World(_maps[MAP_INDEX], players, Content.Load<SpriteFont>("spritefont1"));
+            world = new World(_maps[MAP_INDEX], players, Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"));
         }
 
         /// <summary>
