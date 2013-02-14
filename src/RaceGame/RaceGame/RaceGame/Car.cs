@@ -48,8 +48,11 @@ namespace RaceGame
                 return false;
             }
         }
-        public float Speed { get; private set; }
-        public float Rotation { get; private set; }
+
+        private float _speed;
+        private float _rotation;
+        //public float Speed { get { return _speed; } }
+       // public float Rotation { get { return _rotation; } }
 
         Vector2 origin;
 
@@ -67,45 +70,45 @@ namespace RaceGame
 
         public void Accelerate()
         {
-            if (Speed < MAXSPEED)
-                Speed += ACCELERATION;
+            if (_speed < MAXSPEED)
+                _speed += ACCELERATION;
 
-            if (Speed > MAXSPEED)
-                Speed = MAXSPEED;
+            if (_speed > MAXSPEED)
+                _speed = MAXSPEED;
 
         }
 
         private void Decelerate()
         {
-            if (Speed <= 0)
-                Speed = 0;
+            if (_speed <= 0)
+                _speed = 0;
             else
-                Speed -= DECELERATION;
+                _speed -= DECELERATION;
         }
 
         public void Break()
         {
-            if (Speed <= 0)
-                Speed = 0;
+            if (_speed <= 0)
+                _speed = 0;
             else
-                Speed -= BREAK_DECELERATION;
+                _speed -= BREAK_DECELERATION;
         }
 
         public void TurnLeft()
         {
-            Rotation -= ROTATION_SPEED;
+            _rotation -= ROTATION_SPEED;
         }
 
         public void TurnRight()
         {
-            Rotation += ROTATION_SPEED;
+            _rotation += ROTATION_SPEED;
         }
 
         public void Update()
         {
             //inte 100% här om detta är korrekt - Svar: Det är korrekt nu :) svar till stoffe: Nej det var inte korrekt, vi ändrade din ändring
-            float newX = x + (float)Math.Cos((double)Rotation) * Speed;
-            float newY = y + (float)Math.Sin((double)Rotation) * Speed;
+            float newX = x + (float)Math.Cos((double)_rotation) * _speed;
+            float newY = y + (float)Math.Sin((double)_rotation) * _speed;
 
             TerrainTypes newTerrain = GetTerrain(new Vector2(newX, newY));
             switch (newTerrain)
@@ -133,7 +136,7 @@ namespace RaceGame
                 case TerrainTypes.Terrain:
                     x = newX;
                     y = newY;
-                    Speed = TERRAIN_SPEED;
+                    _speed = TERRAIN_SPEED;
                     break;
                 default:
                     break;
@@ -174,7 +177,7 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, Position, null, Color.White, Rotation, new Vector2(width / 2, height / 2), SpriteEffects.None, 0);
+            spriteBatch.Draw(image, Position, null, Color.White, _rotation, new Vector2(width / 2, height / 2), SpriteEffects.None, 0);
         }
 
         private Vector2 GetOrigin()
