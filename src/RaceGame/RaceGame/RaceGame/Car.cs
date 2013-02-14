@@ -53,6 +53,8 @@ namespace RaceGame
         private float _rotation;
         public float Speed { get { return _speed; } }
         public float Rotation { get { return _rotation; } }
+        public float X { get { return x; } }
+        public float Y { get { return y; } }
 
         Vector2 origin;
 
@@ -149,7 +151,7 @@ namespace RaceGame
             return GetTerrain(GetOrigin());
         }
 
-        private TerrainTypes GetTerrain(Vector2 position)
+       public TerrainTypes GetTerrain(Vector2 position)
         {
             //if (Map.CollisionImage.Height -1 <= x || Map.CollisionImage.Width -1 <= y || x <= 1 || y <= 1)
             //    return TerrainTypes.Obstacle;
