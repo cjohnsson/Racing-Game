@@ -7,9 +7,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RaceGame
 {
-    public class Car
+    public class Car : ICar
     {
-        Texture2D image;
+        private Texture2D image;
+
+        public Car()
+        {
+
+        }
 
         public Car(Texture2D newImage, Vector2 position)
         {
@@ -43,8 +48,9 @@ namespace RaceGame
                 return false;
             }
         }
-        float speed;
-        float rotation;
+        public float Speed { get; private set; }
+        public float Rotation { get; private set; }
+
         Vector2 origin;
 
         float x;
@@ -58,48 +64,48 @@ namespace RaceGame
         const float DECELERATION = 0.01f;
         const float BREAK_DECELERATION = 0.1f;
         const float TERRAIN_SPEED = 0.01f;
-        
+
         public void Accelerate()
         {
-            if (speed < MAXSPEED)
-                speed += ACCELERATION;
+            if (Speed < MAXSPEED)
+                Speed += ACCELERATION;
 
-            if (speed > MAXSPEED)
-                speed = MAXSPEED;
+            if (Speed > MAXSPEED)
+                Speed = MAXSPEED;
 
         }
 
         private void Decelerate()
         {
-            if (speed <= 0)
-                speed = 0;
+            if (Speed <= 0)
+                Speed = 0;
             else
-                speed -= DECELERATION;
+                Speed -= DECELERATION;
         }
 
         public void Break()
         {
-            if (speed <= 0)
-                speed = 0;
+            if (Speed <= 0)
+                Speed = 0;
             else
-                speed -= BREAK_DECELERATION;
+                Speed -= BREAK_DECELERATION;
         }
 
         public void TurnLeft()
         {
-            rotation -= ROTATION_SPEED;
+            Rotation -= ROTATION_SPEED;
         }
 
         public void TurnRight()
         {
-            rotation += ROTATION_SPEED;
+            Rotation += ROTATION_SPEED;
         }
 
         public void Update()
         {
-            //inte 100% här om detta är korrekt - Svar: Det är korrekt nu :)
-            float newX = x + (float)Math.Cos((double)rotation) * speed;
-            float newY = y + (float)Math.Sin((double)rotation) * speed;
+            //inte 100% här om detta är korrekt - Svar: Det är korrekt nu :) svar till stoffe: Nej det var inte korrekt, vi ändrade din ändring
+            float newX = x + (float)Math.Cos((double)Rotation) * Speed;
+            float newY = y + (float)Math.Sin((double)Rotation) * Speed;
 
             TerrainTypes newTerrain = GetTerrain(new Vector2(newX, newY));
             switch (newTerrain)
@@ -127,7 +133,7 @@ namespace RaceGame
                 case TerrainTypes.Terrain:
                     x = newX;
                     y = newY;
-                    speed = TERRAIN_SPEED;
+                    Speed = TERRAIN_SPEED;
                     break;
                 default:
                     break;
@@ -135,13 +141,16 @@ namespace RaceGame
             Decelerate();
         }
 
-        public TerrainTypes GetTerrain()
+        private TerrainTypes GetTerrain()
         {
             return GetTerrain(GetOrigin());
         }
 
-        public TerrainTypes GetTerrain(Vector2 position)
+        private TerrainTypes GetTerrain(Vector2 position)
         {
+            //if (Map.CollisionImage.Height -1 <= x || Map.CollisionImage.Width -1 <= y || x <= 1 || y <= 1)
+            //    return TerrainTypes.Obstacle;
+
             System.Drawing.Color color = Map.CollisionImage.GetPixel((int)position.X, (int)position.Y);
 
             //svart
@@ -165,10 +174,10 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, Position, null, Color.White, rotation, new Vector2(width/2,height/2), SpriteEffects.None, 0 );
+            spriteBatch.Draw(image, Position, null, Color.White, Rotation, new Vector2(width / 2, height / 2), SpriteEffects.None, 0);
         }
 
-        Vector2 GetOrigin()
+        private Vector2 GetOrigin()
         {
             return new Vector2((x + Position.X / 2), (y + Position.Y / 2));
         }
