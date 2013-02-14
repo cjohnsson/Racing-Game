@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,7 +14,8 @@ namespace RaceGame {
         private static DateTime _startTime;
         public static TimeSpan ElapsedTime { get { return DateTime.Now.Subtract(_startTime); } }
         public SpriteFont font;
-        public Info info; 
+        public Info info;
+        public static Bitmap CollisionImage { get; set; }
         
         public World(Map map, List<Player> players, SpriteFont font)
         {
@@ -22,6 +24,7 @@ namespace RaceGame {
             _startTime = DateTime.Now;
             this.font = font;
             info = new Info(font, Map , Players);
+            CollisionImage = map.CollisionImage;
         }
 
         //private TimeSpan GetWinnerTime() {

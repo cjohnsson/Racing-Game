@@ -43,11 +43,14 @@ namespace RaceGame
 
             _menuKey = Keys.P;
             _exitKey = Keys.Escape;
-            _maps = new Map[NR_OF_MAPS];
+            
             //Initialize screen size to an ideal resolution for the projector
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
+
+            //graphics.IsFullScreen = true;
             graphics.IsFullScreen = false;
+
         }
 
         /// <summary>
@@ -78,6 +81,7 @@ namespace RaceGame
             Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapForegrounds = new Texture2D[NR_OF_MAPS];
             Bitmap[] bitmaps = new Bitmap[NR_OF_MAPS];
+            _maps = new Map[NR_OF_MAPS];
 
             cars[0] = Content.Load<Texture2D>("car1");
             cars[1] = Content.Load<Texture2D>("car2");
@@ -99,7 +103,7 @@ namespace RaceGame
             mapForegrounds[2] = Content.Load<Texture2D>("default_foreground");
             mapForegrounds[3] = Content.Load<Texture2D>("default_foreground");
 
-            for (int i = 0; i < NR_OF_MAPS; i++)
+            for (int i = 0; i < bitmaps.Length; i++)
             {
                 MemoryStream stream = new MemoryStream();
 
@@ -107,7 +111,7 @@ namespace RaceGame
                 bitmaps[i] = new Bitmap(stream);
             }
 
-            for (int i = 0; i < NR_OF_MAPS; i++)
+            for (int i = 0; i < _maps.Length; i++)
             {
                 _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"));
             }
@@ -115,7 +119,7 @@ namespace RaceGame
             List<Player> players = new List<Player>();
             players.Add(new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), cars[0], new Vector2(80, 270)));
             players.Add(new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), cars[1], new Vector2(80, 270)));
-            world = new World(_maps[1], players, Content.Load<SpriteFont>("spritefont1"));
+            world = new World(_maps[0], players, Content.Load<SpriteFont>("spritefont1"));
         }
 
         /// <summary>

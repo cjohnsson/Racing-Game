@@ -118,7 +118,10 @@ namespace RaceGame
                 case TerrainTypes.FinishLine:
                     x = newX;
                     y = newY;
-                    passedFinishLine = true;
+                    if (passedCheckPoint)
+                    {
+                        passedFinishLine = true;
+                    }
                     break;
                 case TerrainTypes.Obstacle:
                     //krock
@@ -148,7 +151,7 @@ namespace RaceGame
             //if (Map.CollisionImage.Height -1 <= x || Map.CollisionImage.Width -1 <= y || x <= 1 || y <= 1)
             //    return TerrainTypes.Obstacle;
 
-            System.Drawing.Color color = Map.CollisionImage.GetPixel((int)position.X, (int)position.Y);
+            System.Drawing.Color color = World.CollisionImage.GetPixel((int)position.X, (int)position.Y);
 
             //svart
             if (color.R < 10 && color.G < 10 && color.B < 10)
