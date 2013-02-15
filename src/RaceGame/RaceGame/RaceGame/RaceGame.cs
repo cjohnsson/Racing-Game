@@ -25,7 +25,6 @@ namespace RaceGame
         private World world;
         private KeyboardState _oldState;
         private Keys _menuKey;
-        private Keys _exitKey;
         private Menu _menu;
 
         private const int NR_OF_MAPS = 5;
@@ -34,7 +33,7 @@ namespace RaceGame
         private const int MAP_INDEX = 0;
         private Map[] _maps;
         private Texture2D[] _cars;
-        private int _nr_of_laps = 1;
+        private int _nr_of_laps = 2;
         private ComputerPlayer computerPlayer;
         //Screen State variables to indicate what is the current screen
         private bool _isPauseScreenShowed;
@@ -45,8 +44,7 @@ namespace RaceGame
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            _menuKey = Keys.P;
-            _exitKey = Keys.Escape;
+            _menuKey = Keys.Escape;
 
             //Initialize screen size to an ideal resolution for the projector
             graphics.PreferredBackBufferWidth = 800;
@@ -160,9 +158,6 @@ namespace RaceGame
         protected override void Update(GameTime gameTime)
         {
             KeyboardState newState = Keyboard.GetState();
-
-            if (newState.IsKeyDown(_exitKey))
-                this.Exit();
 
             if (newState.IsKeyDown(_menuKey))
             {

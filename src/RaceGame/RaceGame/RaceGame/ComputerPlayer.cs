@@ -42,7 +42,7 @@ namespace RaceGame
                         player.Car.TurnRight();
                     }
                 }
-               player.Car.Accelerate();
+                        player.Car.Accelerate();
                 TurnRandom(player);
                 CheckIfStuck(player);
             }
