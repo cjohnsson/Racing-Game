@@ -81,11 +81,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="map1_foreground.png">
-      <Name>map1_foreground</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="map1_foreground1.png">
       <Name>map1_foreground1</Name>
       <Importer>TextureImporter</Importer>
@@ -103,16 +98,6 @@
     </Compile>
     <Compile Include="map2_collision.png">
       <Name>map2_collision</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="map3_background.png">
-      <Name>map3_background</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="map3_collision.png">
-      <Name>map3_collision</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -164,6 +149,20 @@
   <ItemGroup>
     <Compile Include="car6.png">
       <Name>car6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="menu_mainmenu.png">
+      <Name>menu_mainmenu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HUD.png">
+      <Name>HUD</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

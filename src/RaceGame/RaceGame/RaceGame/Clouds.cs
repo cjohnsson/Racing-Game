@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace RaceGame
 {
-    public class Clouds
+    public class Clouds : IClouds
     {
         const float XSPEED = 0.1f;
         const float YSPEED = 0.075f;

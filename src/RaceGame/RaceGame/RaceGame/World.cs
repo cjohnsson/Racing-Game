@@ -6,27 +6,25 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace RaceGame {
-    public class World
+    public class World : IWorld
     {
         public Map Map { get; set; }
         public List<Player> Players { get; set; }
         private static DateTime _startTime;
         public static TimeSpan ElapsedTime { get { return DateTime.Now.Subtract(_startTime); } }
-        public SpriteFont font;
         private Info _info;
         public static Bitmap CollisionImage { get; set; }
         public Player Winner { get; set; }
         
-        public World(Map map, List<Player> players, SpriteFont font)
+        public World(Map map, List<Player> players, SpriteFont font, Texture2D hud )
         {
             Players = players;
             Map = map; 
             _startTime = DateTime.Now;
-            this.font = font;
-            _info = new Info(font, Map , Players);
+            _info = new Info(font, Map , Players, hud);
             CollisionImage = map.CollisionImage;
             Winner = null;
-        }
+        }        
 
         //private TimeSpan GetWinnerTime() {
         //    return  _startTime.Subtract(DateTime.Now);

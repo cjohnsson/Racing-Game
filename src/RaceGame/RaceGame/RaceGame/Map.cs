@@ -9,7 +9,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace RaceGame
 {
-    public class Map
+    public class Map : IMap
     {
         private int _startX;
         private int _startY;
@@ -67,7 +67,7 @@ namespace RaceGame
             }
         }
 
-        public  void Update()
+        public void Update()
         {
             clouds.Update();
         }
