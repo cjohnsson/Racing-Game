@@ -12,7 +12,7 @@ namespace RaceGame_Tests
     // ReSharper disable InconsistentNaming
 
     [TestFixture]
-    public class Menu_Tests
+    public class PauseMenu_Tests
     {
         private PauseMenu MakeMenu()
         {

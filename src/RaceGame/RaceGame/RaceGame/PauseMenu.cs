@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RaceGame
 {
-    public class PauseMenu : IMenu
+    public class PauseMenu : IPauseMenu
     {
         private readonly Texture2D _backgroundImage;
         public int Index { get; private set; }

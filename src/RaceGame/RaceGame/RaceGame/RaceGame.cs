@@ -83,7 +83,7 @@ namespace RaceGame
             pauseButtons[2] = Content.Load<Texture2D>("menu_exit");
 
             _pauseMenu = new PauseMenu(Content.Load<Texture2D>("transparentBackground"), pauseButtons);
-            _mainMenu = new MainMenu(Content.Load<Texture2D>("transparentBackground"),Content.Load<Texture2D>("main_menu_empty"), Content.Load<SpriteFont>("SpriteFont1"));
+            _mainMenu = new MainMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"));
 
             Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
@@ -184,29 +184,33 @@ namespace RaceGame
                         _mainMenu.ScrollDown();
                     }
                 }
+
+                if (newState.IsKeyDown(Keys.Left))
+                {
+                    if (_oldState.IsKeyUp(Keys.Left))
+                    {
+                        _mainMenu.LowerChosenValue();
+                    }
+                }
+
+                if (newState.IsKeyDown(Keys.Right))
+                {
+                    if (_oldState.IsKeyUp(Keys.Right))
+                    {
+                        _mainMenu.RaiseChosenValue();
+                    }
+                }
+
                 if (newState.IsKeyDown(Keys.Enter))
                 {
                     if (_oldState.IsKeyUp(Keys.Enter))
                     {
-                        switch (_mainMenu.Index)
+                        if (_mainMenu.Index == (int)MainMenuItems.Start)
                         {
-                            case (int)MainMenuItems.Players:
-                                    
-                                break;
-                            case (int)MainMenuItems.Bots:
-
-                                break;
-                            case (int)MainMenuItems.Map:
-
-                                break;
-                            case (int)MainMenuItems.Laps:
-
-                                break;
-                            case (int)MainMenuItems.Start:
-                                _isMainMenuScreenShowed = false;
-                                world = new World(_maps[_mainMenu.SelectedMap], _players, Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"));
-                                world.Map.Laps = _mainMenu.NrOfLaps;
-                                break;
+                            _isMainMenuScreenShowed = false;
+                            world = new World(_maps[_mainMenu.SelectedMap], _players,
+                                              Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"));
+                            world.Map.Laps = _mainMenu.NrOfLaps;
                         }
                     }
                 }

@@ -1,5 +1,6 @@
 Content\transparentBackground.xnb
 Content\clouds.xnb
+Content\SpriteFont1.xnb
 Content\car1.xnb
 Content\car2.xnb
 Content\car3.xnb
@@ -16,10 +17,9 @@ Content\menu_continue.xnb
 Content\menu_exit.xnb
 Content\menu_start.xnb
 Content\default_foreground.xnb
+Content\Car6.xnb
 Content\map6_collision.xnb
 Content\map6_background.xnb
-Content\car6.xnb
-Content\SpriteFont1.xnb
 Content\menu_mainmenu.xnb
 Content\HUD.xnb
 Content\main_menu_empty.xnb

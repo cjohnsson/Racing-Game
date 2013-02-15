@@ -2,7 +2,7 @@
 
 namespace RaceGame
 {
-    public interface IMenu
+    public interface IPauseMenu
     {
         int Index { get; }
         void ScrollUp();

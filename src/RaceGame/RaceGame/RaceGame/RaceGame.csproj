@@ -81,8 +81,9 @@
     <Compile Include="IClouds.cs" />
     <Compile Include="IComputerPlayer.cs" />
     <Compile Include="IInfo.cs" />
+    <Compile Include="IMainMenu.cs" />
     <Compile Include="IMap.cs" />
-    <Compile Include="IMenu.cs" />
+    <Compile Include="IPauseMenu.cs" />
     <Compile Include="Info.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IWorld.cs" />
