@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RaceGame
 {
-    public class Car
+    public class Car : ICar
     {
         private Texture2D image;
 

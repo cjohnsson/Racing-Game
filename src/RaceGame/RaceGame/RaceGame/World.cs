@@ -6,7 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace RaceGame {
-    public class World
+    public class World : IWorld
     {
         public Map Map { get; set; }
         public List<Player> Players { get; set; }

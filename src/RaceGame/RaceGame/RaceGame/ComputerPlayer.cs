@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace RaceGame
 {
-    public class ComputerPlayer
+    public class ComputerPlayer : IComputerPlayer
     {
         public List<Player> Players { get; set; }
         private const float FORESIGHT = 15.0f;

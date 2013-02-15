@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace RaceGame
 {
-    public class Info
+    public class Info : IInfo
     {
         private Map _map;
         private List<Player> _players;
