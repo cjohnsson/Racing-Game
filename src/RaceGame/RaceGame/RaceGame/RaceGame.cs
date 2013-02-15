@@ -32,7 +32,6 @@ namespace RaceGame
         private const int MAP_INDEX = 0;
         private Map[] _maps;
         private Texture2D[] _cars;
-        private int _nr_of_laps = 2;
         private ComputerPlayer computerPlayer;
         //Screen State variables to indicate what is the current screen
         private bool _isPauseScreenShowed;
@@ -84,7 +83,7 @@ namespace RaceGame
             pauseButtons[2] = Content.Load<Texture2D>("menu_exit");
 
             _pauseMenu = new PauseMenu(Content.Load<Texture2D>("transparentBackground"), pauseButtons);
-            _mainMenu = new MainMenu(Content.Load<Texture2D>("transparentBackground"),Content.Load<Texture2D>(""));
+            _mainMenu = new MainMenu(Content.Load<Texture2D>("transparentBackground"),Content.Load<Texture2D>("main_menu_empty"), Content.Load<SpriteFont>("SpriteFont1"));
 
             Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
@@ -124,7 +123,7 @@ namespace RaceGame
 
             for (int i = 0; i < _maps.Length; i++)
             {
-                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"), _nr_of_laps, 80, 270, 8.0f);
+                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"), 80, 270, 8.0f);
             }
 
             Player player1 = new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[0], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
@@ -192,7 +191,7 @@ namespace RaceGame
                         switch (_mainMenu.Index)
                         {
                             case (int)MainMenuItems.Players:
-
+                                    
                                 break;
                             case (int)MainMenuItems.Bots:
 
@@ -205,7 +204,8 @@ namespace RaceGame
                                 break;
                             case (int)MainMenuItems.Start:
                                 _isMainMenuScreenShowed = false;
-                                world = new World(_maps[MAP_INDEX], _players, Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"));
+                                world = new World(_maps[_mainMenu.SelectedMap], _players, Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"));
+                                world.Map.Laps = _mainMenu.NrOfLaps;
                                 break;
                         }
                     }
@@ -234,6 +234,12 @@ namespace RaceGame
                 }
                 computerPlayer.Update();
                 world.Update();
+
+                if (world.Winner != null)
+                {
+                    this.Exit();
+                    //Spelet är över... spara tiden till highscoren och celebrate
+                }
             }
             else
             {
@@ -261,7 +267,8 @@ namespace RaceGame
                                 _isPauseScreenShowed = false;
                                 break;
                             case (int)PauseMenuItems.MainMenu:
-                                //go to main menu
+                                _isMainMenuScreenShowed = true;
+                                _isPauseScreenShowed = false;
                                 break;
                             case (int)PauseMenuItems.Exit:
                                 this.Exit();
@@ -269,12 +276,6 @@ namespace RaceGame
                         }
                     }
                 }
-            }
-
-            if (world.Winner != null)
-            {
-                this.Exit();
-                //Spelet är över... spara tiden till highscoren och celebrate
             }
 
             _oldState = newState;
@@ -291,11 +292,18 @@ namespace RaceGame
 
             spriteBatch.Begin();
 
-            world.Draw(spriteBatch);
-
-            if (_isPauseScreenShowed)
+            if (_isMainMenuScreenShowed)
             {
-                _pauseMenu.Draw(spriteBatch);
+                _mainMenu.Draw(spriteBatch);
+            }
+            else
+            {
+                world.Draw(spriteBatch);
+
+                if (_isPauseScreenShowed)
+                {
+                    _pauseMenu.Draw(spriteBatch);
+                }
             }
 
             spriteBatch.End();
