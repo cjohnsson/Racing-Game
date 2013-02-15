@@ -27,7 +27,7 @@ namespace RaceGame
         private Keys _menuKey;
         private Menu _menu;
 
-        private const int NR_OF_MAPS = 5;
+        private const int NR_OF_MAPS = 4;
         private const int NR_OF_CARS = 5;
         private const int NR_OF_PAUSE_BUTTONS = 3;
         private const int MAP_INDEX = 0;
@@ -50,7 +50,6 @@ namespace RaceGame
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
 
-            //graphics.IsFullScreen = true;
             graphics.IsFullScreen = false;
 
         }
@@ -98,21 +97,18 @@ namespace RaceGame
 
             mapCollisions[0] = Content.Load<Texture2D>("map1_collision");
             mapCollisions[1] = Content.Load<Texture2D>("map2_collision");
-            mapCollisions[2] = Content.Load<Texture2D>("map3_collision");
-            mapCollisions[3] = Content.Load<Texture2D>("map4_collision");
-            mapCollisions[4] = Content.Load<Texture2D>("map6_collision");
+            mapCollisions[2] = Content.Load<Texture2D>("map4_collision");
+            mapCollisions[3] = Content.Load<Texture2D>("map6_collision");
 
             mapBackgrounds[0] = Content.Load<Texture2D>("map1_background");
             mapBackgrounds[1] = Content.Load<Texture2D>("map2_background");
-            mapBackgrounds[2] = Content.Load<Texture2D>("map3_background");
-            mapBackgrounds[3] = Content.Load<Texture2D>("map4_background");
-            mapBackgrounds[4] = Content.Load<Texture2D>("map6_background");
+            mapBackgrounds[2] = Content.Load<Texture2D>("map4_background");
+            mapBackgrounds[3] = Content.Load<Texture2D>("map6_background");
 
             mapForegrounds[0] = Content.Load<Texture2D>("map1_foreground1");
             mapForegrounds[1] = Content.Load<Texture2D>("default_foreground");
             mapForegrounds[2] = Content.Load<Texture2D>("default_foreground");
             mapForegrounds[3] = Content.Load<Texture2D>("default_foreground");
-            mapForegrounds[4] = Content.Load<Texture2D>("default_foreground");
 
             for (int i = 0; i < bitmaps.Length; i++)
             {
