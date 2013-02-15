@@ -87,7 +87,7 @@
     <Compile Include="IPlayer.cs" />
     <Compile Include="IWorld.cs" />
     <Compile Include="Map.cs" />
-    <Compile Include="Menu.cs" />
+    <Compile Include="PauseMenu.cs" />
     <Compile Include="PauseMenuItems.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

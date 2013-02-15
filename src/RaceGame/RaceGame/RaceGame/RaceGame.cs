@@ -25,7 +25,7 @@ namespace RaceGame
         private World world;
         private KeyboardState _oldState;
         private Keys _menuKey;
-        private Menu _menu;
+        private PauseMenu _pauseMenu;
 
         private const int NR_OF_MAPS = 4;
         private const int NR_OF_CARS = 5;
@@ -80,7 +80,7 @@ namespace RaceGame
             pauseButtons[1] = Content.Load<Texture2D>("menu_mainmenu");
             pauseButtons[2] = Content.Load<Texture2D>("menu_exit");
 
-            _menu = new Menu(Content.Load<Texture2D>("transparentBackground"), pauseButtons);
+            _pauseMenu = new PauseMenu(Content.Load<Texture2D>("transparentBackground"), pauseButtons);
 
             Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
@@ -198,21 +198,21 @@ namespace RaceGame
                 {
                     if (_oldState.IsKeyUp(Keys.Up))
                     {
-                        _menu.ScrollUp();
+                        _pauseMenu.ScrollUp();
                     }
                 }
                 if (newState.IsKeyDown(Keys.Down))
                 {
                     if (_oldState.IsKeyUp(Keys.Down))
                     {
-                        _menu.ScrollDown();
+                        _pauseMenu.ScrollDown();
                     }
                 }
                 if (newState.IsKeyDown(Keys.Enter))
                 {
                     if (_oldState.IsKeyUp(Keys.Enter))
                     {
-                        switch (_menu.Index)
+                        switch (_pauseMenu.Index)
                         {
                             case (int)PauseMenuItems.Continue:
                                 _isPauseScreenShowed = false;
@@ -252,7 +252,7 @@ namespace RaceGame
 
             if (_isPauseScreenShowed)
             {
-                _menu.Draw(spriteBatch);
+                _pauseMenu.Draw(spriteBatch);
             }
 
             spriteBatch.End();

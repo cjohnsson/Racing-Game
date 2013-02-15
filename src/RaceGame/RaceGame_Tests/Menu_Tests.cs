@@ -14,19 +14,19 @@ namespace RaceGame_Tests
     [TestFixture]
     public class Menu_Tests
     {
-        private Menu MakeMenu()
+        private PauseMenu MakeMenu()
         {
             Texture2D[] textures = new Texture2D[3];
             textures[0] = null;
             textures[1] = null;
             textures[2] = null;
-            return new Menu(null, textures );
+            return new PauseMenu(null, textures );
         }
 
         [Test]
         public void ScrollUp_IndexIsGreaterThan0_DecreasesIndex()
         {
-            Menu menu = MakeMenu();
+            PauseMenu menu = MakeMenu();
 
             menu.ScrollDown();
             menu.ScrollUp();
@@ -37,7 +37,7 @@ namespace RaceGame_Tests
         [Test]
         public void ScrollUp_IndexIs0_SetsIndexToMaxValue()
         {
-            Menu menu = MakeMenu();
+            PauseMenu menu = MakeMenu();
 
             menu.ScrollUp();
 
@@ -47,7 +47,7 @@ namespace RaceGame_Tests
         [Test]
         public void ScrollDown_IndexIsLowerThanMaxValue_RaisesIndex()
         {
-            Menu menu = MakeMenu();
+            PauseMenu menu = MakeMenu();
 
             menu.ScrollDown();
 
@@ -57,7 +57,7 @@ namespace RaceGame_Tests
         [Test]
         public void ScrollDown_IndexIsMaxValue_SetsIndexTo0()
         {
-            Menu menu = MakeMenu();
+            PauseMenu menu = MakeMenu();
 
             menu.ScrollUp();
             menu.ScrollDown();
