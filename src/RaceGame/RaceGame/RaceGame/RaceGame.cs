@@ -26,7 +26,6 @@ namespace RaceGame
         private KeyboardState _oldState;
         private Keys _menuKey;
         private PauseMenu _pauseMenu;
-
         private const int NR_OF_MAPS = 4;
         private const int NR_OF_CARS = 5;
         private const int NR_OF_PAUSE_BUTTONS = 3;
@@ -37,6 +36,9 @@ namespace RaceGame
         private ComputerPlayer computerPlayer;
         //Screen State variables to indicate what is the current screen
         private bool _isPauseScreenShowed;
+        private bool _isMainMenuScreenShowed;
+        private MainMenu _mainMenu;
+        private List<Player> _players = new List<Player>();
 
         public RaceGame()
             : base()
@@ -45,6 +47,7 @@ namespace RaceGame
             Content.RootDirectory = "Content";
 
             _menuKey = Keys.Escape;
+            _isMainMenuScreenShowed = true;
 
             //Initialize screen size to an ideal resolution for the projector
             graphics.PreferredBackBufferWidth = 800;
@@ -81,6 +84,7 @@ namespace RaceGame
             pauseButtons[2] = Content.Load<Texture2D>("menu_exit");
 
             _pauseMenu = new PauseMenu(Content.Load<Texture2D>("transparentBackground"), pauseButtons);
+            _mainMenu = new MainMenu(Content.Load<Texture2D>("transparentBackground"),Content.Load<Texture2D>(""));
 
             Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
@@ -123,18 +127,16 @@ namespace RaceGame
                 _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"), _nr_of_laps, 80, 270, 8.0f);
             }
 
-            List<Player> players = new List<Player>();
             Player player1 = new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[0], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
             Player player2 = new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[1], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
             Player player3 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[3], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
             Player player4 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[4], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
-            players.Add(player1);
-            players.Add(player2);
-            players.Add(player3);
-            players.Add(player4);
+            _players.Add(player1);
+            _players.Add(player2);
+            _players.Add(player3);
+            _players.Add(player4);
             computerPlayer.Players.Add(player3);
             computerPlayer.Players.Add(player4);
-            world = new World(_maps[MAP_INDEX], players, Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"));
         }
 
         /// <summary>
@@ -167,7 +169,49 @@ namespace RaceGame
                 }
             }
 
-            if (!_isPauseScreenShowed)
+            if (_isMainMenuScreenShowed)
+            {
+                if (newState.IsKeyDown(Keys.Up))
+                {
+                    if (_oldState.IsKeyUp(Keys.Up))
+                    {
+                        _mainMenu.ScrollUp();
+                    }
+                }
+                if (newState.IsKeyDown(Keys.Down))
+                {
+                    if (_oldState.IsKeyUp(Keys.Down))
+                    {
+                        _mainMenu.ScrollDown();
+                    }
+                }
+                if (newState.IsKeyDown(Keys.Enter))
+                {
+                    if (_oldState.IsKeyUp(Keys.Enter))
+                    {
+                        switch (_mainMenu.Index)
+                        {
+                            case (int)MainMenuItems.Players:
+
+                                break;
+                            case (int)MainMenuItems.Bots:
+
+                                break;
+                            case (int)MainMenuItems.Map:
+
+                                break;
+                            case (int)MainMenuItems.Laps:
+
+                                break;
+                            case (int)MainMenuItems.Start:
+                                _isMainMenuScreenShowed = false;
+                                world = new World(_maps[MAP_INDEX], _players, Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"));
+                                break;
+                        }
+                    }
+                }
+            }
+            else if (!_isPauseScreenShowed)
             {
                 foreach (Player player in world.Players)
                 {
@@ -187,7 +231,6 @@ namespace RaceGame
                     {
                         player.Car.TurnRight();
                     }
-
                 }
                 computerPlayer.Update();
                 world.Update();

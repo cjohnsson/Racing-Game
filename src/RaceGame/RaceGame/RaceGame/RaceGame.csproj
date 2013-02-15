@@ -86,6 +86,7 @@
     <Compile Include="Info.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IWorld.cs" />
+    <Compile Include="MainMenuItems.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="PauseMenu.cs" />
     <Compile Include="PauseMenuItems.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RaceGame.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="TerrainTypes.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
