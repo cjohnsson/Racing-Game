@@ -204,12 +204,28 @@ namespace RaceGame
                             Player player4 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[4], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
 
                             _players = new List<Player>();
-                            _players.Add(player1);
-                            _players.Add(player2);
-                            _players.Add(player3);
-                            _players.Add(player4);
-                            computerPlayer.Players.Add(player3);
-                            computerPlayer.Players.Add(player4);
+
+                            if (_mainMenu.NrOfPlayers == 1)
+                                _players.Add(player2);
+                            else
+                            {
+                                _players.Add(player1);
+                                _players.Add(player2);
+                            }
+
+                            switch (_mainMenu.NrOfBots)
+                            {
+                                case 1:
+                                    _players.Add(player3);
+                                    computerPlayer.Players.Add(player3);
+                                    break;
+                                case 2:
+                                    _players.Add(player3);
+                                    computerPlayer.Players.Add(player3);
+                                    _players.Add(player4);
+                                    computerPlayer.Players.Add(player4);
+                                    break;
+                            }
 
                             world = new World(_maps[_mainMenu.SelectedMap], _players,
                                               Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"));

@@ -46,7 +46,6 @@ namespace RaceGame
                 TurnRandom(player);
                 CheckIfStuck(player);
             }
-            
         }
 
         private void CheckIfStuck(Player player)
@@ -79,8 +78,6 @@ namespace RaceGame
                player.Car.Break();
            }
        }
-
-
     }
 }
 
