@@ -4,7 +4,7 @@ namespace RaceGame
 {
     public interface IMainMenu
     {
-        int Index { get; }
+        int SelectedMenuItem { get; }
         int NrOfPlayers { get; }
         int NrOfBots { get; }
         int SelectedMap { get; }
@@ -12,7 +12,7 @@ namespace RaceGame
         void ScrollUp();
         void ScrollDown();
         void Draw(SpriteBatch spriteBatch);
-        void RaiseChosenValue();
-        void LowerChosenValue();
+        void RaiseSelectedValue();
+        void LowerSelectedValue();
     }
 }

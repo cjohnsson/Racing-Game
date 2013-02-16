@@ -37,7 +37,7 @@ namespace RaceGame
         private bool _isPauseScreenShowed;
         private bool _isMainMenuScreenShowed;
         private MainMenu _mainMenu;
-        private List<Player> _players = new List<Player>();
+        private List<Player> _players;
 
         public RaceGame()
             : base()
@@ -125,17 +125,6 @@ namespace RaceGame
             {
                 _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"), 80, 270, 8.0f);
             }
-
-            Player player1 = new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[0], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
-            Player player2 = new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[1], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
-            Player player3 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[3], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
-            Player player4 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[4], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
-            _players.Add(player1);
-            _players.Add(player2);
-            _players.Add(player3);
-            _players.Add(player4);
-            computerPlayer.Players.Add(player3);
-            computerPlayer.Players.Add(player4);
         }
 
         /// <summary>
@@ -189,7 +178,7 @@ namespace RaceGame
                 {
                     if (_oldState.IsKeyUp(Keys.Left))
                     {
-                        _mainMenu.LowerChosenValue();
+                        _mainMenu.LowerSelectedValue();
                     }
                 }
 
@@ -197,7 +186,7 @@ namespace RaceGame
                 {
                     if (_oldState.IsKeyUp(Keys.Right))
                     {
-                        _mainMenu.RaiseChosenValue();
+                        _mainMenu.RaiseSelectedValue();
                     }
                 }
 
@@ -205,9 +194,23 @@ namespace RaceGame
                 {
                     if (_oldState.IsKeyUp(Keys.Enter))
                     {
-                        if (_mainMenu.Index == (int)MainMenuItems.Start)
+                        if (_mainMenu.SelectedMenuItem == 4) //TODO: Fix this shitty hardcoded 4, nr 4 represents the start button
                         {
                             _isMainMenuScreenShowed = false;
+
+                            Player player1 = new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[0], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
+                            Player player2 = new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[1], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
+                            Player player3 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[3], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
+                            Player player4 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[4], new Vector2(_maps[MAP_INDEX].StartX, _maps[MAP_INDEX].StartY), _maps[MAP_INDEX].StartRotation);
+
+                            _players = new List<Player>();
+                            _players.Add(player1);
+                            _players.Add(player2);
+                            _players.Add(player3);
+                            _players.Add(player4);
+                            computerPlayer.Players.Add(player3);
+                            computerPlayer.Players.Add(player4);
+
                             world = new World(_maps[_mainMenu.SelectedMap], _players,
                                               Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"));
                             world.Map.Laps = _mainMenu.NrOfLaps;

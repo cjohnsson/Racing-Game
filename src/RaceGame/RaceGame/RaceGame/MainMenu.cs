@@ -1,84 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RaceGame.Menu.Main;
 
 namespace RaceGame
 {
     public class MainMenu : IMainMenu
     {
-        private const int NR_OF_BUTTONS = 5;
         private Texture2D _backgroundImage;
-        private Rectangle[] _buttonPositions;
+        private Vector2[] _menuItemPositions;
         private SpriteFont _font;
-        private int _buttonHeight;
-        private int _buttonWidth;
-        public int Index { get; private set; }
-        public int NrOfPlayers { get; private set; }
-        public int NrOfBots { get; private set; }
-        public int SelectedMap { get; private set; }
-        public int NrOfLaps { get; private set; }
-
-        private void InitilizeDefaultValues()
-        {
-            Index = 0;
-            NrOfPlayers = 1;
-            NrOfBots = 2;
-            SelectedMap = 0;
-            NrOfLaps = 2;
-        }
+        private int _menuItemHeight;
+        private int _menuItemWidth;
+        private MainMenuItem[] _mainMenuItems;
+        public int SelectedMenuItem { get; private set; }
+        public int NrOfPlayers { get { return _mainMenuItems[0].GetValue(); } }
+        public int NrOfBots { get { return _mainMenuItems[1].GetValue(); } }
+        public int SelectedMap { get { return _mainMenuItems[2].GetValue(); } }
+        public int NrOfLaps { get { return _mainMenuItems[3].GetValue(); } }
 
         public MainMenu()
         {
-            Index = 0;
-            NrOfPlayers = 1;
-            NrOfBots = 2;
-            SelectedMap = 0;
-            NrOfLaps = 2;
+            InitilizeMainMenuItems();
         }
 
         public MainMenu(Texture2D backgroundImage, SpriteFont font)
         {
-            InitilizeDefaultValues();
+            InitilizeMainMenuItems();
+
             _backgroundImage = backgroundImage;
             _font = font;
-            _buttonPositions = new Rectangle[NR_OF_BUTTONS];
-            _buttonHeight = 50;
-            _buttonWidth = 150;
-            int xPosition = _backgroundImage.Bounds.Width / 2 - _buttonWidth / 2;
-            int yPosition = _backgroundImage.Bounds.Height / 2 - (_buttonHeight * NR_OF_BUTTONS) / 2;
+            _menuItemPositions = new Vector2[_mainMenuItems.Length];
+            _menuItemHeight = 50;
+            _menuItemWidth = 150;
+            int xStartPosition = _backgroundImage.Bounds.Width / 2 - _menuItemWidth / 2;
+            int yStartPosition = _backgroundImage.Bounds.Height / 2 - (_menuItemHeight * _mainMenuItems.Length) / 2;
 
-            MakePositions(xPosition, yPosition);
+            MakePositions(xStartPosition, yStartPosition);
+        }
+
+        private void InitilizeMainMenuItems()
+        {
+            _mainMenuItems = new MainMenuItem[5];
+            _mainMenuItems[0] = new MainMenuItem("Number of players: {0}", new RolloverUtility(1, 1, 2));
+            _mainMenuItems[1] = new MainMenuItem("Number of bots: {0}", new RolloverUtility(2, 0, 2));
+            _mainMenuItems[2] = new MainMenuItem("Selected map: {0}", new RolloverUtility(0, 0, 3));
+            _mainMenuItems[3] = new MainMenuItem("Number of laps: {0}", new RolloverUtility(1, 1, 9));
+            _mainMenuItems[4] = new MainMenuItem("START THE GAME");
         }
 
         private void MakePositions(int xPosition, int yPosition)
         {
-            for (int i = 0; i < _buttonPositions.Length; i++)
+            for (int i = 0; i < _menuItemPositions.Length; i++)
             {
-                _buttonPositions[i] = new Rectangle(xPosition, yPosition, _buttonWidth, _buttonHeight);
-                yPosition += _buttonHeight;
+                _menuItemPositions[i] = new Vector2(xPosition, yPosition);
+                yPosition += _menuItemHeight;
             }
         }
 
         public void ScrollUp()
         {
-            if (Index > 0)
-                Index--;
-            else if (Index <= 0)
+            if (SelectedMenuItem > 0)
+                SelectedMenuItem--;
+            else if (SelectedMenuItem <= 0)
             {
-                Index = NR_OF_BUTTONS - 1;
+                SelectedMenuItem = _mainMenuItems.Length - 1;
             }
         }
 
         public void ScrollDown()
         {
-            if (Index < NR_OF_BUTTONS - 1)
-                Index++;
-            else if (Index >= NR_OF_BUTTONS - 1)
+            if (SelectedMenuItem < _mainMenuItems.Length - 1)
+                SelectedMenuItem++;
+            else if (SelectedMenuItem >= _mainMenuItems.Length - 1)
             {
-                Index = 0;
+                SelectedMenuItem = 0;
             }
         }
 
@@ -86,122 +84,25 @@ namespace RaceGame
         {
             spriteBatch.Draw(_backgroundImage, new Rectangle(0, 0, _backgroundImage.Bounds.Width, _backgroundImage.Bounds.Height), Color.White);
 
-            for (int i = 0; i < NR_OF_BUTTONS; i++)
+            for (int i = 0; i < _mainMenuItems.Length; i++)
             {
                 Color color = Color.White;
-                Vector2 position = new Vector2(_buttonPositions[i].X, _buttonPositions[i].Y);
 
-                if (i == Index)
+                if (i == SelectedMenuItem)
                     color = Color.Red;
 
-                switch (i)
-                {
-                    case (int)MainMenuItems.Players:
-                        spriteBatch.DrawString(_font, string.Format("Number of players: " + NrOfPlayers), position, color);
-                        break;
-                    case (int)MainMenuItems.Bots:
-                        spriteBatch.DrawString(_font, string.Format("Number of bots: " + NrOfBots), position, color);
-                        break;
-                    case (int)MainMenuItems.Map:
-                        spriteBatch.DrawString(_font, string.Format("Selected map: " + SelectedMap), position, color);
-                        break;
-                    case (int)MainMenuItems.Laps:
-                        spriteBatch.DrawString(_font, string.Format("Number of laps: " + NrOfLaps), position, color);
-                        break;
-                    case (int)MainMenuItems.Start:
-                        spriteBatch.DrawString(_font, string.Format("START THE GAME"), position, color);
-                        break;
-                }
+                spriteBatch.DrawString(_font, _mainMenuItems[i].ToString(), _menuItemPositions[i], color);
             }
         }
 
-        public void RaiseChosenValue()
+        public void RaiseSelectedValue()
         {
-            switch (Index)
-            {
-                case (int)MainMenuItems.Players:
-                    if (NrOfPlayers < 2)
-                    {
-                        NrOfPlayers++;
-                    }
-                    else if (NrOfPlayers >= 2)
-                    {
-                        NrOfPlayers = 1;
-                    }
-                    break;
-                case (int)MainMenuItems.Bots:
-                    if (NrOfBots < 2)
-                    {
-                        NrOfBots++;
-                    }
-                    else if (NrOfBots >= 2)
-                    {
-                        NrOfBots = 0;
-                    }
-                    break;
-                case (int)MainMenuItems.Map:
-                    if (SelectedMap < 3)
-                    {
-                        SelectedMap++;
-                    }
-                    else if (SelectedMap >= 3)
-                    {
-                        SelectedMap = 0;
-                    }
-                    break;
-                case (int)MainMenuItems.Laps:
-                    if (NrOfLaps < 99)
-                    {
-                        NrOfLaps++;
-                    }
-                    else if (NrOfLaps >= 99)
-                    {
-                        NrOfLaps = 1;
-                    }
-                    break;
-            }
+            _mainMenuItems[SelectedMenuItem].RaiseValue();
         }
 
-        public void LowerChosenValue()
+        public void LowerSelectedValue()
         {
-            switch (Index)
-            {
-                case (int)MainMenuItems.Players:
-                    if (NrOfPlayers == 2)
-                    {
-                        NrOfPlayers = 1;
-                    }
-                    else
-                        NrOfPlayers = 2;
-                    break;
-                case (int)MainMenuItems.Bots:
-                    if (NrOfBots >= 1)
-                        NrOfBots--;
-                    else
-                        NrOfBots = 2;
-                    break;
-
-                case (int)MainMenuItems.Map:
-                    if (SelectedMap >= 1)
-                    {
-                        SelectedMap--;
-                    }
-                    else
-                    {
-                        SelectedMap = 3;
-                    }
-                    break;
-                case (int)MainMenuItems.Laps:
-                    if (NrOfLaps > 1)
-                    {
-                        NrOfLaps--;
-                    }
-                    else
-                    {
-                        NrOfLaps = 99;
-                    }
-                    break;
-            }
+            _mainMenuItems[SelectedMenuItem].LowerValue();
         }
     }
 }

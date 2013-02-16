@@ -27,7 +27,7 @@ namespace RaceGame_Tests
             menu.ScrollDown();
             menu.ScrollUp();
 
-            Assert.AreEqual(0, menu.Index);
+            Assert.AreEqual(0, menu.SelectedMenuItem);
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace RaceGame_Tests
 
             menu.ScrollUp();
 
-            Assert.AreEqual(4, menu.Index);
+            Assert.AreEqual(4, menu.SelectedMenuItem);
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace RaceGame_Tests
 
             menu.ScrollDown();
 
-            Assert.AreEqual(1, menu.Index);
+            Assert.AreEqual(1, menu.SelectedMenuItem);
         }
 
         [Test]
@@ -58,47 +58,47 @@ namespace RaceGame_Tests
             menu.ScrollUp();
             menu.ScrollDown();
 
-            Assert.AreEqual(0, menu.Index);
+            Assert.AreEqual(0, menu.SelectedMenuItem);
         }
 
         [Test]
-        public void RaiseChosenValue_TheValueNrOfPlayersIsLowerThanMaxValue_RaisesValue()
+        public void RaiseChosenValue_TheValueNrOfPlayersIsHigherThanTheMaximumValue_RaiseValue()
         {
             MainMenu menu = MakeMenu();
 
-            menu.RaiseChosenValue();
+            menu.RaiseSelectedValue();
 
             Assert.AreEqual(2, menu.NrOfPlayers);
         }
 
         [Test]
-        public void RaiseChosenValue_TheValueNrOfPlayersIsMaxValue_SetsValueTo1()
+        public void RaiseChosenValue_TheValueNrOfPlayersIsTheMaximumValue_SetsNrOfPlayersValueToTheMinimumValue()
         {
             MainMenu menu = MakeMenu();
 
-            menu.RaiseChosenValue();
-            menu.RaiseChosenValue();
+            menu.RaiseSelectedValue();
+            menu.RaiseSelectedValue();
 
             Assert.AreEqual(1, menu.NrOfPlayers);
         }
 
         [Test]
-        public void LowerChosenValue_TheValueNrOfPlayersIsHigherThanMinValue_LowerValue()
+        public void LowerChosenValue_TheValueOfNrOfPlayersIsHigherThanItsMinimumValue_LowerValue()
         {
             MainMenu menu = MakeMenu();
 
-            menu.RaiseChosenValue();
-            menu.LowerChosenValue();
+            menu.RaiseSelectedValue();
+            menu.LowerSelectedValue();
 
             Assert.AreEqual(1, menu.NrOfPlayers);
         }
 
         [Test]
-        public void LowerChosenValue_TheValueNrOfPlayersIsMinValue_SetsValueTo2()
+        public void LowerChosenValue_TheValueOfNrOfPlayersIsEqualToItsMinimumValue_SetsNrOfPlayersToItsMaximumValue()
         {
             MainMenu menu = MakeMenu();
 
-            menu.LowerChosenValue();
+            menu.LowerSelectedValue();
 
             Assert.AreEqual(2, menu.NrOfPlayers);
         }
