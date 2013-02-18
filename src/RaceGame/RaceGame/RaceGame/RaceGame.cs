@@ -232,10 +232,24 @@ namespace RaceGame
                     {
                         _isMainMenuScreenShowed = false;
 
-                        Player player1 = new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[0], new Vector2(_maps[_mainMenu.SelectedMap].StartX, _maps[_mainMenu.SelectedMap].StartY), _maps[_mainMenu.SelectedMap].StartRotation);
-                        Player player2 = new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[1], new Vector2(_maps[_mainMenu.SelectedMap].StartX, _maps[_mainMenu.SelectedMap].StartY), _maps[_mainMenu.SelectedMap].StartRotation);
-                        Player player3 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[3], new Vector2(_maps[_mainMenu.SelectedMap].StartX, _maps[_mainMenu.SelectedMap].StartY), _maps[_mainMenu.SelectedMap].StartRotation);
-                        Player player4 = new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[4], new Vector2(_maps[_mainMenu.SelectedMap].StartX, _maps[_mainMenu.SelectedMap].StartY), _maps[_mainMenu.SelectedMap].StartRotation);
+                        Player player1 = new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[0],
+                                                    new Vector2(_maps[_mainMenu.SelectedMap].StartX,
+                                                                _maps[_mainMenu.SelectedMap].StartY),
+                                                    _maps[_mainMenu.SelectedMap].StartRotation);
+                        Player player2 = new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[1],
+                                                    new Vector2(_maps[_mainMenu.SelectedMap].StartX,
+                                                                _maps[_mainMenu.SelectedMap].StartY),
+                                                    _maps[_mainMenu.SelectedMap].StartRotation);
+                        Player player3 =
+                            new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[3],
+                                       new Vector2(_maps[_mainMenu.SelectedMap].StartX,
+                                                   _maps[_mainMenu.SelectedMap].StartY),
+                                       _maps[_mainMenu.SelectedMap].StartRotation);
+                        Player player4 =
+                            new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[4],
+                                       new Vector2(_maps[_mainMenu.SelectedMap].StartX,
+                                                   _maps[_mainMenu.SelectedMap].StartY),
+                                       _maps[_mainMenu.SelectedMap].StartRotation);
 
                         _players = new List<Player>();
 
@@ -260,13 +274,14 @@ namespace RaceGame
                                 computerPlayer.Players.Add(player4);
                                 break;
                         }
-                           
-                            world = new World(_maps[_mainMenu.SelectedMap], _players,
-                                              Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"),_countDown);
-                            world.Map.Laps = _mainMenu.NrOfLaps;
-                            
-                            
-                        }
+
+                        world = new World(_maps[_mainMenu.SelectedMap], _players,
+                                          Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"),
+                                          _countDown);
+                        world.Map.Laps = _mainMenu.NrOfLaps;
+
+                    
+                
                     }
                 }
             }
