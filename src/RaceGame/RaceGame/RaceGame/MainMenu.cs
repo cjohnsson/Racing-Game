@@ -15,7 +15,7 @@ namespace RaceGame
         private int _menuItemHeight;
         private int _menuItemWidth;
         private MainMenuItem[] _mainMenuItems;
-        public int SelectedMenuItem { get; private set; }
+        public MainMenuItem SelectedMainMenuItem { get; private set; }
         public int NrOfPlayers { get { return _mainMenuItems[0].GetValue(); } }
         public int NrOfBots { get { return _mainMenuItems[1].GetValue(); } }
         public int SelectedMap { get { return _mainMenuItems[2].GetValue(); } }
@@ -49,6 +49,7 @@ namespace RaceGame
             _mainMenuItems[2] = new MainMenuItem("Selected map: {0}", new RolloverUtility(0, 0, 3));
             _mainMenuItems[3] = new MainMenuItem("Number of laps: {0}", new RolloverUtility(1, 1, 9));
             _mainMenuItems[4] = new MainMenuItem("START THE GAME");
+            SelectedMainMenuItem = new MainMenuItem(string.Empty, new RolloverUtility(0,0,4));
         }
 
         private void MakePositions(int xPosition, int yPosition)
@@ -62,22 +63,12 @@ namespace RaceGame
 
         public void ScrollUp()
         {
-            if (SelectedMenuItem > 0)
-                SelectedMenuItem--;
-            else if (SelectedMenuItem <= 0)
-            {
-                SelectedMenuItem = _mainMenuItems.Length - 1;
-            }
+            SelectedMainMenuItem.LowerValue();
         }
 
         public void ScrollDown()
         {
-            if (SelectedMenuItem < _mainMenuItems.Length - 1)
-                SelectedMenuItem++;
-            else if (SelectedMenuItem >= _mainMenuItems.Length - 1)
-            {
-                SelectedMenuItem = 0;
-            }
+            SelectedMainMenuItem.RaiseValue();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -88,7 +79,7 @@ namespace RaceGame
             {
                 Color color = Color.White;
 
-                if (i == SelectedMenuItem)
+                if (i == SelectedMainMenuItem.GetValue())
                     color = Color.Red;
 
                 spriteBatch.DrawString(_font, _mainMenuItems[i].ToString(), _menuItemPositions[i], color);
@@ -97,12 +88,12 @@ namespace RaceGame
 
         public void RaiseSelectedValue()
         {
-            _mainMenuItems[SelectedMenuItem].RaiseValue();
+            _mainMenuItems[SelectedMainMenuItem.GetValue()].RaiseValue();
         }
 
         public void LowerSelectedValue()
         {
-            _mainMenuItems[SelectedMenuItem].LowerValue();
+            _mainMenuItems[SelectedMainMenuItem.GetValue()].LowerValue();
         }
     }
 }
