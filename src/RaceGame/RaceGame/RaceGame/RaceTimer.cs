@@ -7,11 +7,11 @@ using System.Diagnostics;
 
 namespace RaceGame
 {
-    class GameTime : IGameTime
+    public class RaceTimer : IRaceTimer
     {
         Stopwatch _timer;
 
-        public GameTime()
+        public RaceTimer()
         {
             _timer = new Stopwatch();
         }
