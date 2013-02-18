@@ -12,8 +12,8 @@ namespace RaceGame
         private Texture2D _backgroundImage;
         private Vector2[] _menuItemPositions;
         private SpriteFont _font;
-        private int _menuItemHeight;
-        private int _menuItemWidth;
+        private const int MENU_ITEM_HEIGHT = 50;
+        
         private MainMenuItem[] _mainMenuItems;
         public MainMenuItem SelectedMainMenuItem { get; private set; }
         public int NrOfPlayers { get { return _mainMenuItems[0].GetValue(); } }
@@ -29,27 +29,25 @@ namespace RaceGame
         public MainMenu(Texture2D backgroundImage, SpriteFont font)
         {
             InitilizeMainMenuItems();
-
             _backgroundImage = backgroundImage;
             _font = font;
             _menuItemPositions = new Vector2[_mainMenuItems.Length];
-            _menuItemHeight = 50;
-            _menuItemWidth = 150;
-            int xStartPosition = _backgroundImage.Bounds.Width / 2 - _menuItemWidth / 2;
-            int yStartPosition = _backgroundImage.Bounds.Height / 2 - (_menuItemHeight * _mainMenuItems.Length) / 2;
+            
+            int startXPosition = _backgroundImage.Bounds.Width / 2 - 75;
+            int startYPosition = _backgroundImage.Bounds.Height / 2 - (MENU_ITEM_HEIGHT * _mainMenuItems.Length) / 2;
 
-            MakePositions(xStartPosition, yStartPosition);
+            MakePositions(startXPosition, startYPosition);
         }
 
         private void InitilizeMainMenuItems()
         {
+            SelectedMainMenuItem = new MainMenuItem(string.Empty, new RolloverUtility(0, 0, 4));
             _mainMenuItems = new MainMenuItem[5];
             _mainMenuItems[0] = new MainMenuItem("Number of players: {0}", new RolloverUtility(1, 1, 2));
             _mainMenuItems[1] = new MainMenuItem("Number of bots: {0}", new RolloverUtility(2, 0, 2));
             _mainMenuItems[2] = new MainMenuItem("Selected map: {0}", new RolloverUtility(0, 0, 3));
-            _mainMenuItems[3] = new MainMenuItem("Number of laps: {0}", new RolloverUtility(1, 1, 9));
+            _mainMenuItems[3] = new MainMenuItem("Number of laps: {0}", new RolloverUtility(1, 1, 9));           
             _mainMenuItems[4] = new MainMenuItem("START THE GAME");
-            SelectedMainMenuItem = new MainMenuItem(string.Empty, new RolloverUtility(0,0,4));
         }
 
         private void MakePositions(int xPosition, int yPosition)
@@ -57,7 +55,7 @@ namespace RaceGame
             for (int i = 0; i < _menuItemPositions.Length; i++)
             {
                 _menuItemPositions[i] = new Vector2(xPosition, yPosition);
-                yPosition += _menuItemHeight;
+                yPosition += MENU_ITEM_HEIGHT;
             }
         }
 

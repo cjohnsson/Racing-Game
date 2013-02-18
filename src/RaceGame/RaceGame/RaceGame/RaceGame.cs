@@ -133,7 +133,7 @@ namespace RaceGame
 
             _startRotations[0] = 8.0f;
             _startRotations[1] = 8.0f;
-            _startRotations[2] = 3.2f;
+            _startRotations[2] = 0.0f;
             _startRotations[3] = 3.2f;
 
             for (int i = 0; i < _maps.Length; i++)
