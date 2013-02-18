@@ -79,11 +79,11 @@
     <Compile Include="ComputerPlayer.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="CountDown.cs" />
-    <Compile Include="GameTime.cs" />
+    <Compile Include="RaceTimer.cs" />
     <Compile Include="ICar.cs" />
     <Compile Include="IClouds.cs" />
     <Compile Include="IComputerPlayer.cs" />
-    <Compile Include="IGameTime.cs" />
+    <Compile Include="IRaceTimer.cs" />
     <Compile Include="IInfo.cs" />
     <Compile Include="IMainMenu.cs" />
     <Compile Include="IMap.cs" />
@@ -101,6 +101,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="RaceGame.cs" />
     <Compile Include="MainMenu.cs" />
+    <Compile Include="Score.cs" />
+    <Compile Include="ScoreList.cs" />
     <Compile Include="TerrainTypes.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
