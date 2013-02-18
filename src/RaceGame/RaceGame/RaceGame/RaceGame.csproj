@@ -67,6 +67,7 @@
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -78,15 +79,18 @@
     <Compile Include="ComputerPlayer.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="CountDown.cs" />
+    <Compile Include="RaceTimer.cs" />
     <Compile Include="ICar.cs" />
     <Compile Include="IClouds.cs" />
     <Compile Include="IComputerPlayer.cs" />
+    <Compile Include="IRaceTimer.cs" />
     <Compile Include="IInfo.cs" />
     <Compile Include="IMainMenu.cs" />
     <Compile Include="IMap.cs" />
     <Compile Include="IPauseMenu.cs" />
     <Compile Include="Info.cs" />
     <Compile Include="IPlayer.cs" />
+    <Compile Include="ITextTyper.cs" />
     <Compile Include="IWorld.cs" />
     <Compile Include="Menu\Main\MenuItem.cs" />
     <Compile Include="Menu\Main\RolloverUtility.cs" />
@@ -98,7 +102,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="RaceGame.cs" />
     <Compile Include="MainMenu.cs" />
+    <Compile Include="Score.cs" />
+    <Compile Include="ScoreList.cs" />
     <Compile Include="TerrainTypes.cs" />
+    <Compile Include="TextTyper.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>
