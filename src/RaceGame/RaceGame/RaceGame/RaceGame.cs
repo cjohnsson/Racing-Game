@@ -205,6 +205,14 @@ namespace RaceGame
                     }
                 }
 
+                if (newState.IsKeyDown(_menuKey))
+                {
+                    if (_oldState.IsKeyUp(_menuKey))
+                    {
+                        this.Exit();
+                    }
+                }
+
                 if (newState.IsKeyDown(Keys.Enter))
                 {
                     if (_oldState.IsKeyUp(Keys.Enter))
