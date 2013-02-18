@@ -9,8 +9,8 @@ namespace RaceGame
     public class ComputerPlayer : IComputerPlayer
     {
         public List<Player> Players { get; set; }
-        private const float FORESIGHT = 15.0f;
-        private const float FORESIGHT_ANGLE = 0.5f;
+        private const float FORESIGHT = 20.0f;
+        private const float FORESIGHT_ANGLE = 0.7f;
         private DateTime lastMovement = DateTime.Now;
         private int lastX, lastY;
         private Random r = new Random();
