@@ -5,12 +5,30 @@ using System.Text;
 
 namespace RaceGame
 {
-    class Score
+    public class Score
     {
-        string name;
-        DateTime time;
+        private string _name;
+        private TimeSpan _time;
 
+        public Score(string newName, TimeSpan newTime )
+        {
+            _name = newName;
+            _time = newTime;
+        }
 
+        public string Name
+        {
+            get { return _name; }
+            private set { _name = value; }
+        }
 
+        public TimeSpan Time
+        {
+            get { return _time; }
+            private set { _time = value; }
+        }
     }
 }
+
+    
+
