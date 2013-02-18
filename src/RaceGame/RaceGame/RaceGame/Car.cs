@@ -89,7 +89,6 @@ namespace RaceGame
 
             if (_speed > MAXSPEED)
                 _speed = MAXSPEED;
-
         }
 
         private void Decelerate()
