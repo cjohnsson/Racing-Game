@@ -11,7 +11,7 @@ namespace RaceGame_Tests.Menu.Main
     // ReSharper disable InconsistentNaming
 
     [TestFixture]
-    public class MainMenuItemTests
+    public class MenuItem_Test
     {
         private MenuItem MakeMainMenuItem()
         {
