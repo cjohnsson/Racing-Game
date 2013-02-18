@@ -13,40 +13,30 @@ namespace RaceGame
         private Vector2[] _menuItemPositions;
         private SpriteFont _font;
         private const int MENU_ITEM_HEIGHT = 50;
-        
-        private MainMenuItem[] _mainMenuItems;
-        public MainMenuItem SelectedMainMenuItem { get; private set; }
-        public int NrOfPlayers { get { return _mainMenuItems[0].GetValue(); } }
-        public int NrOfBots { get { return _mainMenuItems[1].GetValue(); } }
-        public int SelectedMap { get { return _mainMenuItems[2].GetValue(); } }
-        public int NrOfLaps { get { return _mainMenuItems[3].GetValue(); } }
+        private MenuItem[] _menuItems;
+        public MenuItem SelectedMenuItem { get; private set; }
+        public int NrOfPlayers { get { return _menuItems[0].GetValue(); } }
+        public int NrOfBots { get { return _menuItems[1].GetValue(); } }
+        public int SelectedMap { get { return _menuItems[2].GetValue(); } }
+        public int NrOfLaps { get { return _menuItems[3].GetValue(); } }
 
-        public MainMenu()
+        public MainMenu(MenuItem[] menuItems)
         {
-            InitilizeMainMenuItems();
+            _menuItems = menuItems;
         }
 
-        public MainMenu(Texture2D backgroundImage, SpriteFont font)
+        public MainMenu(Texture2D backgroundImage, SpriteFont font, MenuItem[] menuItems)
         {
-            InitilizeMainMenuItems();
+            SelectedMenuItem = new MenuItem(string.Empty, new RolloverUtility(0, 0, 3));
+            _menuItems = menuItems;
             _backgroundImage = backgroundImage;
             _font = font;
-            _menuItemPositions = new Vector2[_mainMenuItems.Length];
+            _menuItemPositions = new Vector2[_menuItems.Length];
             
             int startXPosition = _backgroundImage.Bounds.Width / 2 - 75;
-            int startYPosition = _backgroundImage.Bounds.Height / 2 - (MENU_ITEM_HEIGHT * _mainMenuItems.Length) / 2;
+            int startYPosition = _backgroundImage.Bounds.Height / 2 - (MENU_ITEM_HEIGHT * _menuItems.Length) / 2;
 
             MakePositions(startXPosition, startYPosition);
-        }
-
-        private void InitilizeMainMenuItems()
-        {
-            SelectedMainMenuItem = new MainMenuItem(string.Empty, new RolloverUtility(0, 0, 4));
-            _mainMenuItems = new MainMenuItem[4];
-            _mainMenuItems[0] = new MainMenuItem("Number of players: {0}", new RolloverUtility(1, 1, 2));
-            _mainMenuItems[1] = new MainMenuItem("Number of bots: {0}", new RolloverUtility(2, 0, 2));
-            _mainMenuItems[2] = new MainMenuItem("Selected map: {0}", new RolloverUtility(0, 0, 3));
-            _mainMenuItems[3] = new MainMenuItem("Number of laps: {0}", new RolloverUtility(1, 1, 9));           
         }
 
         private void MakePositions(int xPosition, int yPosition)
@@ -60,12 +50,12 @@ namespace RaceGame
 
         public void ScrollUp()
         {
-            SelectedMainMenuItem.LowerValue();
+            SelectedMenuItem.LowerValue();
         }
 
         public void ScrollDown()
         {
-            SelectedMainMenuItem.RaiseValue();
+            SelectedMenuItem.RaiseValue();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -73,25 +63,25 @@ namespace RaceGame
             spriteBatch.Draw(_backgroundImage, new Rectangle(0, 0, _backgroundImage.Bounds.Width, _backgroundImage.Bounds.Height), Color.White);
             spriteBatch.DrawString(_font, "Controls: \nQuit game = Escape \nStart game = Enter \nSelect a value = Up & Down \nChange selected value = Left & Right \nToggle fullscreen = F", new Vector2(5, 5), Color.White);
 
-            for (int i = 0; i < _mainMenuItems.Length; i++)
+            for (int i = 0; i < _menuItems.Length; i++)
             {
                 Color color = Color.White;
 
-                if (i == SelectedMainMenuItem.GetValue())
+                if (i == SelectedMenuItem.GetValue())
                     color = Color.Red;
 
-                spriteBatch.DrawString(_font, _mainMenuItems[i].ToString(), _menuItemPositions[i], color);
+                spriteBatch.DrawString(_font, _menuItems[i].ToString(), _menuItemPositions[i], color);
             }
         }
 
         public void RaiseSelectedValue()
         {
-            _mainMenuItems[SelectedMainMenuItem.GetValue()].RaiseValue();
+            _menuItems[SelectedMenuItem.GetValue()].RaiseValue();
         }
 
         public void LowerSelectedValue()
         {
-            _mainMenuItems[SelectedMainMenuItem.GetValue()].LowerValue();
+            _menuItems[SelectedMenuItem.GetValue()].LowerValue();
         }
     }
 }

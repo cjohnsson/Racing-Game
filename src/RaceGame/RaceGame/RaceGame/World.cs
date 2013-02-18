@@ -16,7 +16,6 @@ namespace RaceGame
         public Player Winner { get; set; }
         public CountDown CountDown { get; set; }
 
-
         public World(Map map, List<Player> players, SpriteFont font, Texture2D hud, CountDown countDown)
         {
             CountDown = countDown;
@@ -35,14 +34,13 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
             Map.DrawBackground(spriteBatch);
             foreach (var player in Players)
             {
                 player.Draw(spriteBatch);
             }
-            Map.DrawForeground(spriteBatch);
 
+            Map.DrawForeground(spriteBatch);
 
             if (!CountDown.Finished)
             {
@@ -63,9 +61,9 @@ namespace RaceGame
                     {
                         Winner = player;
                     }
-                }                
+                }
             }
-            Map.Update();          
+            Map.Update();
         }
     }
 }
