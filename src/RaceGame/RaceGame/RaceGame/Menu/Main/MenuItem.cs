@@ -5,24 +5,24 @@ using System.Text;
 
 namespace RaceGame.Menu.Main
 {
-    public class MainMenuItem
+    public class MenuItem
     {
         private string _text;
         private RolloverUtility _rolloverUtility;
 
-        public MainMenuItem()
+        public MenuItem()
             : this(string.Empty)
         {
 
         }
 
-        public MainMenuItem(string text)
+        public MenuItem(string text)
             : this(text, null)
         {
 
         }
 
-        public MainMenuItem(string text, RolloverUtility rolloverUtility)
+        public MenuItem(string text, RolloverUtility rolloverUtility)
         {
             _text = text;
             _rolloverUtility = rolloverUtility;

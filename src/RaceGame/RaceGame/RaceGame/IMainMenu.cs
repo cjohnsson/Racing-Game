@@ -5,7 +5,7 @@ namespace RaceGame
 {
     public interface IMainMenu
     {
-        MainMenuItem SelectedMainMenuItem { get; }
+        MenuItem SelectedMenuItem { get; }
         int NrOfPlayers { get; }
         int NrOfBots { get; }
         int SelectedMap { get; }

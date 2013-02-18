@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using NUnit.Framework;
 using RaceGame;
+using RaceGame.Menu.Main;
 
 namespace RaceGame_Tests
 {
@@ -14,9 +15,20 @@ namespace RaceGame_Tests
     [TestFixture]
     public class MainMenu_Test
     {
+        private MenuItem[] MakeMainMenuItems()
+        {
+            MenuItem[] menuItems = new MenuItem[4];
+            menuItems[0] = new MenuItem("Number of players: {0}", new RolloverUtility(1, 1, 2));
+            menuItems[1] = new MenuItem("Number of bots: {0}", new RolloverUtility(2, 0, 2));
+            menuItems[2] = new MenuItem("Selected map: {0}", new RolloverUtility(0, 0, 3));
+            menuItems[3] = new MenuItem("Number of laps: {0}", new RolloverUtility(1, 1, 9));
+            return menuItems;
+        }
+
         private MainMenu MakeMenu()
         {
-            return new MainMenu();
+
+            return new MainMenu(MakeMainMenuItems());
         }
 
         [Test]
@@ -27,8 +39,8 @@ namespace RaceGame_Tests
             menu.ScrollDown();
             menu.ScrollUp();
 
-            int result = menu.SelectedMainMenuItem.GetValue();
-            Assert.AreEqual(0, result );
+            int result = menu.SelectedMenuItem.GetValue();
+            Assert.AreEqual(0, result);
         }
 
         [Test]
@@ -38,7 +50,7 @@ namespace RaceGame_Tests
 
             menu.ScrollUp();
 
-            int result = menu.SelectedMainMenuItem.GetValue();
+            int result = menu.SelectedMenuItem.GetValue();
             Assert.AreEqual(4, result);
         }
 
@@ -49,7 +61,7 @@ namespace RaceGame_Tests
 
             menu.ScrollDown();
 
-            int result = menu.SelectedMainMenuItem.GetValue();
+            int result = menu.SelectedMenuItem.GetValue();
             Assert.AreEqual(1, result);
         }
 
@@ -61,7 +73,7 @@ namespace RaceGame_Tests
             menu.ScrollUp();
             menu.ScrollDown();
 
-            int result = menu.SelectedMainMenuItem.GetValue();
+            int result = menu.SelectedMenuItem.GetValue();
             Assert.AreEqual(0, result);
         }
 
