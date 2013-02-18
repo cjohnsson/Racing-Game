@@ -194,7 +194,7 @@ namespace RaceGame
                 {
                     if (_oldState.IsKeyUp(Keys.Enter))
                     {
-                        if (_mainMenu.SelectedMenuItem == 4) //TODO: Fix this shitty hardcoded 4, nr 4 represents the start button
+                        if (_mainMenu.SelectedMainMenuItem.GetValue() == 4) //TODO: Fix this shitty hardcoded 4, nr 4 represents the start button
                         {
                             _isMainMenuScreenShowed = false;
 

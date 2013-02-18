@@ -27,7 +27,7 @@ namespace RaceGame_Tests
             menu.ScrollDown();
             menu.ScrollUp();
 
-            Assert.AreEqual(0, menu.SelectedMenuItem);
+            Assert.AreEqual(0, menu.SelectedMainMenuItem);
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace RaceGame_Tests
 
             menu.ScrollUp();
 
-            Assert.AreEqual(4, menu.SelectedMenuItem);
+            Assert.AreEqual(4, menu.SelectedMainMenuItem);
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace RaceGame_Tests
 
             menu.ScrollDown();
 
-            Assert.AreEqual(1, menu.SelectedMenuItem);
+            Assert.AreEqual(1, menu.SelectedMainMenuItem);
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace RaceGame_Tests
             menu.ScrollUp();
             menu.ScrollDown();
 
-            Assert.AreEqual(0, menu.SelectedMenuItem);
+            Assert.AreEqual(0, menu.SelectedMainMenuItem);
         }
 
         [Test]
