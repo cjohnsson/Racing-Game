@@ -6,66 +6,40 @@ namespace RaceGame
 {
     public class CountDown
     {
-        private bool  _finsished;
-
-        private SpriteFont _font;
-        private Vector2 _position;
-        private float _deltaTime;
-        const float _time = 5.0f;
-        private DateTime _startDate;
-        
-
-
-        public CountDown()
-        {
-            _startDate = DateTime.Now;
-            Finished = false;
-        }
+     
+        private const float _time = 5.0f;
 
         #region Propertys
 
 
         public bool Finished
         {
-            get { return DateTime.Now.Subtract(_startDate).Seconds < _time; }
-            set { _finsished = value; }
+            get { return  DateTime.Now.Subtract(StartDate).TotalSeconds < _time; }
         }
 
         public string Text
         {
-            get { return ((int)_time - DateTime.Now.Subtract(_startDate).Seconds).ToString(); }
+            get { return ((int)_time - DateTime.Now.Subtract(StartDate).Seconds).ToString(); }
            
         }
 
-        public SpriteFont Font
-        {
-            get { return _font; }
-            set { _font = value; }
-        }
+        public SpriteFont Font { get; set; }
 
-        public Vector2 Position
-        {
-            get { return _position; }
-            set { _position = value; }
-        }
+        public Vector2 Position { get; set; }
 
-        public float DeltaTime
-        {
-            get { return _deltaTime; }
-            set { _deltaTime = value; }
-        }
+        public DateTime StartDate { get; set; }
 
         #endregion
      
 
         public void Start()
         {
-            _startDate = DateTime.Now;
+            StartDate = DateTime.Now;
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
-        {
-         
+        {        
                 spriteBatch.DrawString(Font, Text, new Vector2(400,150), Color.Red);
         }
     }
