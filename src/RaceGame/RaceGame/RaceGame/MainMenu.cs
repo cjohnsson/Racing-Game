@@ -42,12 +42,11 @@ namespace RaceGame
         private void InitilizeMainMenuItems()
         {
             SelectedMainMenuItem = new MainMenuItem(string.Empty, new RolloverUtility(0, 0, 4));
-            _mainMenuItems = new MainMenuItem[5];
+            _mainMenuItems = new MainMenuItem[4];
             _mainMenuItems[0] = new MainMenuItem("Number of players: {0}", new RolloverUtility(1, 1, 2));
             _mainMenuItems[1] = new MainMenuItem("Number of bots: {0}", new RolloverUtility(2, 0, 2));
             _mainMenuItems[2] = new MainMenuItem("Selected map: {0}", new RolloverUtility(0, 0, 3));
             _mainMenuItems[3] = new MainMenuItem("Number of laps: {0}", new RolloverUtility(1, 1, 9));           
-            _mainMenuItems[4] = new MainMenuItem("START THE GAME");
         }
 
         private void MakePositions(int xPosition, int yPosition)
@@ -72,6 +71,7 @@ namespace RaceGame
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_backgroundImage, new Rectangle(0, 0, _backgroundImage.Bounds.Width, _backgroundImage.Bounds.Height), Color.White);
+            spriteBatch.DrawString(_font, "Controls: \nQuit game = Escape \nStart game = Enter \nSelect a value = Up & Down \nChange selected value = Left & Right \nToggle fullscreen = F", new Vector2(5, 5), Color.White);
 
             for (int i = 0; i < _mainMenuItems.Length; i++)
             {
