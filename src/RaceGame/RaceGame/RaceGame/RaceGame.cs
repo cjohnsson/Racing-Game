@@ -81,7 +81,7 @@ namespace RaceGame
             menuItems[1] = new MenuItem("Number of bots: {0}", new RolloverUtility(2, 0, 2));
             menuItems[2] = new MenuItem("Selected map: {0}", new RolloverUtility(0, 0, 3));
             menuItems[3] = new MenuItem("Number of laps: {0}", new RolloverUtility(1, 1, 9));
-            
+
             return menuItems;
         }
 
@@ -93,7 +93,7 @@ namespace RaceGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            computerPlayer = new ComputerPlayer();           
+            computerPlayer = new ComputerPlayer();
 
 
             Texture2D[] pauseButtons = new Texture2D[NR_OF_PAUSE_BUTTONS];
@@ -110,7 +110,7 @@ namespace RaceGame
             Bitmap[] bitmaps = new Bitmap[NR_OF_MAPS];
             _maps = new Map[NR_OF_MAPS];
             _cars = new Texture2D[NR_OF_CARS];
-            _countDown = new CountDown() {Font = Content.Load<SpriteFont>("CountDownFont")};
+            _countDown = new CountDown() { Font = Content.Load<SpriteFont>("CountDownFont") };
             _startPositions = new Point[NR_OF_MAPS];
             _startRotations = new float[NR_OF_MAPS];
 
@@ -174,7 +174,7 @@ namespace RaceGame
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
-        {          
+        {
             KeyboardState newState = Keyboard.GetState();
 
             if (newState.IsKeyDown(_menuKey))
@@ -273,13 +273,12 @@ namespace RaceGame
                                 computerPlayer.Players.Add(player4);
                                 break;
                         }
-                           
-                            world = new World(_maps[_mainMenu.SelectedMap], _players,
-                                              Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"),_countDown);
-                            world.Map.Laps = _mainMenu.NrOfLaps;
-                            
-                            
-                        }
+
+                        world = new World(_maps[_mainMenu.SelectedMap], _players,
+                                          Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"), _countDown);
+                        world.Map.Laps = _mainMenu.NrOfLaps;
+
+
                     }
                 }
             }
