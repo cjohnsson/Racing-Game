@@ -9,28 +9,28 @@ namespace RaceGame
     {
         public Map Map { get; set; }
         public List<Player> Players { get; set; }
-        private static DateTime _startTime;
-        public static TimeSpan ElapsedTime { get { return DateTime.Now.Subtract(_startTime); } }
+        public static RaceTimer RaceTimer { get; private set; }
+        public static TimeSpan ElapsedTime
+        {
+            get { return RaceTimer.GetElapsedTime(); }
+        }
         private Info _info;
         public static Bitmap CollisionImage { get; set; }
         public Player Winner { get; set; }
-        public CountDown CountDown { get; set; }
+        private CountDown CountDown { get; set; }
 
         public World(Map map, List<Player> players, SpriteFont font, Texture2D hud, CountDown countDown)
         {
+            RaceTimer = new RaceTimer();
+            
             CountDown = countDown;
             CountDown.Start();
             Players = players;
             Map = map;
-            _startTime = DateTime.Now;
             _info = new Info(font, Map, Players, hud);
             CollisionImage = map.CollisionImage;
             Winner = null;
         }
-
-        //private TimeSpan GetWinnerTime() {
-        //    return  _startTime.Subtract(DateTime.Now);
-        //}
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -42,7 +42,7 @@ namespace RaceGame
 
             Map.DrawForeground(spriteBatch);
 
-            if (!CountDown.Finished)
+            if (CountDown.IsFinished)
             {
                 _info.Draw(spriteBatch);
             }
@@ -52,7 +52,7 @@ namespace RaceGame
 
         public void Update()
         {
-            if (!CountDown.Finished)
+            if (CountDown.IsFinished)
             {
                 foreach (var player in Players)
                 {

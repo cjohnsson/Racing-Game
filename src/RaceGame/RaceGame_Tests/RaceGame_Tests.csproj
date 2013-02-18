@@ -58,7 +58,6 @@
     <Compile Include="Map_Test.cs" />
     <Compile Include="Menu\Main\MainMenuItemTests.cs" />
     <Compile Include="Menu\Main\RolloverUtilityTests.cs" />
-    <Compile Include="PauseMenu_Tests.cs" />
     <Compile Include="Player_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextTyper_Test.cs" />

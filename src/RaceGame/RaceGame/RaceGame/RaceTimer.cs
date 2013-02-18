@@ -9,7 +9,7 @@ namespace RaceGame
 {
     public class RaceTimer : IRaceTimer
     {
-        Stopwatch _timer;
+        private Stopwatch _timer;
 
         public RaceTimer()
         {

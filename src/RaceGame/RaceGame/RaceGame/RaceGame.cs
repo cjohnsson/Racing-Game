@@ -8,10 +8,10 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.GamerServices;
-using RaceGame.Menu.Main;
+using RaceGame.Menu;
 using Color = Microsoft.Xna.Framework.Color;
 using Point = Microsoft.Xna.Framework.Point;
-
+using RaceGame.Menu;
 #endregion
 
 namespace RaceGame
@@ -28,17 +28,16 @@ namespace RaceGame
         private KeyboardState _oldState;
         private Keys _menuKey;
         private Keys _fullScreenKey;
-        private PauseMenu _pauseMenu;
+        private Menu.GeneralMenu _pauseMenu;
         private const int NR_OF_MAPS = 5;
         private const int NR_OF_CARS = 5;
-        private const int NR_OF_PAUSE_BUTTONS = 3;
         private Map[] _maps;
         private Texture2D[] _cars;
         private ComputerPlayer computerPlayer;
         //Screen State variables to indicate what is the current screen
         private bool _isPauseScreenShowed;
         private bool _isMainMenuScreenShowed;
-        private MainMenu _mainMenu;
+        private Menu.GeneralMenu _mainMenu;
         private List<Player> _players;
         private CountDown _countDown;
         private Point[] _startPositions;
@@ -95,14 +94,8 @@ namespace RaceGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             computerPlayer = new ComputerPlayer();
 
-
-            Texture2D[] pauseButtons = new Texture2D[NR_OF_PAUSE_BUTTONS];
-            pauseButtons[0] = Content.Load<Texture2D>("menu_continue");
-            pauseButtons[1] = Content.Load<Texture2D>("menu_mainmenu");
-            pauseButtons[2] = Content.Load<Texture2D>("menu_exit");
-
-            _pauseMenu = new PauseMenu(Content.Load<Texture2D>("transparentBackground"), pauseButtons);
-            _mainMenu = new MainMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"), MakeMainMenuItems());
+            _pauseMenu = new GeneralMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"), MakePauseMenuItems());
+            _mainMenu = new GeneralMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"), MakeMainMenuItems());
 
             Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
@@ -164,6 +157,15 @@ namespace RaceGame
             }
         }
 
+        private MenuItem[] MakePauseMenuItems()
+        {
+            MenuItem[] menuItems = new MenuItem[2];
+            menuItems[0] = new MenuItem("Continue",null);
+            menuItems[1] = new MenuItem("Main Menu",null);
+
+            return menuItems;
+        }
+
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
@@ -181,18 +183,6 @@ namespace RaceGame
         protected override void Update(GameTime gameTime)
         {
             KeyboardState newState = Keyboard.GetState();
-
-            if (newState.IsKeyDown(_menuKey))
-            {
-                if (_isPauseScreenShowed && _oldState.IsKeyUp(_menuKey))
-                {
-                    _isPauseScreenShowed = false;
-                }
-                else if (_oldState.IsKeyUp(_menuKey))
-                {
-                    _isPauseScreenShowed = true;
-                }
-            }
 
             if (_isMainMenuScreenShowed)
             {
@@ -293,17 +283,30 @@ namespace RaceGame
                                 break;
                         }
 
-
                         world = new World(_maps[_mainMenu.SelectedMap], _players,
                                           Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"), _countDown);
                         world.Map.Laps = _mainMenu.NrOfLaps;
-
-
+                        World.RaceTimer.Reset();
+                        World.RaceTimer.Resume();
                     }
                 }
             }
             else if (!_isPauseScreenShowed)
             {
+                if (newState.IsKeyDown(_menuKey))
+                {
+                    if (_isPauseScreenShowed && _oldState.IsKeyUp(_menuKey))
+                    {
+                        _isPauseScreenShowed = false;
+                        World.RaceTimer.Resume();
+                    }
+                    else if (_oldState.IsKeyUp(_menuKey))
+                    {
+                        _isPauseScreenShowed = true;
+                        World.RaceTimer.Pause();
+                    }
+                }
+
                 foreach (Player player in world.Players)
                 {
                     if (newState.IsKeyDown(player.Control.Accelerate))
@@ -328,12 +331,25 @@ namespace RaceGame
 
                 if (world.Winner != null)
                 {
-                    this.Exit();
+                    _isMainMenuScreenShowed = true;
                     //Spelet är över... spara tiden till highscoren och celebrate
                 }
             }
             else
             {
+                if (newState.IsKeyDown(_menuKey))
+                {
+                    if (_isPauseScreenShowed && _oldState.IsKeyUp(_menuKey))
+                    {
+                        _isPauseScreenShowed = false;
+                        World.RaceTimer.Resume();
+                    }
+                    else if (_oldState.IsKeyUp(_menuKey))
+                    {
+                        _isPauseScreenShowed = true;
+                        World.RaceTimer.Pause();
+                    }
+                }
                 if (newState.IsKeyDown(Keys.Up))
                 {
                     if (_oldState.IsKeyUp(Keys.Up))
@@ -352,17 +368,14 @@ namespace RaceGame
                 {
                     if (_oldState.IsKeyUp(Keys.Enter))
                     {
-                        switch (_pauseMenu.Index)
+                        switch (_pauseMenu.SelectedMenuItem.GetValue())
                         {
-                            case (int)PauseMenuItems.Continue:
+                            case 0:
                                 _isPauseScreenShowed = false;
                                 break;
-                            case (int)PauseMenuItems.MainMenu:
+                            case 1:
                                 _isMainMenuScreenShowed = true;
                                 _isPauseScreenShowed = false;
-                                break;
-                            case (int)PauseMenuItems.Exit:
-                                this.Exit();
                                 break;
                         }
                     }

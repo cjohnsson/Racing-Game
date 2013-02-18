@@ -16,7 +16,6 @@ namespace RaceGame
         private List<Player> _players;
         private SpriteFont _font;
         private Texture2D _hud;
-        private CountDown countDown { get; set; }
 
         public Info(SpriteFont newFont, Map newMap, List<Player> newPlayers, Texture2D hud)
         //public Info(SpriteFont newFont, Map newMap, List<Player> newPlayers)

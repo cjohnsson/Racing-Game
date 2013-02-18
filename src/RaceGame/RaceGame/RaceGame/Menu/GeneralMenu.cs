@@ -3,11 +3,10 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using RaceGame.Menu.Main;
 
-namespace RaceGame
+namespace RaceGame.Menu
 {
-    public class MainMenu : IMainMenu
+    public class GeneralMenu : IGeneralMenu
     {
         private Texture2D _backgroundImage;
         private Vector2[] _menuItemPositions;
@@ -20,12 +19,12 @@ namespace RaceGame
         public int SelectedMap { get { return _menuItems[2].GetValue(); } }
         public int NrOfLaps { get { return _menuItems[3].GetValue(); } }
 
-        public MainMenu(MenuItem[] menuItems)
+        public GeneralMenu(MenuItem[] menuItems)
         {
             _menuItems = menuItems;
         }
 
-        public MainMenu(Texture2D backgroundImage, SpriteFont font, MenuItem[] menuItems)
+        public GeneralMenu(Texture2D backgroundImage, SpriteFont font, MenuItem[] menuItems)
         {
             SelectedMenuItem = new MenuItem(string.Empty, new RolloverUtility(0, 0, 3));
             _menuItems = menuItems;
