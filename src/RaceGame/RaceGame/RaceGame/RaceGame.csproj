@@ -81,6 +81,7 @@
     <Compile Include="ICar.cs" />
     <Compile Include="IClouds.cs" />
     <Compile Include="IComputerPlayer.cs" />
+    <Compile Include="IGameTime.cs" />
     <Compile Include="IInfo.cs" />
     <Compile Include="IMainMenu.cs" />
     <Compile Include="IMap.cs" />
