@@ -28,7 +28,7 @@ namespace RaceGame
         private KeyboardState _oldState;
         private Keys _menuKey;
         private Keys _fullScreenKey;
-        private Menu.GeneralMenu _pauseMenu;
+        private Menu.Menu _pauseMenu;
         private const int NR_OF_MAPS = 5;
         private const int NR_OF_CARS = 5;
         private Map[] _maps;
@@ -37,7 +37,7 @@ namespace RaceGame
         //Screen State variables to indicate what is the current screen
         private bool _isPauseScreenShowed;
         private bool _isMainMenuScreenShowed;
-        private Menu.GeneralMenu _mainMenu;
+        private Menu.Menu _mainMenu;
         private List<Player> _players;
         private CountDown _countDown;
         private Point[] _startPositions;
@@ -73,17 +73,6 @@ namespace RaceGame
             base.Initialize();
         }
 
-        private MenuItem[] MakeMainMenuItems()
-        {
-            MenuItem[] menuItems = new MenuItem[4];
-            menuItems[0] = new MenuItem("Number of players: {0}", new RolloverUtility(1, 1, 2));
-            menuItems[1] = new MenuItem("Number of bots: {0}", new RolloverUtility(2, 0, 2));
-            menuItems[2] = new MenuItem("Selected map: {0}", new RolloverUtility(0, 0, 4));
-            menuItems[3] = new MenuItem("Number of laps: {0}", new RolloverUtility(1, 1, 9));
-
-            return menuItems;
-        }
-
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -94,8 +83,8 @@ namespace RaceGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             computerPlayer = new ComputerPlayer();
 
-            _pauseMenu = new GeneralMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"), MakePauseMenuItems());
-            _mainMenu = new GeneralMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"), MakeMainMenuItems());
+            _pauseMenu = new PauseMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"));
+            _mainMenu = new MainMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"));
 
             Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
@@ -157,15 +146,6 @@ namespace RaceGame
             }
         }
 
-        private MenuItem[] MakePauseMenuItems()
-        {
-            MenuItem[] menuItems = new MenuItem[2];
-            menuItems[0] = new MenuItem("Continue",null);
-            menuItems[1] = new MenuItem("Main Menu",null);
-
-            return menuItems;
-        }
-
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
@@ -205,7 +185,7 @@ namespace RaceGame
                 {
                     if (_oldState.IsKeyUp(Keys.Left))
                     {
-                        _mainMenu.LowerSelectedValue();
+                        _mainMenu.SelectedMenuItem.LowerValue();
                     }
                 }
 
@@ -213,7 +193,7 @@ namespace RaceGame
                 {
                     if (_oldState.IsKeyUp(Keys.Right))
                     {
-                        _mainMenu.RaiseSelectedValue();
+                        _mainMenu.SelectedMenuItem.RaiseValue();
                     }
                 }
 

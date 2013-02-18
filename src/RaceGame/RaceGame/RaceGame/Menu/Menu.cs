@@ -6,37 +6,41 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RaceGame.Menu
 {
-    public class GeneralMenu : IGeneralMenu
+    public abstract class Menu : IMenu
     {
-        private Texture2D _backgroundImage;
-        private Vector2[] _menuItemPositions;
-        private SpriteFont _font;
-        private const int MENU_ITEM_HEIGHT = 50;
-        private MenuItem[] _menuItems;
-        public MenuItem SelectedMenuItem { get; private set; }
+        protected Texture2D _backgroundImage;
+        protected Vector2[] _menuItemPositions;
+        protected SpriteFont _font;
+        protected const int MENU_ITEM_HEIGHT = 50;
+        protected MenuItem[] _menuItems;
+        public MenuItem SelectedMenuItem { get { return _menuItems[RolloverUtility.Value]; } }
+        private RolloverUtility RolloverUtility { get; set; }
         public int NrOfPlayers { get { return _menuItems[0].GetValue(); } }
         public int NrOfBots { get { return _menuItems[1].GetValue(); } }
         public int SelectedMap { get { return _menuItems[2].GetValue(); } }
         public int NrOfLaps { get { return _menuItems[3].GetValue(); } }
 
-        public GeneralMenu(MenuItem[] menuItems)
+        protected Menu()
         {
-            _menuItems = menuItems;
+            Initilize();
+            RolloverUtility = new RolloverUtility(0, 0, 3);
         }
 
-        public GeneralMenu(Texture2D backgroundImage, SpriteFont font, MenuItem[] menuItems)
+        protected Menu(Texture2D backgroundImage, SpriteFont font)
         {
-            SelectedMenuItem = new MenuItem(string.Empty, new RolloverUtility(0, 0, 3));
-            _menuItems = menuItems;
+            Initilize();
+            RolloverUtility = new RolloverUtility(0, 0, 3);
             _backgroundImage = backgroundImage;
             _font = font;
             _menuItemPositions = new Vector2[_menuItems.Length];
-            
+
             int startXPosition = _backgroundImage.Bounds.Width / 2 - 75;
             int startYPosition = _backgroundImage.Bounds.Height / 2 - (MENU_ITEM_HEIGHT * _menuItems.Length) / 2;
 
             MakePositions(startXPosition, startYPosition);
         }
+
+        protected abstract void Initilize();
 
         private void MakePositions(int xPosition, int yPosition)
         {
@@ -49,12 +53,12 @@ namespace RaceGame.Menu
 
         public void ScrollUp()
         {
-            SelectedMenuItem.LowerValue();
+            RolloverUtility.LowerValue();
         }
 
         public void ScrollDown()
         {
-            SelectedMenuItem.RaiseValue();
+            RolloverUtility.RaiseValue();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -66,21 +70,11 @@ namespace RaceGame.Menu
             {
                 Color color = Color.White;
 
-                if (i == SelectedMenuItem.GetValue())
+                if (i == RolloverUtility.Value)
                     color = Color.Red;
 
                 spriteBatch.DrawString(_font, _menuItems[i].ToString(), _menuItemPositions[i], color);
             }
-        }
-
-        public void RaiseSelectedValue()
-        {
-            _menuItems[SelectedMenuItem.GetValue()].RaiseValue();
-        }
-
-        public void LowerSelectedValue()
-        {
-            _menuItems[SelectedMenuItem.GetValue()].LowerValue();
         }
     }
 }

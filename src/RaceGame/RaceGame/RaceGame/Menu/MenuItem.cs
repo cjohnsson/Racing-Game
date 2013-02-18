@@ -10,6 +10,8 @@ namespace RaceGame.Menu
         private string _text;
         private RolloverUtility _rolloverUtility;
 
+        public string Text { get { return _text; } }
+
         public MenuItem()
             : this(string.Empty)
         {

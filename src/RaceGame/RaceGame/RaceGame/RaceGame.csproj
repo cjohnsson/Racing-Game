@@ -79,13 +79,15 @@
     <Compile Include="ComputerPlayer.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="CountDown.cs" />
+    <Compile Include="Menu\MainMenu.cs" />
+    <Compile Include="Menu\PauseMenu.cs" />
     <Compile Include="RaceTimer.cs" />
     <Compile Include="ICar.cs" />
     <Compile Include="IClouds.cs" />
     <Compile Include="IComputerPlayer.cs" />
     <Compile Include="IRaceTimer.cs" />
     <Compile Include="IInfo.cs" />
-    <Compile Include="Menu\IGeneralMenu.cs" />
+    <Compile Include="Menu\IMenu.cs" />
     <Compile Include="IMap.cs" />
     <Compile Include="Info.cs" />
     <Compile Include="IPlayer.cs" />
@@ -98,7 +100,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RaceGame.cs" />
-    <Compile Include="Menu\GeneralMenu.cs" />
+    <Compile Include="Menu\Menu.cs" />
     <Compile Include="Score.cs" />
     <Compile Include="ScoreList.cs" />
     <Compile Include="TerrainTypes.cs" />

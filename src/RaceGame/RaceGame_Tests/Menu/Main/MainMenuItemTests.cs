@@ -64,7 +64,7 @@ namespace RaceGame_Tests.Menu.Main
         public void RaiseValue_RolloverUtilityNull_DoesNotThrowNullReferenceException()
         {
             //Arrange
-            string text = "START THE GAME";
+            string text = "some string";
             var mainMenuItem = new MenuItem(text);
             
             //Act
@@ -78,7 +78,7 @@ namespace RaceGame_Tests.Menu.Main
         public void LowerValue_RolloverUtilityNull_DoesNotThrowNullReferenceException()
         {
             //Arrange
-            string text = "START THE GAME";
+            string text = "some string";
             var mainMenuItem = new MenuItem(text);
 
             //Act

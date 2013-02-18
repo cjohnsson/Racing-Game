@@ -5,119 +5,107 @@ using System.Text;
 using NUnit.Framework;
 using RaceGame.Menu;
 
-namespace RaceGame_Tests
+namespace RaceGame_Tests.Menu.Main
 {
     // ReSharper disable InconsistentNaming
 
     [TestFixture]
-    public class Menu_Test
+    public class MainMenu_Test
     {
-        private MenuItem[] MakeMenuItems()
+        private MainMenu MakeMainMenu()
         {
-            MenuItem[] menuItems = new MenuItem[4];
-            menuItems[0] = new MenuItem("Number of players: {0}", new RolloverUtility(1, 1, 2));
-            menuItems[1] = new MenuItem("Number of bots: {0}", new RolloverUtility(2, 0, 2));
-            menuItems[2] = new MenuItem("Selected map: {0}", new RolloverUtility(0, 0, 3));
-            menuItems[3] = new MenuItem("Number of laps: {0}", new RolloverUtility(1, 1, 9));
-            return menuItems;
-        }
-
-        private GeneralMenu MakeMenu()
-        {
-
-            return new GeneralMenu(MakeMenuItems());
+            return new MainMenu();
         }
 
         [Test]
-        public void ScrollUp_IndexIsGreaterThan0_DecreasesIndex()
+        public void ScrollUp_SelectedMenuItemsValueIsGreaterThan0_DecreasesSelectedMenuItemsValue()
         {
-            var menu = MakeMenu();
+            var mainMenu = MakeMainMenu();
+            mainMenu.ScrollDown();
 
-            menu.ScrollDown();
-            menu.ScrollUp();
+            mainMenu.ScrollUp();
 
-            int result = menu.SelectedMenuItem.GetValue();
-            Assert.AreEqual(0, result);
+            var result = mainMenu.SelectedMenuItem.Text;
+            Assert.AreEqual("Number of players: {0}", result);
         }
 
         [Test]
-        public void ScrollUp_IndexIs0_SetsIndexToMaxValue()
+        public void ScrollUp_SelectedMenuItemsValueIs0_SetsSelectedMenuItemsValueToMaxValue()
         {
-            var menu = MakeMenu();
+            var mainMenu = MakeMainMenu();
 
-            menu.ScrollUp();
+            mainMenu.ScrollUp();
 
-            int result = menu.SelectedMenuItem.GetValue();
-            Assert.AreEqual(4, result);
+            var result = mainMenu.SelectedMenuItem.Text;
+            Assert.AreEqual("Number of laps: {0}", result);
         }
 
         [Test]
-        public void ScrollDown_IndexIsLowerThanMaxValue_RaisesIndex()
+        public void ScrollDown_SelectedMenuItemsValueIsLowerThanMaxValue_RaisesSelectedMenuItemsValue()
         {
-            var menu = MakeMenu();
+            var mainMenu = MakeMainMenu();
 
-            menu.ScrollDown();
+            mainMenu.ScrollDown();
 
-            int result = menu.SelectedMenuItem.GetValue();
-            Assert.AreEqual(1, result);
+            var result = mainMenu.SelectedMenuItem.Text;
+            Assert.AreEqual("Number of bots: {0}", result);
         }
 
         [Test]
-        public void ScrollDown_IndexIsMaxValue_SetsIndexTo0()
+        public void ScrollDown_SelectedMenuItemsValueIsMaxValue_SetsSelectedMenuItemsValueTo0()
         {
-            var menu = MakeMenu();
+            var mainMenu = MakeMainMenu();
+            mainMenu.ScrollUp();
 
-            menu.ScrollUp();
-            menu.ScrollDown();
+            mainMenu.ScrollDown();
 
-            int result = menu.SelectedMenuItem.GetValue();
-            Assert.AreEqual(0, result);
+            var result = mainMenu.SelectedMenuItem.Text;
+            Assert.AreEqual("Number of players: {0}", result);
         }
 
         [Test]
-        public void RaiseChosenValue_TheValueNrOfPlayersIsHigherThanTheMaximumValue_RaiseValue()
+        public void RaiseChosenValue_TheValueNrOfPlayersIsLowerThanTheMaximumValue_RaiseValue()
         {
-            var menu = MakeMenu();
+            var mainMenu = MakeMainMenu();
 
-            menu.RaiseSelectedValue();
+            mainMenu.SelectedMenuItem.RaiseValue();
 
-
-            int result = menu.NrOfPlayers;
+            int result = mainMenu.NrOfPlayers;
             Assert.AreEqual(2, result);
         }
 
         [Test]
         public void RaiseChosenValue_TheValueNrOfPlayersIsTheMaximumValue_SetsNrOfPlayersValueToTheMinimumValue()
         {
-            var menu = MakeMenu();
+            var mainMenu = MakeMainMenu();
+            mainMenu.SelectedMenuItem.RaiseValue();
 
-            menu.RaiseSelectedValue();
-            menu.RaiseSelectedValue();
+            mainMenu.SelectedMenuItem.RaiseValue();
 
-            int result = menu.NrOfPlayers;
+            int result = mainMenu.NrOfPlayers;
             Assert.AreEqual(1, result);
         }
 
         [Test]
         public void LowerChosenValue_TheValueOfNrOfPlayersIsHigherThanItsMinimumValue_LowerValue()
         {
-            var menu = MakeMenu();
+            var mainMenu = MakeMainMenu();
+            mainMenu.SelectedMenuItem.RaiseValue();
 
-            menu.RaiseSelectedValue();
-            menu.LowerSelectedValue();
+            mainMenu.SelectedMenuItem.LowerValue();
 
-            int result = menu.NrOfPlayers;
+            int result = mainMenu.NrOfPlayers;
             Assert.AreEqual(1, result);
         }
 
         [Test]
         public void LowerChosenValue_TheValueOfNrOfPlayersIsEqualToItsMinimumValue_SetsNrOfPlayersToItsMaximumValue()
         {
-            var menu = MakeMenu();
+            var mainMenu = MakeMainMenu();
 
-            menu.LowerSelectedValue();
+            mainMenu.SelectedMenuItem.LowerValue();
 
-            int result = menu.NrOfPlayers;
+            int result = mainMenu.NrOfPlayers;
             Assert.AreEqual(2, result);
         }
     }
