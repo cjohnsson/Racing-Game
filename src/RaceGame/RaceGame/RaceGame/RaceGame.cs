@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.GamerServices;
+using RaceGame.Menu.Main;
 using Color = Microsoft.Xna.Framework.Color;
 using Point = Microsoft.Xna.Framework.Point;
 
@@ -71,6 +72,18 @@ namespace RaceGame
 
             base.Initialize();
         }
+
+        private MenuItem[] MakeMainMenuItems()
+        {
+            MenuItem[] menuItems = new MenuItem[4];
+            menuItems[0] = new MenuItem("Number of players: {0}", new RolloverUtility(1, 1, 2));
+            menuItems[1] = new MenuItem("Number of bots: {0}", new RolloverUtility(2, 0, 2));
+            menuItems[2] = new MenuItem("Selected map: {0}", new RolloverUtility(0, 0, 3));
+            menuItems[3] = new MenuItem("Number of laps: {0}", new RolloverUtility(1, 1, 9));
+            
+            return menuItems;
+        }
+
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -87,7 +100,7 @@ namespace RaceGame
             pauseButtons[2] = Content.Load<Texture2D>("menu_exit");
 
             _pauseMenu = new PauseMenu(Content.Load<Texture2D>("transparentBackground"), pauseButtons);
-            _mainMenu = new MainMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"));
+            _mainMenu = new MainMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"), MakeMainMenuItems());
 
             Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
