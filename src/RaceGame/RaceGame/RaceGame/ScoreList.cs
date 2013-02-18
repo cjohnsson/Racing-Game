@@ -11,9 +11,23 @@ namespace RaceGame
        public Score[] scoreArray = new Score[5];
 
 
-        public void SaveScore(TimeSpan newTime)
+        public void SaveScore(Score newScore)
         { 
             throw new NotImplementedException();
+        }
+
+        public bool CheckScore(TimeSpan newTime)
+        {
+            for (int i = 0; i < scoreArray.Length-1; i++)
+                {
+                    if (newTime <= scoreArray[i].Time)
+                    {
+                        return true;
+                    }
+                }
+            
+            return false;
+            
         }
 
         public void Draw(SpriteBatch spriteBatch)
