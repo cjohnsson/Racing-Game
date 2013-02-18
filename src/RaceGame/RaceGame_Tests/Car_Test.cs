@@ -9,14 +9,14 @@ namespace RaceGame_Tests
     {
         const float MAXSPEED = 1.5f;
 
+        
 
         public Car CreateCarInstance()
         {
             return new Car();
         }
 
-        #region Acclerate_Method_Tests
-
+        #region Acclerate_Method_Tests      
 
         [Test]
         public void Accelerate_IncreaseSpeed_SpeedIncreases()
