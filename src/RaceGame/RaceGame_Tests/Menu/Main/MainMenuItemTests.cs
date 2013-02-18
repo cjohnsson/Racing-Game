@@ -13,9 +13,9 @@ namespace RaceGame_Tests.Menu.Main
     [TestFixture]
     public class MainMenuItemTests
     {
-        private MainMenuItem MakeMainMenuItem()
+        private MenuItem MakeMainMenuItem()
         {
-            return new MainMenuItem();
+            return new MenuItem();
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace RaceGame_Tests.Menu.Main
         {
             //Arrange
             string expected = "Number of players: {0}";
-            var mainMenuItem = new MainMenuItem(expected);
+            var mainMenuItem = new MenuItem(expected);
 
             //Act
             var result = mainMenuItem.ToString();
@@ -51,7 +51,7 @@ namespace RaceGame_Tests.Menu.Main
             //Arrange
             string expected = "Number of players: {0}";
             var rolloverUtility = new RolloverUtility(1, 1, 2);
-            var mainMenuItem = new MainMenuItem(expected, rolloverUtility);
+            var mainMenuItem = new MenuItem(expected, rolloverUtility);
 
             //Act
             var result = mainMenuItem.ToString();
@@ -65,7 +65,7 @@ namespace RaceGame_Tests.Menu.Main
         {
             //Arrange
             string text = "START THE GAME";
-            var mainMenuItem = new MainMenuItem(text);
+            var mainMenuItem = new MenuItem(text);
             
             //Act
             mainMenuItem.RaiseValue();
@@ -79,7 +79,7 @@ namespace RaceGame_Tests.Menu.Main
         {
             //Arrange
             string text = "START THE GAME";
-            var mainMenuItem = new MainMenuItem(text);
+            var mainMenuItem = new MenuItem(text);
 
             //Act
             mainMenuItem.LowerValue();
@@ -93,7 +93,7 @@ namespace RaceGame_Tests.Menu.Main
         {
             //Arrange
             string text = "START THE GAME";
-            var mainMenuItem = new MainMenuItem(text);
+            var mainMenuItem = new MenuItem(text);
 
             //Act
             mainMenuItem.GetValue();

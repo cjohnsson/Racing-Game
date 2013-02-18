@@ -1,10 +1,11 @@
 using Microsoft.Xna.Framework.Graphics;
+using RaceGame.Menu.Main;
 
 namespace RaceGame
 {
     public interface IMainMenu
     {
-        int SelectedMenuItem { get; }
+        MenuItem SelectedMenuItem { get; }
         int NrOfPlayers { get; }
         int NrOfBots { get; }
         int SelectedMap { get; }
