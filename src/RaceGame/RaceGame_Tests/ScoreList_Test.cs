@@ -10,13 +10,13 @@ namespace RaceGame_Tests
     [TestFixture]
     public class ScoreList_Test
     {
-        ScoreList list = new ScoreList();
-        Score tempScore = new Score("Kalle", new TimeSpan(0,0,45));
-
-
+        ScoreList list;
+        
        [SetUp]
        public void OurSetup()
        {
+           list = new ScoreList();
+           Score tempScore = new Score("Kalle", new TimeSpan(0,0,45));
            list.scoreArray[0] = tempScore;
        }
 
@@ -31,7 +31,8 @@ namespace RaceGame_Tests
        [Test]
        public void SaveScore_AddFasterScore_FasterScoreIsAddedFirst()
        {
-
+           Score newScore2 = new Score("Olle", new TimeSpan(0, 0, 10));
+           Assert.That(list.scoreArray[1], Is.TypeOf(typeof(Score)));
 
        }
 
