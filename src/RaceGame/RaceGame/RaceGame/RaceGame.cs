@@ -29,7 +29,7 @@ namespace RaceGame
         private Keys _menuKey;
         private Keys _fullScreenKey;
         private PauseMenu _pauseMenu;
-        private const int NR_OF_MAPS = 4;
+        private const int NR_OF_MAPS = 5;
         private const int NR_OF_CARS = 5;
         private const int NR_OF_PAUSE_BUTTONS = 3;
         private Map[] _maps;
@@ -124,16 +124,19 @@ namespace RaceGame
             mapCollisions[1] = Content.Load<Texture2D>("map2_collision");
             mapCollisions[2] = Content.Load<Texture2D>("map4_collision");
             mapCollisions[3] = Content.Load<Texture2D>("map6_collision");
+            mapCollisions[4] = Content.Load<Texture2D>("map7_collision");
 
             mapBackgrounds[0] = Content.Load<Texture2D>("map1_background");
             mapBackgrounds[1] = Content.Load<Texture2D>("map2_background");
             mapBackgrounds[2] = Content.Load<Texture2D>("map4_background");
             mapBackgrounds[3] = Content.Load<Texture2D>("map6_background");
+            mapBackgrounds[4] = Content.Load<Texture2D>("map7_background");
 
             mapForegrounds[0] = Content.Load<Texture2D>("map1_foreground1");
             mapForegrounds[1] = Content.Load<Texture2D>("default_foreground");
             mapForegrounds[2] = Content.Load<Texture2D>("default_foreground");
             mapForegrounds[3] = Content.Load<Texture2D>("default_foreground");
+            mapForegrounds[4] = Content.Load<Texture2D>("map7_foreground1");
 
             for (int i = 0; i < bitmaps.Length; i++)
             {
@@ -147,11 +150,13 @@ namespace RaceGame
             _startPositions[1] = new Point(732, 216);
             _startPositions[2] = new Point(384, 550);
             _startPositions[3] = new Point(435, 545);
+            _startPositions[4] = new Point(80, 270);
 
             _startRotations[0] = 8.0f;
             _startRotations[1] = 8.0f;
             _startRotations[2] = 0.0f;
             _startRotations[3] = 3.2f;
+            _startRotations[4] = 8.0f;
 
             for (int i = 0; i < _maps.Length; i++)
             {
@@ -377,7 +382,6 @@ namespace RaceGame
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-
             if (_isMainMenuScreenShowed)
             {
                 _mainMenu.Draw(spriteBatch);
