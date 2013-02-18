@@ -6,23 +6,15 @@ namespace RaceGame
 {
     public class CountDown
     {
-        private bool  _finsished;
+     
         private const float _time = 5.0f;
-
-
-        public CountDown()
-        {
-            StartDate = DateTime.Now;
-            Finished = false;
-        }
 
         #region Propertys
 
 
         public bool Finished
         {
-            get { return DateTime.Now.Subtract(StartDate).Seconds < _time; }
-            set { _finsished = value; }
+            get { return  DateTime.Now.Subtract(StartDate).TotalSeconds < _time; }
         }
 
         public string Text
@@ -43,6 +35,7 @@ namespace RaceGame
         public void Start()
         {
             StartDate = DateTime.Now;
+
         }
 
         public void Draw(SpriteBatch spriteBatch)

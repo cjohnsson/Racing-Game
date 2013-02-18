@@ -63,10 +63,9 @@ namespace RaceGame
                     {
                         Winner = player;
                     }
-                }
-
+                }                
             }
-            Map.Update();
+            Map.Update();          
         }
     }
 }
