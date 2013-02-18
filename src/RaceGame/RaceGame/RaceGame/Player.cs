@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RaceGame
 {
-    public class Player
+    public class Player : IPlayer
     {
         public Car Car { get; set; }
         public int Lap { get; set; }

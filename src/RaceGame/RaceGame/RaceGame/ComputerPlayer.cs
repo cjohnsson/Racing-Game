@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace RaceGame
 {
-    public class ComputerPlayer
+    public class ComputerPlayer : IComputerPlayer
     {
         public List<Player> Players { get; set; }
         private const float FORESIGHT = 15.0f;
@@ -42,11 +42,10 @@ namespace RaceGame
                         player.Car.TurnRight();
                     }
                 }
-               player.Car.Accelerate();
+                        player.Car.Accelerate();
                 TurnRandom(player);
                 CheckIfStuck(player);
             }
-            
         }
 
         private void CheckIfStuck(Player player)
@@ -79,8 +78,6 @@ namespace RaceGame
                player.Car.Break();
            }
        }
-
-
     }
 }
 

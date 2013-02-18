@@ -78,15 +78,25 @@
     <Compile Include="ComputerPlayer.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="ICar.cs" />
+    <Compile Include="IClouds.cs" />
+    <Compile Include="IComputerPlayer.cs" />
+    <Compile Include="IInfo.cs" />
+    <Compile Include="IMainMenu.cs" />
+    <Compile Include="IMap.cs" />
+    <Compile Include="IPauseMenu.cs" />
     <Compile Include="Info.cs" />
+    <Compile Include="IPlayer.cs" />
+    <Compile Include="IWorld.cs" />
+    <Compile Include="Menu\Main\MainMenuItem.cs" />
+    <Compile Include="Menu\Main\RolloverUtility.cs" />
     <Compile Include="Map.cs" />
-    <Compile Include="Menu.cs" />
+    <Compile Include="PauseMenu.cs" />
     <Compile Include="PauseMenuItems.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
     <Compile Include="RaceGame.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="TerrainTypes.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>

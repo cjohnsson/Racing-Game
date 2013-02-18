@@ -9,7 +9,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace RaceGame
 {
-    public class Map
+    public class Map : IMap
     {
         private int _startX;
         private int _startY;
@@ -20,13 +20,12 @@ namespace RaceGame
         public Texture2D ForegroundImage { get; set; }
         public Bitmap CollisionImage { get; set; }
 
-        public Map(Texture2D backgroundImage, Texture2D foregroundImage, Bitmap collisionImage, Texture2D cloudImage, int laps, int startX, int startY, float startRotation)
+        public Map(Texture2D backgroundImage, Texture2D foregroundImage, Bitmap collisionImage, Texture2D cloudImage, int startX, int startY, float startRotation)
         {
             BackgroundImage = backgroundImage;
             ForegroundImage = foregroundImage;
             CollisionImage = collisionImage;
             clouds = new Clouds(cloudImage);
-            Laps = laps;
             StartX = startX;
             StartY = startY;
             StartRotation = startRotation;
@@ -67,7 +66,7 @@ namespace RaceGame
             }
         }
 
-        public  void Update()
+        public void Update()
         {
             clouds.Update();
         }

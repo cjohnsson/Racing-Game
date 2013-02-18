@@ -12,7 +12,7 @@ namespace RaceGame_Tests
     {
         private Map MakeMap()
         {
-            return new Map(null, null,null, null,1,0,0,0f);
+            return new Map(null, null,null, null,0,0,0f);
         }
 
         // StartX

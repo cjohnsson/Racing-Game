@@ -7,7 +7,11 @@ using NUnit.Framework;
 
 namespace RaceGame_Tests {
     [TestFixture]
-    class World_Test {
-
+    class World_Test 
+    {
+        private World MakeWorld()
+        {
+            return new World(null, null, null, null);
+        }
     }
 }
