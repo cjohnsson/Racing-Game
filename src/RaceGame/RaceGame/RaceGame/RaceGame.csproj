@@ -67,6 +67,7 @@
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -77,9 +78,12 @@
     <Compile Include="Clouds.cs" />
     <Compile Include="ComputerPlayer.cs" />
     <Compile Include="Control.cs" />
+    <Compile Include="CountDown.cs" />
+    <Compile Include="GameTime.cs" />
     <Compile Include="ICar.cs" />
     <Compile Include="IClouds.cs" />
     <Compile Include="IComputerPlayer.cs" />
+    <Compile Include="IGameTime.cs" />
     <Compile Include="IInfo.cs" />
     <Compile Include="IMainMenu.cs" />
     <Compile Include="IMap.cs" />
@@ -87,7 +91,7 @@
     <Compile Include="Info.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="IWorld.cs" />
-    <Compile Include="Menu\Main\MainMenuItem.cs" />
+    <Compile Include="Menu\Main\MenuItem.cs" />
     <Compile Include="Menu\Main\RolloverUtility.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="PauseMenu.cs" />

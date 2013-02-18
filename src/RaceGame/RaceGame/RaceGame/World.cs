@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace RaceGame {
+namespace RaceGame
+{
     public class World : IWorld
     {
         public Map Map { get; set; }
@@ -15,16 +14,19 @@ namespace RaceGame {
         private Info _info;
         public static Bitmap CollisionImage { get; set; }
         public Player Winner { get; set; }
-        
-        public World(Map map, List<Player> players, SpriteFont font, Texture2D hud )
+        public CountDown CountDown { get; set; }
+
+        public World(Map map, List<Player> players, SpriteFont font, Texture2D hud, CountDown countDown)
         {
+            CountDown = countDown;
+            CountDown.Start();
             Players = players;
-            Map = map; 
+            Map = map;
             _startTime = DateTime.Now;
-            _info = new Info(font, Map , Players, hud);
+            _info = new Info(font, Map, Players, hud);
             CollisionImage = map.CollisionImage;
             Winner = null;
-        }        
+        }
 
         //private TimeSpan GetWinnerTime() {
         //    return  _startTime.Subtract(DateTime.Now);
@@ -37,17 +39,28 @@ namespace RaceGame {
             {
                 player.Draw(spriteBatch);
             }
+
             Map.DrawForeground(spriteBatch);
-            _info.Draw(spriteBatch);
+
+            if (!CountDown.Finished)
+            {
+                _info.Draw(spriteBatch);
+            }
+            else
+                CountDown.Draw(spriteBatch);
         }
 
-        public void Update() {
-            foreach (var player in Players)
+        public void Update()
+        {
+            if (!CountDown.Finished)
             {
-                player.Update();
-                if (player.Lap == Map.Laps)
+                foreach (var player in Players)
                 {
-                    Winner = player;
+                    player.Update();
+                    if (player.Lap == Map.Laps)
+                    {
+                        Winner = player;
+                    }
                 }
             }
             Map.Update();
