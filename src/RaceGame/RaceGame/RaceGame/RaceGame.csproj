@@ -87,6 +87,7 @@
     <Compile Include="IPauseMenu.cs" />
     <Compile Include="Info.cs" />
     <Compile Include="IPlayer.cs" />
+    <Compile Include="ITextTyper.cs" />
     <Compile Include="IWorld.cs" />
     <Compile Include="Menu\Main\MenuItem.cs" />
     <Compile Include="Menu\Main\RolloverUtility.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="RaceGame.cs" />
     <Compile Include="MainMenu.cs" />
     <Compile Include="TerrainTypes.cs" />
+    <Compile Include="TextTyper.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>
