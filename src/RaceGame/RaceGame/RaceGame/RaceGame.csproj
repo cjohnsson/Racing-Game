@@ -99,6 +99,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="RaceGame.cs" />
     <Compile Include="MainMenu.cs" />
+    <Compile Include="Score.cs" />
+    <Compile Include="ScoreList.cs" />
     <Compile Include="TerrainTypes.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
