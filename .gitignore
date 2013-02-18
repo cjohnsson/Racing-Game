@@ -4,4 +4,4 @@ _ReSharper.RaceGame
 *.suo
 *.user
 *.db
-/src/RaceGame/RaceGame/RaceGame/*.cachefile
+*.cachefile
