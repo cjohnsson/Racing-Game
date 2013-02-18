@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RaceGame
 {
-    interface IGameTime
+    interface IRaceTimer
     {
         TimeSpan GetElapsedTime();
         void Pause();
