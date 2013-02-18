@@ -19,10 +19,7 @@ Content\default_foreground.xnb
 Content\map6_collision.xnb
 Content\map6_background.xnb
 Content\car6.xnb
-<<<<<<< HEAD
 Content\SpriteFont1.xnb
-=======
->>>>>>> b97c2655f5fee825561eb7e6998bf948b5159f51
 Content\menu_mainmenu.xnb
 Content\HUD.xnb
 Content\main_menu_empty.xnb
