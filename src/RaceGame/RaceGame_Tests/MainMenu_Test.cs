@@ -27,7 +27,8 @@ namespace RaceGame_Tests
             menu.ScrollDown();
             menu.ScrollUp();
 
-            Assert.AreEqual(0, menu.SelectedMenuItem);
+            int result = menu.SelectedMainMenuItem.GetValue();
+            Assert.AreEqual(0, result );
         }
 
         [Test]
@@ -37,7 +38,8 @@ namespace RaceGame_Tests
 
             menu.ScrollUp();
 
-            Assert.AreEqual(4, menu.SelectedMenuItem);
+            int result = menu.SelectedMainMenuItem.GetValue();
+            Assert.AreEqual(4, result);
         }
 
         [Test]
@@ -47,7 +49,8 @@ namespace RaceGame_Tests
 
             menu.ScrollDown();
 
-            Assert.AreEqual(1, menu.SelectedMenuItem);
+            int result = menu.SelectedMainMenuItem.GetValue();
+            Assert.AreEqual(1, result);
         }
 
         [Test]
@@ -58,7 +61,8 @@ namespace RaceGame_Tests
             menu.ScrollUp();
             menu.ScrollDown();
 
-            Assert.AreEqual(0, menu.SelectedMenuItem);
+            int result = menu.SelectedMainMenuItem.GetValue();
+            Assert.AreEqual(0, result);
         }
 
         [Test]
@@ -68,7 +72,9 @@ namespace RaceGame_Tests
 
             menu.RaiseSelectedValue();
 
-            Assert.AreEqual(2, menu.NrOfPlayers);
+
+            int result = menu.NrOfPlayers;
+            Assert.AreEqual(2, result);
         }
 
         [Test]
@@ -79,7 +85,8 @@ namespace RaceGame_Tests
             menu.RaiseSelectedValue();
             menu.RaiseSelectedValue();
 
-            Assert.AreEqual(1, menu.NrOfPlayers);
+            int result = menu.NrOfPlayers;
+            Assert.AreEqual(1, result);
         }
 
         [Test]
@@ -90,7 +97,8 @@ namespace RaceGame_Tests
             menu.RaiseSelectedValue();
             menu.LowerSelectedValue();
 
-            Assert.AreEqual(1, menu.NrOfPlayers);
+            int result = menu.NrOfPlayers;
+            Assert.AreEqual(1, result);
         }
 
         [Test]
@@ -100,7 +108,8 @@ namespace RaceGame_Tests
 
             menu.LowerSelectedValue();
 
-            Assert.AreEqual(2, menu.NrOfPlayers);
+            int result = menu.NrOfPlayers;
+            Assert.AreEqual(2, result);
         }
     }
 
