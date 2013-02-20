@@ -79,6 +79,7 @@
     <Compile Include="ComputerPlayer.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="CountDown.cs" />
+    <Compile Include="HighScore.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\PauseMenu.cs" />
     <Compile Include="RaceTimer.cs" />
