@@ -180,47 +180,41 @@ namespace RaceGame
 
         private void PauseMenuActions()
         {
-            if (_newKeyboardState.IsKeyDown(_menuKey))
+            if (IsPressed(_menuKey))
             {
-                if (_isPauseScreenShowed && _oldKeyboardState.IsKeyUp(_menuKey))
+                if (_isPauseScreenShowed)
                 {
                     _isPauseScreenShowed = false;
                     World.RaceTimer.Resume();
                 }
-                else if (_oldKeyboardState.IsKeyUp(_menuKey))
+                else
                 {
                     _isPauseScreenShowed = true;
                     World.RaceTimer.Pause();
                 }
             }
-            if (_newKeyboardState.IsKeyDown(Keys.Up))
+
+            if (IsPressed(Keys.Up))
             {
-                if (_oldKeyboardState.IsKeyUp(Keys.Up))
-                {
-                    _pauseMenu.ScrollUp();
-                }
+                _pauseMenu.ScrollUp();
             }
-            if (_newKeyboardState.IsKeyDown(Keys.Down))
+
+            if (IsPressed(Keys.Down))
             {
-                if (_oldKeyboardState.IsKeyUp(Keys.Down))
-                {
-                    _pauseMenu.ScrollDown();
-                }
+                _pauseMenu.ScrollDown();
             }
-            if (_newKeyboardState.IsKeyDown(Keys.Enter))
+
+            if (IsPressed(Keys.Enter))
             {
-                if (_oldKeyboardState.IsKeyUp(Keys.Enter))
+                switch (_pauseMenu.SelectedMenuItem.GetValue())
                 {
-                    switch (_pauseMenu.SelectedMenuItem.GetValue())
-                    {
-                        case 0:
-                            _isPauseScreenShowed = false;
-                            break;
-                        case 1:
-                            _isMainMenuScreenShowed = true;
-                            _isPauseScreenShowed = false;
-                            break;
-                    }
+                    case 0:
+                        _isPauseScreenShowed = false;
+                        break;
+                    case 1:
+                        _isMainMenuScreenShowed = true;
+                        _isPauseScreenShowed = false;
+                        break;
                 }
             }
         }
@@ -229,14 +223,14 @@ namespace RaceGame
         {
             if (_countDown.IsFinished)
             {
-                if (_newKeyboardState.IsKeyDown(_menuKey))
+                if (IsPressed(_menuKey))
                 {
-                    if (_isPauseScreenShowed && _oldKeyboardState.IsKeyUp(_menuKey))
+                    if (_isPauseScreenShowed)
                     {
                         _isPauseScreenShowed = false;
                         World.RaceTimer.Resume();
                     }
-                    else if (_oldKeyboardState.IsKeyUp(_menuKey))
+                    else
                     {
                         _isPauseScreenShowed = true;
                         World.RaceTimer.Pause();
@@ -278,64 +272,48 @@ namespace RaceGame
 
         private void MainMenuActions()
         {
-            if (_newKeyboardState.IsKeyDown(Keys.Up))
+            if (IsPressed(Keys.Up))
             {
-                if (_oldKeyboardState.IsKeyUp(Keys.Up))
-                {
-                    _mainMenu.ScrollUp();
-                }
+                _mainMenu.ScrollUp();
             }
 
-            if (_newKeyboardState.IsKeyDown(Keys.Down))
+            if (IsPressed(Keys.Down))
             {
-                if (_oldKeyboardState.IsKeyUp(Keys.Down))
-                {
-                    _mainMenu.ScrollDown();
-                }
+                _mainMenu.ScrollDown();
             }
 
-            if (_newKeyboardState.IsKeyDown(Keys.Left))
+            if (IsPressed(Keys.Left))
             {
-                if (_oldKeyboardState.IsKeyUp(Keys.Left))
-                {
-                    _mainMenu.SelectedMenuItem.LowerValue();
-                }
+                _mainMenu.SelectedMenuItem.LowerValue();
             }
 
-            if (_newKeyboardState.IsKeyDown(Keys.Right))
+            if (IsPressed(Keys.Right))
             {
-                if (_oldKeyboardState.IsKeyUp(Keys.Right))
-                {
-                    _mainMenu.SelectedMenuItem.RaiseValue();
-                }
+                _mainMenu.SelectedMenuItem.RaiseValue();
             }
 
-            if (_newKeyboardState.IsKeyDown(_menuKey))
+            if (IsPressed(Keys.Escape))
             {
-                if (_oldKeyboardState.IsKeyUp(_menuKey))
-                {
-                    Exit();
-                }
+                Exit();
             }
 
-            if (_newKeyboardState.IsKeyDown(_fullScreenKey))
+            if (IsPressed(_fullScreenKey))
             {
-                if (_oldKeyboardState.IsKeyUp(_fullScreenKey))
-                {
-                    _graphics.ToggleFullScreen();
-                }
+                _graphics.ToggleFullScreen();
             }
 
-            if (_newKeyboardState.IsKeyDown(Keys.Enter))
+            if (IsPressed(Keys.Enter))
             {
-                if (_oldKeyboardState.IsKeyUp(Keys.Enter))
-                {
-                    _isMainMenuScreenShowed = false;
+                _isMainMenuScreenShowed = false;
 
-                    CreatePlayers();
-                    CreateGameWorld();
-                }
+                CreatePlayers();
+                CreateGameWorld();
             }
+        }
+
+        private bool IsPressed(Keys key)
+        {
+            return _newKeyboardState.IsKeyDown(key) && _oldKeyboardState.IsKeyUp(key);
         }
 
         private void CreateGameWorld()
