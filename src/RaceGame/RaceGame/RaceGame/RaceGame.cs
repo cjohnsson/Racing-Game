@@ -262,7 +262,7 @@ namespace RaceGame
                         }
 
                         world = new World(_maps[_mainMenu.SelectedMap], _players,
-                                          Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"), _countDown);
+                                          Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"), _countDown, _mainMenu.SelectedMap);
                         world.Map.Laps = _mainMenu.NrOfLaps;
                         World.RaceTimer.Reset();
                         World.RaceTimer.Resume();

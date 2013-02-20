@@ -11,7 +11,7 @@ namespace RaceGame_Tests {
     {
         private World MakeWorld()
         {
-            return new World(null, null, null, null, null);
+            return new World(null, null, null, null, null, 0);
         }
     }
 }

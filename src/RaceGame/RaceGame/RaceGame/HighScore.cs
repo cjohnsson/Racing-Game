@@ -10,7 +10,7 @@ using Color = Microsoft.Xna.Framework.Color;
 namespace RaceGame
 {
     [Serializable]
-    class HighScore
+    public class HighScore
     {
         private Dictionary<int, ScoreList> _highScoreList;
         private ScoreList _scoreList;
