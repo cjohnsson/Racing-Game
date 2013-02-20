@@ -14,6 +14,7 @@ namespace RaceGame
         private DateTime lastMovement = DateTime.Now;
         private int lastX, lastY;
         private Random r = new Random();
+
         public ComputerPlayer()
         {
             Players = new List<Player>();

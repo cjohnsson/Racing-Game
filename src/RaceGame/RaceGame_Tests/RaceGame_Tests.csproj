@@ -52,10 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Car_Test.cs" />
-    <Compile Include="Menu\Main\MainMenu_Test.cs" />
-    <Compile Include="Menu\Main\MenuItem_Test.cs" />
-    <Compile Include="Menu\Main\PauseMenu_Test.cs" />
-    <Compile Include="Menu\Main\RolloverUtility_Test.cs" />
+    <Compile Include="Menu\MainMenu_Test.cs" />
+    <Compile Include="Menu\MenuItem_Test.cs" />
+    <Compile Include="Menu\PauseMenu_Test.cs" />
+    <Compile Include="Menu\RolloverUtility_Test.cs" />
     <Compile Include="RaceTimer_Test.cs" />
     <Compile Include="Info_Test.cs" />
     <Compile Include="Map_Test.cs" />

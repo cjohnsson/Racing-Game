@@ -18,7 +18,7 @@ namespace RaceGame
 
         public TimeSpan GetElapsedTime()
         {
-            return _timer.Elapsed;
+            return _timer.Elapsed - TimeSpan.FromSeconds(3);
         }
 
         public void Pause()
