@@ -11,6 +11,7 @@ namespace RaceGame
         private static string _textString = string.Empty;
         private static KeyboardState _oldKeyboardState = Keyboard.GetState();
         public static KeyboardState SetKeyboardState { get; set; }
+        public static bool FinishedTyping { get; set; }
 
         public static string GetText()
         {
@@ -34,6 +35,8 @@ namespace RaceGame
                         _textString = _textString.Remove(_textString.Length - 1, 1);
                     else if (key == Keys.Space)
                         _textString += " ";
+                    else if (key == Keys.Enter)
+                        FinishedTyping = true;
                     else
                     {
                         if (ValidKey(key))

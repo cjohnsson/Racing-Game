@@ -32,7 +32,6 @@ namespace RaceGame
         private Map[] _maps;
         private Texture2D[] _cars;
         private ComputerPlayer computerPlayer;
-        //Screen State variables to indicate what is the current screen
         private bool _isPauseScreenShowed;
         private bool _isMainMenuScreenShowed;
         private Menu.Menu _mainMenu;
