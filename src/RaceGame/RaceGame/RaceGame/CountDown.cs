@@ -7,19 +7,19 @@ namespace RaceGame
     public class CountDown
     {
      
-        private const float TIME = 5.0f;
+        private const float COUNTDOWN_TIME = 3.0f;
 
         #region Propertys
 
 
         public bool IsFinished
         {
-            get { return DateTime.Now.Subtract(StartDate).TotalSeconds > TIME; }
+            get { return DateTime.Now.Subtract(StartDate).TotalSeconds > COUNTDOWN_TIME; }
         }
 
         public string Text
         {
-            get { return ((int)TIME - DateTime.Now.Subtract(StartDate).Seconds).ToString(); }        
+            get { return ((int)COUNTDOWN_TIME - DateTime.Now.Subtract(StartDate).Seconds).ToString(); }        
         }
 
         public SpriteFont Font { get; set; }
