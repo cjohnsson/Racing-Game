@@ -29,8 +29,7 @@ namespace RaceGame
         public void SaveScore()
         {
             int tempIndex = _index;
-            TextTyper textTyper = new TextTyper();
-            string name = textTyper.GetText();
+            string name = TextTyper.GetText();
             Score score = new Score(name, _time);
 
             for (int i = tempIndex; i < scoreArray.Length - 1; i++)
