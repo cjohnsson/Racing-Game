@@ -14,24 +14,27 @@ namespace RaceGame_Tests
         [Test]
         public void GetText_DefaultValue_ReturnsEmptyString() 
         {
-            TextTyper textTyper = new TextTyper();
+            //Arrange
 
-            Assert.That(textTyper.GetText(), Is.EqualTo(string.Empty));
+            //Act
+            var result = TextTyper.GetText();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(string.Empty));
         }
 
         [Test]
         public void Update_KeyAIsDown_AddsAToText() 
         {
             //Arrange
-            TextTyper textTyper = new TextTyper();
             KeyboardState fakeKeyboardState = new KeyboardState(Keys.A);
-            textTyper.SetKeyboardState = fakeKeyboardState;
+            TextTyper.SetKeyboardState = fakeKeyboardState;
 
             //Act
-            textTyper.Update();
+            TextTyper.Update();
             
             //Assert
-            var result = textTyper.GetText();
+            var result = TextTyper.GetText();
             Assert.That(result, Is.EqualTo("A"));
         }
 
@@ -39,15 +42,14 @@ namespace RaceGame_Tests
         public void Update_MultipleKeysAreDown_AddsValuesThatKeysRepresentToText()
         {
             //Arrange
-            TextTyper textTyper = new TextTyper();
             KeyboardState fakeKeyboardState = new KeyboardState(Keys.A,Keys.P);
-            textTyper.SetKeyboardState = fakeKeyboardState;
+            TextTyper.SetKeyboardState = fakeKeyboardState;
 
             //Act
-            textTyper.Update();
+            TextTyper.Update();
 
             //Assert
-            var result = textTyper.GetText();
+            var result = TextTyper.GetText();
             Assert.That(result, Is.EqualTo("AP"));
         }
 
@@ -55,15 +57,14 @@ namespace RaceGame_Tests
         public void Update_BackspaceKeyIsDownAndTextStringIsEmpty_DoNothing() 
         {
             //Arrange
-            TextTyper textTyper = new TextTyper();
             KeyboardState fakeKeyboardState = new KeyboardState(Keys.Back);
-            textTyper.SetKeyboardState = fakeKeyboardState;
+            TextTyper.SetKeyboardState = fakeKeyboardState;
 
             //Act
-            textTyper.Update();
+            TextTyper.Update();
 
             //Assert
-            var result = textTyper.GetText();
+            var result = TextTyper.GetText();
             Assert.That(result, Is.EqualTo(string.Empty));
         }
 
@@ -71,20 +72,18 @@ namespace RaceGame_Tests
         public void Update_BackspaceKeyIsDownAndTextStringIsNotEmpty_RemoveLastLetterInTextString()
         {
             //Arrange
-            TextTyper textTyper = new TextTyper();
-
             KeyboardState fakeKeyboardState = new KeyboardState(Keys.A);
-            textTyper.SetKeyboardState = fakeKeyboardState;
-            textTyper.Update();
+            TextTyper.SetKeyboardState = fakeKeyboardState;
+            TextTyper.Update();
 
             fakeKeyboardState = new KeyboardState(Keys.Back);
-            textTyper.SetKeyboardState = fakeKeyboardState;
+            TextTyper.SetKeyboardState = fakeKeyboardState;
 
             //Act
-            textTyper.Update();
+            TextTyper.Update();
 
             //Assert
-            var result = textTyper.GetText();
+            var result = TextTyper.GetText();
             Assert.That(result, Is.EqualTo(string.Empty));
         }
     }

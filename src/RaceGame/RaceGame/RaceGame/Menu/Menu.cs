@@ -8,35 +8,32 @@ namespace RaceGame.Menu
 {
     public abstract class Menu : IMenu
     {
-        protected Texture2D _backgroundImage;
-        protected Vector2[] _menuItemPositions;
-        protected SpriteFont _font;
-        protected const int MENU_ITEM_HEIGHT = 50;
-        protected MenuItem[] _menuItems;
-        public MenuItem SelectedMenuItem { get { return _menuItems[RolloverUtility.Value]; } }
-        private RolloverUtility RolloverUtility { get; set; }
-        public int NrOfPlayers { get { return _menuItems[0].GetValue(); } }
-        public int NrOfBots { get { return _menuItems[1].GetValue(); } }
-        public int SelectedMap { get { return _menuItems[2].GetValue(); } }
-        public int NrOfLaps { get { return _menuItems[3].GetValue(); } }
+        private Texture2D _backgroundImage;
+        private Vector2[] _menuItemPositions;
+        private SpriteFont _font;
+        private const int MENU_ITEM_HEIGHT = 50;
+        protected MenuItem[] MenuItems;
+        protected RolloverUtility RolloverUtility;
+        public MenuItem SelectedMenuItem { get { return MenuItems[RolloverUtility.Value]; } }
+        public int NrOfPlayers { get { return MenuItems[0].GetValue(); } }
+        public int NrOfBots { get { return MenuItems[1].GetValue(); } }
+        public int SelectedMap { get { return MenuItems[2].GetValue(); } }
+        public int NrOfLaps { get { return MenuItems[3].GetValue(); } }
 
         protected Menu()
         {
             Initilize();
-            RolloverUtility = new RolloverUtility(0, 0, 3);
         }
 
         protected Menu(Texture2D backgroundImage, SpriteFont font)
         {
             Initilize();
-            RolloverUtility = new RolloverUtility(0, 0, 3);
             _backgroundImage = backgroundImage;
             _font = font;
-            _menuItemPositions = new Vector2[_menuItems.Length];
 
+            _menuItemPositions = new Vector2[MenuItems.Length];
             int startXPosition = _backgroundImage.Bounds.Width / 2 - 75;
-            int startYPosition = _backgroundImage.Bounds.Height / 2 - (MENU_ITEM_HEIGHT * _menuItems.Length) / 2;
-
+            int startYPosition = _backgroundImage.Bounds.Height / 2 - (MENU_ITEM_HEIGHT * MenuItems.Length) / 2;
             MakePositions(startXPosition, startYPosition);
         }
 
@@ -66,14 +63,14 @@ namespace RaceGame.Menu
             spriteBatch.Draw(_backgroundImage, new Rectangle(0, 0, _backgroundImage.Bounds.Width, _backgroundImage.Bounds.Height), Color.White);
             spriteBatch.DrawString(_font, "Controls: \nQuit game = Escape \nStart game = Enter \nSelect a value = Up & Down \nChange selected value = Left & Right \nToggle fullscreen = F", new Vector2(5, 5), Color.White);
 
-            for (int i = 0; i < _menuItems.Length; i++)
+            for (int i = 0; i < MenuItems.Length; i++)
             {
                 Color color = Color.White;
 
                 if (i == RolloverUtility.Value)
                     color = Color.Red;
 
-                spriteBatch.DrawString(_font, _menuItems[i].ToString(), _menuItemPositions[i], color);
+                spriteBatch.DrawString(_font, MenuItems[i].ToString(), _menuItemPositions[i], color);
             }
         }
     }

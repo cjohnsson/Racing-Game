@@ -20,9 +20,11 @@ namespace RaceGame.Menu
 
         protected override void Initilize()
         {
-            _menuItems = new MenuItem[2];
-            _menuItems[0] = new MenuItem("Continue", null);
-            _menuItems[1] = new MenuItem("Main Menu", null);
+            RolloverUtility = new RolloverUtility(0, 0, 1);
+            MenuItems = new MenuItem[2];
+            MenuItems[0] = new MenuItem("Continue", null);
+            MenuItems[1] = new MenuItem("Main Menu", null);
+            
         }
     }
 }
