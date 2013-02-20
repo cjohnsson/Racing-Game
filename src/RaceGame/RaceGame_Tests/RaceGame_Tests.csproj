@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Car_Test.cs" />
+    <Compile Include="HighScore_Test.cs" />
     <Compile Include="Menu\MainMenu_Test.cs" />
     <Compile Include="Menu\MenuItem_Test.cs" />
     <Compile Include="Menu\PauseMenu_Test.cs" />

@@ -14,22 +14,24 @@ namespace RaceGame
     {
         private Dictionary<int, ScoreList> _highScoreList;
         private ScoreList _scoreList;
-        private SpriteBatch _spriteBatch;
         private SpriteFont _spriteFont;
         private int _map;
 
-        public HighScore(int map, SpriteBatch spriteBatch, SpriteFont spriteFont)
+        public HighScore(int map, SpriteFont spriteFont)
         {
             _spriteFont = spriteFont;
-            _spriteBatch = spriteBatch;
             _map = map;
-            _highScoreList = LoadHighScoreList();
+            LoadHighScoreList();
             _scoreList = _highScoreList[_map];
         }
 
-        public void GetHighMapScore()
+        private void InitializeHighScoreList()
         {
-            Draw(_spriteBatch);
+            _highScoreList = new Dictionary<int, ScoreList>();
+            for (int i = 0; i < 5; i++)
+            {
+                _highScoreList.Add(i, new ScoreList());
+            }
         }
 
         public void SetHighMapScore(TimeSpan newTime)
@@ -37,25 +39,21 @@ namespace RaceGame
             _scoreList.SetScore(newTime);
         }
 
-        public Dictionary<int, ScoreList> LoadHighScoreList() {
+        public void LoadHighScoreList() {
             try 
             {
-                FileStream fileStream = new FileStream("HighScoreList.dat", FileMode.Open);
+                FileStream fileStream = new FileStream("HighScore.dat", FileMode.Open);
                 BinaryFormatter binaryFormatter = new BinaryFormatter();
-                _highScoreList = (Dictionary<int, ScoreList>)binaryFormatter.Deserialize(fileStream);
+                _highScoreList = (Dictionary<int, ScoreList>) binaryFormatter.Deserialize(fileStream);
             }
-            catch (SerializationException) {
-                if (_highScoreList == null) {
-                    SaveHighScoreList();
-                    LoadHighScoreList();
-                }   throw new SerializationException("Fel vid hämtning av highscore!");
+            catch (FileNotFoundException) {
+                InitializeHighScoreList();
             }
-            return _highScoreList;
         }
 
         public void SaveHighScoreList() {
             try {
-                FileStream fileStream = new FileStream("HighScoreList.dat", FileMode.Create);
+                FileStream fileStream = new FileStream("HighScore.dat", FileMode.Create);
                 BinaryFormatter binaryFormatter = new BinaryFormatter();
                 binaryFormatter.Serialize(fileStream, _highScoreList);
                 fileStream.Close();
@@ -65,13 +63,17 @@ namespace RaceGame
             }
         }
 
-        void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            int yPosition = 20;
+            int yPosition = 40;
             foreach (Score score in _scoreList.scoreArray)
             {
-                spriteBatch.DrawString(_spriteFont, "Name: " + score.Name + "Time: " + score.Time,new Vector2(20, yPosition),Color.White);
-                yPosition += 20;
+                if (score != null)
+                {
+                    spriteBatch.DrawString(_spriteFont, "Name: " + score.Name + "Time: " + score.Time,
+                                           new Vector2(40, yPosition), Color.White);
+                    yPosition += 20;
+                }
             } 
         }
     }

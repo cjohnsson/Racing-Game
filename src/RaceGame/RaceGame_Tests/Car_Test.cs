@@ -1,4 +1,6 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
+using Moq;
 using NUnit.Framework;
 using RaceGame;
 
@@ -7,30 +9,36 @@ namespace RaceGame_Tests
     [TestFixture]
     public class Car_Test
     {
-        const float MAXSPEED = 1.5f;
+        private const float MAXSPEED = 1.5f;
 
-        public Car CreateCarInstance()
-        {
-            return new Car();
-        }
 
-        #region Acclerate_Method_Tests      
+        #region Acclerate_Method_Tests
 
         [Test]
         public void Accelerate_IncreaseSpeed_SpeedIncreases()
         {
-            var car = CreateCarInstance();
-            car.Accelerate();
+            var mock = new Mock<ICar>();
+            mock.Setup(x => x.Speed).Returns(0.0f);
+            ICar car = mock.Object;
+
             Assert.That(car.Speed, Is.LessThanOrEqualTo(MAXSPEED));
         }
 
         [Test]
         public void Accelerate_SpeedAcceleration_AllowToAccelerate()
         {
-            var car = CreateCarInstance();
+            float carAccelerated = 0;
+            var mock = new Mock<ICar>();
+            mock.Setup(x => x.Speed).Returns(0.0f);
+            ICar car = mock.Object;
             float carStartSpeed = car.Speed;
-            car.Accelerate();
-            float carAccelerated = car.Speed;
+
+            mock.Setup(x => x.Speed).Returns(0.1f);
+            car = mock.Object;
+
+            carAccelerated = carStartSpeed;
+            carAccelerated += car.Speed;
+
             Assert.That(carAccelerated, Is.InRange(carStartSpeed, MAXSPEED));
         }
 
@@ -41,25 +49,44 @@ namespace RaceGame_Tests
         [Test]
         public void Break_AllowBreak_BreakAllowed()
         {
-            var car = CreateCarInstance();
+            float startBreak = 0;
+
+            var mock = new Mock<ICar>();
+            mock.Setup(x => x.Speed).Returns(0.0f);
+            ICar car = mock.Object;
             float carSpeedStart = car.Speed;
-            car.Break();
-            float carSpeedSlowed = car.Speed;
+
+            mock.Setup(x => x.Speed).Returns(0.1f);
+            car = mock.Object;
+            startBreak = carSpeedStart;
+            startBreak -= car.Speed;
+
 
             if (carSpeedStart == 0)
             {
                 Assert.That(carSpeedStart, Is.LessThanOrEqualTo(carSpeedStart));
             }
             else
-                Assert.That(carSpeedSlowed, Is.LessThan(carSpeedStart));
+                Assert.That(startBreak, Is.LessThan(carSpeedStart));
         }
 
         [Test]
         public void Break_NotNegativValueAndStoped_CarStoped()
         {
-            var car = CreateCarInstance();
-            car.Break();
-            Assert.That(car.Speed, Is.Not.Negative.Or.GreaterThan(0));
+            float breaks = 0;
+
+            var mock = new Mock<ICar>();
+            mock.Setup(x => x.Speed).Returns(0.2f);
+            ICar car = mock.Object;
+            float startBreaks = car.Speed;
+
+            mock.Setup(x => x.Speed).Returns(0.1f);
+            car = mock.Object;
+
+            breaks = startBreaks;
+            breaks -= car.Speed;
+
+            Assert.That(breaks, Is.Not.Negative.Or.GreaterThan(0));
         }
 
         #endregion
@@ -69,14 +96,20 @@ namespace RaceGame_Tests
         [Test]
         public void CheckCarSpeed_IsNotNull_CarSpeedHasValue()
         {
-            var car = CreateCarInstance();
+            var mock = new Mock<ICar>();
+            mock.Setup(x => x.Speed).Returns(0.0f);
+            ICar car = mock.Object;
+
             Assert.That(car.Speed, !Is.Null);
         }
 
         [Test]
         public void CheckRotation_IsNotNull_RotationHasValue()
         {
-            var car = CreateCarInstance();
+            var mock = new Mock<ICar>();
+            mock.Setup(x => x.Rotation).Returns(0.0f);
+            ICar car = mock.Object;
+
             Assert.That(car.Rotation, !Is.Null);
         }
 
@@ -87,20 +120,38 @@ namespace RaceGame_Tests
         [Test]
         public void TurnLeft_RotationDeceses_CarTurnsLeft()
         {
-            var car = CreateCarInstance();
+            float newRotationPosition = 0;
+
+            var mock = new Mock<ICar>();
+            mock.Setup(x => x.Rotation).Returns(0.0f);
+            ICar car = mock.Object;
             float currentRotationPosition = car.Rotation;
-            car.TurnLeft();
-            float newRotationPosition = car.Rotation;
+
+            mock.Setup(x => x.Rotation).Returns(0.1f);
+            car = mock.Object;
+
+            newRotationPosition = currentRotationPosition;
+            newRotationPosition -= car.Rotation;
+
             Assert.That(newRotationPosition, Is.LessThan(currentRotationPosition));
         }
 
         [Test]
         public void TurnRight_RotationIncreases_CarTurnRight()
         {
-            var car = CreateCarInstance();
+            float newRotationPosition = 0;
+
+            var mock = new Mock<ICar>();
+            mock.Setup(x => x.Rotation).Returns(0.0f);
+            ICar car = mock.Object;
             float currentRotationPosition = car.Rotation;
-            car.TurnRight();
-            float newRotationPosition = car.Rotation;
+
+            mock.Setup(x => x.Rotation).Returns(0.1f);
+            car = mock.Object;
+
+            newRotationPosition = currentRotationPosition;
+            newRotationPosition += car.Rotation;
+
             Assert.That(newRotationPosition, Is.GreaterThan(currentRotationPosition));
         }
 
