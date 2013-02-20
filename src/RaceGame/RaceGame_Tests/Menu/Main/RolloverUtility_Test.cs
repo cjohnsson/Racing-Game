@@ -11,7 +11,7 @@ namespace RaceGame_Tests.Menu.Main
     // ReSharper disable InconsistentNaming
 
     [TestFixture]
-    public class RolloverUtilityTests
+    public class RolloverUtility_Test
     {
         private RolloverUtility MakeRolloverUtility()
         {
