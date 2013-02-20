@@ -7,7 +7,7 @@ namespace RaceGame
     {
         Rectangle Position { get; }
         bool HasFinishedLap { get; }
-        float Speed { get; }
+        float Speed { get; set; }
         float Rotation { get; set; }
         float X { get; set; }
         float Y { get; set; }
