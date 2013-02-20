@@ -92,7 +92,6 @@
     <Compile Include="IMap.cs" />
     <Compile Include="Info.cs" />
     <Compile Include="IPlayer.cs" />
-    <Compile Include="ITextTyper.cs" />
     <Compile Include="IWorld.cs" />
     <Compile Include="Menu\MenuItem.cs" />
     <Compile Include="Menu\RolloverUtility.cs" />

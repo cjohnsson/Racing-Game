@@ -3,40 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
-
 
 namespace RaceGame
 {
-    public class TextTyper : ITextTyper
+    public static class TextTyper
     {
-        private string _textString = string.Empty;
-        private KeyboardState oldKeyboardState;
+        private static string _textString = string.Empty;
+        private static KeyboardState _oldKeyboardState = Keyboard.GetState();
+        public static KeyboardState SetKeyboardState { get; set; }
 
-        public KeyboardState SetKeyboardState { get; set; }
-
-        public TextTyper()
-        {
-            oldKeyboardState = Keyboard.GetState();
-        }
-
-        public string GetText()
+        public static string GetText()
         {
             return _textString;
         }
 
-        public void Update()
+        public static void Update()
         {
             KeyboardState newKeyboardState = Keyboard.GetState();
 
-            if (SetKeyboardState != null)
+            if (SetKeyboardState.GetPressedKeys().Length > 0)
                 newKeyboardState = SetKeyboardState;
 
             Keys[] pressedKeys = newKeyboardState.GetPressedKeys();
 
             foreach (Keys key in pressedKeys)
             {
-                if (oldKeyboardState.IsKeyUp(key))
+                if (_oldKeyboardState.IsKeyUp(key))
                 {
                     if (key == Keys.Back && !_textString.Equals(string.Empty))
                         _textString = _textString.Remove(_textString.Length - 1, 1);
@@ -44,16 +36,16 @@ namespace RaceGame
                         _textString += " ";
                     else
                     {
-                        if(ValidKey(key))
-                        _textString += key.ToString().ToUpper();
+                        if (ValidKey(key))
+                            _textString += key.ToString().ToUpper();
                     }
                 }
             }
 
-            oldKeyboardState = newKeyboardState;
+            _oldKeyboardState = newKeyboardState;
         }
 
-        private bool ValidKey(Keys key)
+        private static bool ValidKey(Keys key)
         {
             return (key.ToString().ToUpper().Length == 1);
         }
