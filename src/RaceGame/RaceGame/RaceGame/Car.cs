@@ -9,7 +9,21 @@ namespace RaceGame
 {
     public class Car : ICar
     {
-        private Texture2D image;
+        private Texture2D _image;
+        private bool _passedCheckPoint = false;
+        private bool _passedFinishLine = false;
+        private float _speed;
+        private float _rotation;
+        private float _x;
+        private float _y;
+        private int _height;
+        private int _width;
+        private const float ROTATION_SPEED = 0.1f;
+        private const float MAXSPEED = 1.5f;
+        private const float ACCELERATION = 0.1f;
+        private const float DECELERATION = 0.01f;
+        private const float BREAK_DECELERATION = 0.1f;
+        private const float TERRAIN_SPEED = 0.01f;
 
         public Car()
         {
@@ -18,69 +32,54 @@ namespace RaceGame
 
         public Car(Texture2D newImage, Vector2 position)
         {
-            image = newImage;
-            width = newImage.Bounds.Width;
-            height = newImage.Bounds.Height;
-            x = position.X;
-            y = position.Y;
+            _image = newImage;
+            _width = newImage.Bounds.Width;
+            _height = newImage.Bounds.Height;
+            _x = position.X;
+            _y = position.Y;
         }
 
         public Rectangle Position
         {
             get
             {
-                return new Rectangle((int)x, (int)y, width, height);
+                return new Rectangle((int)_x, (int)_y, _width, _height);
             }
         }
-
-        public bool passedCheckPoint = false;
-        public bool passedFinishLine = false;
+        
         public bool HasFinishedLap
         {
             get
             {
-                if (passedCheckPoint && passedFinishLine)
+                if (_passedCheckPoint && _passedFinishLine)
                 {
-                    passedCheckPoint = false;
-                    passedFinishLine = false;
+                    _passedCheckPoint = false;
+                    _passedFinishLine = false;
                     return true;
                 }
                 return false;
             }
         }
 
-        private float _speed;
-        private float _rotation;
         public float Speed { get { return _speed; } }
+
         public float Rotation
         {
             get { return _rotation; }
             set { _rotation = value; }
         }
+
         public float X
         {
-            get { return x; }
-            set { x = value; }
+            get { return _x; }
+            set { _x = value; }
         }
+
         public float Y
         {
-            get { return y; }
-            set { y = value; }
+            get { return _y; }
+            set { _y = value; }
         }
-
-        Vector2 origin;
-
-        float x;
-        float y;
-        int height;
-        int width;
-
-        const float ROTATION_SPEED = 0.1f;
-        const float MAXSPEED = 1.5f;
-        const float ACCELERATION = 0.1f;
-        const float DECELERATION = 0.01f;
-        const float BREAK_DECELERATION = 0.1f;
-        const float TERRAIN_SPEED = 0.01f;
 
         public void Accelerate()
         {
@@ -119,47 +118,39 @@ namespace RaceGame
 
         public void Update()
         {
-            //inte 100% här om detta är korrekt - Svar: Det är korrekt nu :) svar till stoffe: Nej det var inte korrekt, vi ändrade din ändring
-            float newX = x + (float)Math.Cos((double)_rotation) * _speed;
-            float newY = y + (float)Math.Sin((double)_rotation) * _speed;
+            float newX = _x + (float)Math.Cos((double)_rotation) * _speed;
+            float newY = _y + (float)Math.Sin((double)_rotation) * _speed;
 
             TerrainTypes newTerrain = GetTerrain(new Vector2(newX, newY));
             switch (newTerrain)
             {
                 case TerrainTypes.CheckPoint:
-                    x = newX;
-                    y = newY;
-                    passedCheckPoint = true;
+                    _x = newX;
+                    _y = newY;
+                    _passedCheckPoint = true;
                     break;
                 case TerrainTypes.FinishLine:
-                    x = newX;
-                    y = newY;
-                    if (passedCheckPoint)
+                    _x = newX;
+                    _y = newY;
+                    if (_passedCheckPoint)
                     {
-                        passedFinishLine = true;
+                        _passedFinishLine = true;
                     }
                     break;
                 case TerrainTypes.Obstacle:
                     //krock
                     break;
                 case TerrainTypes.Road:
-                    x = newX;
-                    y = newY;
+                    _x = newX;
+                    _y = newY;
                     break;
                 case TerrainTypes.Terrain:
-                    x = newX;
-                    y = newY;
+                    _x = newX;
+                    _y = newY;
                     _speed = TERRAIN_SPEED;
-                    break;
-                default:
                     break;
             }
             Decelerate();
-        }
-
-        private TerrainTypes GetTerrain()
-        {
-            return GetTerrain(GetOrigin());
         }
 
        public TerrainTypes GetTerrain(Vector2 position)
@@ -191,12 +182,7 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, Position, null, Color.White, _rotation, new Vector2(width / 2, height / 2), SpriteEffects.None, 0);
-        }
-
-        private Vector2 GetOrigin()
-        {
-            return new Vector2((x + Position.X / 2), (y + Position.Y / 2));
+            spriteBatch.Draw(_image, Position, null, Color.White, _rotation, new Vector2(_width / 2, _height / 2), SpriteEffects.None, 0);
         }
     }
 }

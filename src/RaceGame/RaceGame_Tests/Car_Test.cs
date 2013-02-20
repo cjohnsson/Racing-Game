@@ -9,8 +9,6 @@ namespace RaceGame_Tests
     {
         const float MAXSPEED = 1.5f;
 
-        
-
         public Car CreateCarInstance()
         {
             return new Car();
