@@ -36,13 +36,10 @@
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Moq">
-      <HintPath>..\..\..\..\..\..\Moq.4.0.10827\NET40\Moq.dll</HintPath>
+      <HintPath>..\..\..\tools\Moq.4.0.10827\NET40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\tools\NUnit-2.6.2\bin\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Mocks">
-      <HintPath>..\..\..\tools\Rhino.Mocks-3.6-Build-21\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,9 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Car_Test.cs" />
-    <Compile Include="Menu\Main\MainMenu_Test.cs" />
-    <Compile Include="Menu\Main\MenuItem_Test.cs" />
-    <Compile Include="Menu\Main\RolloverUtility_Test.cs" />
+    <Compile Include="Menu\MainMenu_Test.cs" />
+    <Compile Include="Menu\MenuItem_Test.cs" />
+    <Compile Include="Menu\PauseMenu_Test.cs" />
+    <Compile Include="Menu\RolloverUtility_Test.cs" />
     <Compile Include="RaceTimer_Test.cs" />
     <Compile Include="Info_Test.cs" />
     <Compile Include="Map_Test.cs" />

@@ -14,6 +14,7 @@ namespace RaceGame.Menu
         private const int MENU_ITEM_HEIGHT = 50;
         protected MenuItem[] MenuItems;
         protected RolloverUtility RolloverUtility;
+        protected string Description = string.Empty;
         public MenuItem SelectedMenuItem { get { return MenuItems[RolloverUtility.Value]; } }
         public int NrOfPlayers { get { return MenuItems[0].GetValue(); } }
         public int NrOfBots { get { return MenuItems[1].GetValue(); } }
@@ -61,7 +62,7 @@ namespace RaceGame.Menu
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_backgroundImage, new Rectangle(0, 0, _backgroundImage.Bounds.Width, _backgroundImage.Bounds.Height), Color.White);
-            spriteBatch.DrawString(_font, "Controls: \nQuit game = Escape \nStart game = Enter \nSelect a value = Up & Down \nChange selected value = Left & Right \nToggle fullscreen = F", new Vector2(5, 5), Color.White);
+            spriteBatch.DrawString(_font, Description, new Vector2(5, 5), Color.White);
 
             for (int i = 0; i < MenuItems.Length; i++)
             {

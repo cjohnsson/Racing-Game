@@ -5,12 +5,13 @@ using System.Text;
 
 namespace RaceGame
 {
+    [Serializable]
     public class Score
     {
         private string _name;
         private TimeSpan _time;
 
-        public Score(string newName, TimeSpan newTime )
+        public Score(string newName, TimeSpan newTime)
         {
             _name = newName;
             _time = newTime;

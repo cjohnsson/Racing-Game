@@ -18,7 +18,7 @@ namespace RaceGame_Tests.Menu.Main
         }
 
         [Test]
-        public void ScrollUp_SelectedMenuItemsValueIsGreaterThan0_DecreasesSelectedMenuItemsValue()
+        public void ScrollUp_SelectedMenuItemIsGreaterThan0_DecreasesSelectedMenuItem()
         {
             var mainMenu = MakeMainMenu();
             mainMenu.ScrollDown();
@@ -30,7 +30,7 @@ namespace RaceGame_Tests.Menu.Main
         }
 
         [Test]
-        public void ScrollUp_SelectedMenuItemsValueIs0_SetsSelectedMenuItemsValueToMaxValue()
+        public void ScrollUp_SelectedMenuItemIs0_SetsSelectedMenuItemToMaxValue()
         {
             var mainMenu = MakeMainMenu();
 
@@ -41,7 +41,7 @@ namespace RaceGame_Tests.Menu.Main
         }
 
         [Test]
-        public void ScrollDown_SelectedMenuItemsValueIsLowerThanMaxValue_RaisesSelectedMenuItemsValue()
+        public void ScrollDown_SelectedMenuItemIsLowerThanMaxValue_RaisesSelectedMenuItem()
         {
             var mainMenu = MakeMainMenu();
 
@@ -52,7 +52,7 @@ namespace RaceGame_Tests.Menu.Main
         }
 
         [Test]
-        public void ScrollDown_SelectedMenuItemsValueIsMaxValue_SetsSelectedMenuItemsValueTo0()
+        public void ScrollDown_SelectedMenuItemIsEqualToItsMaxValue_SetsSelectedMenuItemToItsMinValue()
         {
             var mainMenu = MakeMainMenu();
             mainMenu.ScrollUp();
@@ -64,7 +64,7 @@ namespace RaceGame_Tests.Menu.Main
         }
 
         [Test]
-        public void RaiseChosenValue_TheValueNrOfPlayersIsLowerThanTheMaximumValue_RaiseValue()
+        public void RaiseChosenValue_NrOfPlayersIsLowerThanItsMaxValue_RaiseValue()
         {
             var mainMenu = MakeMainMenu();
 
@@ -75,7 +75,7 @@ namespace RaceGame_Tests.Menu.Main
         }
 
         [Test]
-        public void RaiseChosenValue_TheValueNrOfPlayersIsTheMaximumValue_SetsNrOfPlayersValueToTheMinimumValue()
+        public void RaiseChosenValue_NrOfPlayersIsEqualToItsMaxValue_SetsNrOfPlayerToItsMinValue()
         {
             var mainMenu = MakeMainMenu();
             mainMenu.SelectedMenuItem.RaiseValue();
@@ -87,7 +87,7 @@ namespace RaceGame_Tests.Menu.Main
         }
 
         [Test]
-        public void LowerChosenValue_TheValueOfNrOfPlayersIsHigherThanItsMinimumValue_LowerValue()
+        public void LowerChosenValue_NrOfPlayersIsHigherThanItsMinValue_LowerValue()
         {
             var mainMenu = MakeMainMenu();
             mainMenu.SelectedMenuItem.RaiseValue();
@@ -99,7 +99,7 @@ namespace RaceGame_Tests.Menu.Main
         }
 
         [Test]
-        public void LowerChosenValue_TheValueOfNrOfPlayersIsEqualToItsMinimumValue_SetsNrOfPlayersToItsMaximumValue()
+        public void LowerChosenValue_NrOfPlayersIsEqualToItsMinValue_SetsNrOfPlayersToItsMaxValue()
         {
             var mainMenu = MakeMainMenu();
 

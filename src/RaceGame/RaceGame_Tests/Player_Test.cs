@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using RaceGame;
 
+
 namespace RaceGame_Tests
 {
     [TestFixture]
@@ -14,24 +15,6 @@ namespace RaceGame_Tests
         private Player MakePlayer()
         {
             return new Player(null,null,new Vector2(), 0);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void SetName_InsertsAnEmptyString_ThrowsAnArgumentException()
-        {
-            Player player = MakePlayer();
-
-            player.Name = "";
-        }
-
-        [Test]
-        public void GetName_GetAValidName_ReturnsAValidName()
-        {
-            Player player = MakePlayer();
-
-            player.Name = "Mattias";
-            Assert.That("Mattias", Is.EqualTo(player.Name));
         }
     }
 }
