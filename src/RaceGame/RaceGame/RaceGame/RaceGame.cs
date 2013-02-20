@@ -4,14 +4,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.GamerServices;
 using RaceGame.Menu;
 using Color = Microsoft.Xna.Framework.Color;
 using Point = Microsoft.Xna.Framework.Point;
-using RaceGame.Menu;
+
 #endregion
 
 namespace RaceGame
