@@ -6,28 +6,55 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace RaceGame
 {
+    [Serializable]
     public class ScoreList
     {
-       public Score[] scoreArray = new Score[5];
+        public Score[] scoreArray = new Score[5];
+        private static int _index;
+        private static TimeSpan _time;
 
+        public ScoreList()
+        {
 
-        public void SaveScore(Score newScore)
-        { 
-            throw new NotImplementedException();
         }
 
-        public bool CheckScore(TimeSpan newTime)
+        public void SetScore(TimeSpan newTime)
+        {
+            _time = newTime;
+            if (CheckScore(_time)) {
+                SaveScore();
+            }
+        }
+
+        public void SaveScore()
+        {
+            int tempIndex = _index;
+            string name = TextTyper.GetText();
+            Score score = new Score(name, _time);
+
+            for (int i = tempIndex; i < scoreArray.Length - 1; i++)
+            {
+                Score temp = scoreArray[tempIndex];
+                if (tempIndex < scoreArray.Length-1)
+                {
+                    scoreArray[tempIndex] = scoreArray[_index + 1];
+                }
+                scoreArray[tempIndex + 1] = temp;
+            }
+            scoreArray[_index] = score;
+        }
+
+        public bool CheckScore(TimeSpan time)
         {
             for (int i = 0; i < scoreArray.Length-1; i++)
                 {
-                    if (newTime <= scoreArray[i].Time)
+                    if (time <= scoreArray[i].Time || scoreArray[i] == null)
                     {
+                        _index = i;
                         return true;
                     }
                 }
-            
             return false;
-            
         }
 
         public void Draw(SpriteBatch spriteBatch)
