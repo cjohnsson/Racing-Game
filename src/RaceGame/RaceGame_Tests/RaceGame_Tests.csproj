@@ -54,6 +54,7 @@
     <Compile Include="Car_Test.cs" />
     <Compile Include="Menu\Main\MainMenu_Test.cs" />
     <Compile Include="Menu\Main\MenuItem_Test.cs" />
+    <Compile Include="Menu\Main\PauseMenu_Test.cs" />
     <Compile Include="Menu\Main\RolloverUtility_Test.cs" />
     <Compile Include="RaceTimer_Test.cs" />
     <Compile Include="Info_Test.cs" />

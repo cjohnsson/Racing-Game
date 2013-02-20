@@ -53,6 +53,5 @@ namespace RaceGame.Menu
                 return _text;
             return String.Format(_text, _rolloverUtility.Value);
         }
-
     }
 }

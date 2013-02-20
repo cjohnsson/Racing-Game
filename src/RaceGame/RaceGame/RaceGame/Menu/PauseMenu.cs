@@ -22,9 +22,11 @@ namespace RaceGame.Menu
         {
             RolloverUtility = new RolloverUtility(0, 0, 1);
             MenuItems = new MenuItem[2];
-            MenuItems[0] = new MenuItem("Continue", null);
-            MenuItems[1] = new MenuItem("Main Menu", null);
-            
+            MenuItems[0] = new MenuItem("Continue", RolloverUtility);
+            MenuItems[1] = new MenuItem("Main Menu", RolloverUtility);
+
+            Description =
+                "Controls: \nConfirm = Enter \nSelect a value = Up & Down";
         }
     }
 }
