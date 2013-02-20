@@ -18,9 +18,13 @@ namespace RaceGame
         public static Bitmap CollisionImage { get; set; }
         public Player Winner { get; set; }
         private CountDown CountDown { get; set; }
+        private SpriteFont _font;
+        private int _selectedMap;
 
-        public World(Map map, List<Player> players, SpriteFont font, Texture2D hud, CountDown countDown)
+        public World(Map map, List<Player> players, SpriteFont font, Texture2D hud, CountDown countDown, int selectedMap)
         {
+            _font = font;
+            _selectedMap = selectedMap;
             RaceTimer = new RaceTimer();
             
             CountDown = countDown;
@@ -38,6 +42,9 @@ namespace RaceGame
             foreach (var player in Players)
             {
                 player.Draw(spriteBatch);
+                if (player.Lap == Map.Laps) {
+                    HighScore hs = new HighScore(3,spriteBatch,_font);
+                }
             }
 
             Map.DrawForeground(spriteBatch);
