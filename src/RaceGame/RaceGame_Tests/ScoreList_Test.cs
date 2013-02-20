@@ -10,28 +10,20 @@ namespace RaceGame_Tests
     [TestFixture]
     public class ScoreList_Test
     {
-        ScoreList list;
+        ScoreList list = new ScoreList();
         
-       [SetUp]
-       public void OurSetup()
-       {
-           //list = new ScoreList();
-           Score tempScore = new Score("Kalle", new TimeSpan(0,0,45));
-           list.scoreArray[0] = tempScore;
-       }
-
        public void FillArray()
         {
-            Score newScore2 = new Score("Stiffe", new TimeSpan(0, 7, 10));
-            Score newScore3 = new Score("Stiffe", new TimeSpan(0, 4, 10));
-            Score newScore4 = new Score("Stiffe", new TimeSpan(0, 5, 10));
-            Score newScore5 = new Score("Stiffe", new TimeSpan(0, 2, 10));
-            Score newScore6 = new Score("Stiffe", new TimeSpan(1, 5, 10));
-            //list.SaveScore(newScore2);
-            //list.SaveScore(newScore3);
-            //list.SaveScore(newScore4);
-            //list.SaveScore(newScore5);
-            //list.SaveScore(newScore6);
+            Score newScore2 = new Score("Stiffe", new TimeSpan(0, 0, 1, 10));
+            Score newScore3 = new Score("Stiffe", new TimeSpan(0, 0, 2, 10));
+            Score newScore4 = new Score("Stiffe", new TimeSpan(0, 0, 3, 10));
+            Score newScore5 = new Score("Stiffe", new TimeSpan(0, 0, 5, 10));
+            Score newScore6 = new Score("Stiffe", new TimeSpan(0, 0, 6, 10));
+            list.scoreArray[0] = (newScore2);
+            list.scoreArray[1] = (newScore3);
+            list.scoreArray[2] = (newScore4);
+            list.scoreArray[3] = (newScore5);
+            list.scoreArray[4] = (newScore6);
         }
 
 
@@ -84,5 +76,53 @@ namespace RaceGame_Tests
 
       
        #endregion
+
+        [Test]
+        public void CheckScore_CheckScoreInEmptyList_ReturnIndex0()
+        {
+            TimeSpan time = new TimeSpan(0,0,2,0);
+            Assert.That(list.CheckScore(time), Is.EqualTo(0));
+        }
+
+        [Test]
+        public void CheckScore_CheckScoreInFullList_ReturnIndexNegativeOne() {
+            TimeSpan time = new TimeSpan(1, 4, 2, 0);
+            FillArray();
+            Assert.That(list.CheckScore(time), Is.EqualTo(-1));
+        }
+
+        [Test]
+        public void CheckScore_CheckMiddleScoreInFullList_ReturnIndex3() {
+            TimeSpan time = new TimeSpan(0, 0, 4, 0);
+            FillArray();
+            Assert.That(list.CheckScore(time), Is.EqualTo(3));
+        }
+
+        [Test]
+        public void Insert_InsertToNewBestTime_MoveToFirstPlaceInArray() {
+            FillArray();
+            TimeSpan time = new TimeSpan(0, 0, 0, 1);
+            Score score = new Score("Mattias", time);
+            list.Ïnsert(score, 0);
+            Assert.That(list.scoreArray[0].Name, Is.EqualTo(score.Name));
+        }
+
+        [Test]
+        public void Insert_InsertToMiddleTime_MoveToMidPlaceInArray() {
+            FillArray();
+            TimeSpan time = new TimeSpan(0, 0, 4, 10);
+            Score score = new Score("Magnus", time);
+            list.Ïnsert(score, 3);
+            Assert.That(list.scoreArray[3].Name, Is.EqualTo(score.Name));
+        }
+
+        [Test]
+        public void Insert_InsertToLastTime_MoveToLastPlaceInArray() {
+            FillArray();
+            TimeSpan time = new TimeSpan(0, 0, 5, 50);
+            Score score = new Score("Fidde", time);
+            list.Ïnsert(score, 4);
+            Assert.That(list.scoreArray[4].Name, Is.EqualTo(score.Name));
+        }
     }
 }

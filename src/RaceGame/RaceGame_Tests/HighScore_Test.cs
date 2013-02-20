@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using RaceGame;
 using NUnit.Framework;
+using RaceGame;
 
 namespace RaceGame_Tests {
     [TestFixture]
-    class World_Test 
-    {
-        private World MakeWorld()
+    public class HighScore_Test {
+
+        public HighScore_Test()
         {
-            return new World(null, null, null, null, null);
+            
         }
+
+
     }
 }

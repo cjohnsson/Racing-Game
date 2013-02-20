@@ -33,12 +33,15 @@ namespace RaceGame
         private Texture2D[] _cars;
         private ComputerPlayer computerPlayer;
         private bool _isPauseScreenShowed;
+        private bool _isHighScoredScreenShowed;
         private bool _isMainMenuScreenShowed;
         private Menu.Menu _mainMenu;
         private List<Player> _players;
         private CountDown _countDown;
         private Point[] _startPositions;
         private float[] _startRotations;
+        private SpriteFont _font1;
+        private HighScore highScore;
 
         public RaceGame()
             : base()
@@ -80,8 +83,10 @@ namespace RaceGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             computerPlayer = new ComputerPlayer();
 
-            _pauseMenu = new PauseMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"));
-            _mainMenu = new MainMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"));
+            _font1 = Content.Load<SpriteFont>("SpriteFont1");
+
+            _pauseMenu = new PauseMenu(Content.Load<Texture2D>("transparentBackground"), _font1);
+            _mainMenu = new MainMenu(Content.Load<Texture2D>("transparentBackground"), _font1);
 
             Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
             Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
@@ -261,10 +266,13 @@ namespace RaceGame
                         }
 
                         world = new World(_maps[_mainMenu.SelectedMap], _players,
-                                          Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"), _countDown, _mainMenu.SelectedMap);
+                                          _font1, Content.Load<Texture2D>("HUD"), _countDown);
                         world.Map.Laps = _mainMenu.NrOfLaps;
                         World.RaceTimer.Reset();
                         World.RaceTimer.Resume();
+                        
+                        highScore = new HighScore(_mainMenu.SelectedMap, _font1);
+                        
                     }
                 }
             }
@@ -308,7 +316,8 @@ namespace RaceGame
 
                 if (world.Winner != null)
                 {
-                    _isMainMenuScreenShowed = true;
+                    _isHighScoredScreenShowed = true;
+                    highScore.SetHighMapScore(World.RaceTimer.GetElapsedTime());
                     //Spelet är över... spara tiden till highscoren och celebrate
                 }
             }
@@ -375,6 +384,10 @@ namespace RaceGame
             if (_isMainMenuScreenShowed)
             {
                 _mainMenu.Draw(spriteBatch);
+            }
+            else if (_isHighScoredScreenShowed)
+            {
+                highScore.Draw(spriteBatch);
             }
             else
             {

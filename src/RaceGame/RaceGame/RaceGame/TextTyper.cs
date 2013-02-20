@@ -8,7 +8,7 @@ namespace RaceGame
 {
     public static class TextTyper
     {
-        private static string _textString = string.Empty;
+        private static string _textString = "";
         private static KeyboardState _oldKeyboardState = Keyboard.GetState();
         public static KeyboardState SetKeyboardState { get; set; }
         public static bool FinishedTyping { get; set; }
