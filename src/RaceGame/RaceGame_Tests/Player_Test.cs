@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using RaceGame;
-using Rhino.Mocks;
+
 
 namespace RaceGame_Tests
 {
@@ -16,5 +16,6 @@ namespace RaceGame_Tests
         {
             return new Player(null,null,new Vector2(), 0);
         }
+
     }
 }
