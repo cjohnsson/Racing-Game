@@ -20,10 +20,11 @@ namespace RaceGame
     /// </summary>
     public class RaceGame : Game
     {
-        private GraphicsDeviceManager graphics;
-        private SpriteBatch spriteBatch;
-        private World world;
-        private KeyboardState _oldState;
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
+        private World _world;
+        private KeyboardState _oldKeyboardState;
+        private KeyboardState _newKeyboardState;
         private Keys _menuKey;
         private Keys _fullScreenKey;
         private Menu.Menu _pauseMenu;
@@ -31,7 +32,7 @@ namespace RaceGame
         private const int NR_OF_CARS = 5;
         private Map[] _maps;
         private Texture2D[] _cars;
-        private ComputerPlayer computerPlayer;
+        private ComputerPlayer _computerPlayer;
         private bool _isPauseScreenShowed;
         private bool _isMainMenuScreenShowed;
         private Menu.Menu _mainMenu;
@@ -43,18 +44,18 @@ namespace RaceGame
         public RaceGame()
             : base()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
             _menuKey = Keys.Escape;
             _fullScreenKey = Keys.F;
             _isMainMenuScreenShowed = true;
+            _oldKeyboardState = Keyboard.GetState();
 
             //Initialize screen size to an ideal resolution for the projector
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
-
-            graphics.IsFullScreen = false;
+            _graphics.PreferredBackBufferWidth = 800;
+            _graphics.PreferredBackBufferHeight = 600;
+            _graphics.IsFullScreen = false;
         }
 
         /// <summary>
@@ -65,8 +66,6 @@ namespace RaceGame
         /// </summary>
         protected override void Initialize()
         {
-            _oldState = Keyboard.GetState();
-
             base.Initialize();
         }
 
@@ -77,8 +76,9 @@ namespace RaceGame
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            computerPlayer = new ComputerPlayer();
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            _computerPlayer = new ComputerPlayer();
 
             _pauseMenu = new PauseMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"));
             _mainMenu = new MainMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"));
@@ -153,214 +153,213 @@ namespace RaceGame
         }
 
         /// <summary>
-        /// Allows the game to run logic such as updating the world,
+        /// Allows the game to run logic such as updating the _world,
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            KeyboardState newState = Keyboard.GetState();
+            _newKeyboardState = Keyboard.GetState();
 
             if (_isMainMenuScreenShowed)
             {
-                if (newState.IsKeyDown(Keys.Up))
-                {
-                    if (_oldState.IsKeyUp(Keys.Up))
-                    {
-                        _mainMenu.ScrollUp();
-                    }
-                }
-                if (newState.IsKeyDown(Keys.Down))
-                {
-                    if (_oldState.IsKeyUp(Keys.Down))
-                    {
-                        _mainMenu.ScrollDown();
-                    }
-                }
-
-                if (newState.IsKeyDown(Keys.Left))
-                {
-                    if (_oldState.IsKeyUp(Keys.Left))
-                    {
-                        _mainMenu.SelectedMenuItem.LowerValue();
-                    }
-                }
-
-                if (newState.IsKeyDown(Keys.Right))
-                {
-                    if (_oldState.IsKeyUp(Keys.Right))
-                    {
-                        _mainMenu.SelectedMenuItem.RaiseValue();
-                    }
-                }
-
-                if (newState.IsKeyDown(_menuKey))
-                {
-                    if (_oldState.IsKeyUp(_menuKey))
-                    {
-                        this.Exit();
-                    }
-                }
-
-                if (newState.IsKeyDown(_fullScreenKey))
-                {
-                    if (_oldState.IsKeyUp(_fullScreenKey))
-                    {
-                        graphics.ToggleFullScreen();
-                    }
-                }
-
-
-                if (newState.IsKeyDown(Keys.Enter))
-                {
-                    if (_oldState.IsKeyUp(Keys.Enter))
-                    {
-                        _isMainMenuScreenShowed = false;
-
-                        Player player1 = new Player(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[0],
-                                                    new Vector2(_maps[_mainMenu.SelectedMap].StartX,
-                                                                _maps[_mainMenu.SelectedMap].StartY),
-                                                    _maps[_mainMenu.SelectedMap].StartRotation);
-                        Player player2 = new Player(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[1],
-                                                    new Vector2(_maps[_mainMenu.SelectedMap].StartX,
-                                                                _maps[_mainMenu.SelectedMap].StartY),
-                                                    _maps[_mainMenu.SelectedMap].StartRotation);
-                        Player player3 =
-                            new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[3],
-                                       new Vector2(_maps[_mainMenu.SelectedMap].StartX,
-                                                   _maps[_mainMenu.SelectedMap].StartY),
-                                       _maps[_mainMenu.SelectedMap].StartRotation);
-                        Player player4 =
-                            new Player(new Control(Keys.PageDown, Keys.PageDown, Keys.PageDown, Keys.PageDown), _cars[4],
-                                       new Vector2(_maps[_mainMenu.SelectedMap].StartX,
-                                                   _maps[_mainMenu.SelectedMap].StartY),
-                                       _maps[_mainMenu.SelectedMap].StartRotation);
-
-                        _players = new List<Player>();
-
-                        if (_mainMenu.NrOfPlayers == 1)
-                            _players.Add(player1);
-                        else
-                        {
-                            _players.Add(player1);
-                            _players.Add(player2);
-                        }
-
-                        switch (_mainMenu.NrOfBots)
-                        {
-                            case 1:
-                                _players.Add(player3);
-                                computerPlayer.Players.Add(player3);
-                                break;
-                            case 2:
-                                _players.Add(player3);
-                                computerPlayer.Players.Add(player3);
-                                _players.Add(player4);
-                                computerPlayer.Players.Add(player4);
-                                break;
-                        }
-
-                        world = new World(_maps[_mainMenu.SelectedMap], _players,
-                                          Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"), _countDown, _mainMenu.SelectedMap);
-                        world.Map.Laps = _mainMenu.NrOfLaps;
-                        World.RaceTimer.Reset();
-                        World.RaceTimer.Resume();
-                    }
-                }
+                MainMenuActions();
             }
             else if (!_isPauseScreenShowed)
             {
-                if (newState.IsKeyDown(_menuKey))
+                GameActions();
+            }
+            else
+            {
+                PauseMenuActions();
+            }
+
+            _oldKeyboardState = _newKeyboardState;
+            base.Update(gameTime);
+        }
+
+        private void PauseMenuActions()
+        {
+            if (IsPressed(_menuKey))
+            {
+                if (_isPauseScreenShowed)
                 {
-                    if (_isPauseScreenShowed && _oldState.IsKeyUp(_menuKey))
+                    _isPauseScreenShowed = false;
+                    World.RaceTimer.Resume();
+                }
+                else
+                {
+                    _isPauseScreenShowed = true;
+                    World.RaceTimer.Pause();
+                }
+            }
+
+            if (IsPressed(Keys.Up))
+            {
+                _pauseMenu.ScrollUp();
+            }
+
+            if (IsPressed(Keys.Down))
+            {
+                _pauseMenu.ScrollDown();
+            }
+
+            if (IsPressed(Keys.Enter))
+            {
+                switch (_pauseMenu.SelectedMenuItem.GetValue())
+                {
+                    case 0:
+                        _isPauseScreenShowed = false;
+                        break;
+                    case 1:
+                        _isMainMenuScreenShowed = true;
+                        _isPauseScreenShowed = false;
+                        break;
+                }
+            }
+        }
+
+        private void GameActions()
+        {
+            if (_countDown.IsFinished)
+            {
+                if (IsPressed(_menuKey))
+                {
+                    if (_isPauseScreenShowed)
                     {
                         _isPauseScreenShowed = false;
                         World.RaceTimer.Resume();
                     }
-                    else if (_oldState.IsKeyUp(_menuKey))
+                    else
                     {
                         _isPauseScreenShowed = true;
                         World.RaceTimer.Pause();
                     }
                 }
 
-                foreach (Player player in world.Players)
+                foreach (Player player in _world.Players)
                 {
-                    if (newState.IsKeyDown(player.Control.Accelerate))
+                    if (_newKeyboardState.IsKeyDown(player.Control.Accelerate))
                     {
                         player.Car.Accelerate();
                     }
-                    if (newState.IsKeyDown(player.Control.Decelearte))
+
+                    if (_newKeyboardState.IsKeyDown(player.Control.Decelearte))
                     {
                         player.Car.Break();
                     }
-                    if (newState.IsKeyDown(player.Control.Left))
+
+                    if (_newKeyboardState.IsKeyDown(player.Control.Left))
                     {
                         player.Car.TurnLeft();
                     }
-                    if (newState.IsKeyDown(player.Control.Right))
+
+                    if (_newKeyboardState.IsKeyDown(player.Control.Right))
                     {
                         player.Car.TurnRight();
                     }
                 }
-                computerPlayer.Update();
-                world.Update();
+                _computerPlayer.Update();
+                _world.Update();
 
-                if (world.Winner != null)
+                if (_world.Winner != null)
                 {
                     _isMainMenuScreenShowed = true;
                     //Spelet är över... spara tiden till highscoren och celebrate
                 }
             }
-            else
+        }
+
+        private void MainMenuActions()
+        {
+            if (IsPressed(Keys.Up))
             {
-                if (newState.IsKeyDown(_menuKey))
-                {
-                    if (_isPauseScreenShowed && _oldState.IsKeyUp(_menuKey))
-                    {
-                        _isPauseScreenShowed = false;
-                        World.RaceTimer.Resume();
-                    }
-                    else if (_oldState.IsKeyUp(_menuKey))
-                    {
-                        _isPauseScreenShowed = true;
-                        World.RaceTimer.Pause();
-                    }
-                }
-                if (newState.IsKeyDown(Keys.Up))
-                {
-                    if (_oldState.IsKeyUp(Keys.Up))
-                    {
-                        _pauseMenu.ScrollUp();
-                    }
-                }
-                if (newState.IsKeyDown(Keys.Down))
-                {
-                    if (_oldState.IsKeyUp(Keys.Down))
-                    {
-                        _pauseMenu.ScrollDown();
-                    }
-                }
-                if (newState.IsKeyDown(Keys.Enter))
-                {
-                    if (_oldState.IsKeyUp(Keys.Enter))
-                    {
-                        switch (_pauseMenu.SelectedMenuItem.GetValue())
-                        {
-                            case 0:
-                                _isPauseScreenShowed = false;
-                                break;
-                            case 1:
-                                _isMainMenuScreenShowed = true;
-                                _isPauseScreenShowed = false;
-                                break;
-                        }
-                    }
-                }
+                _mainMenu.ScrollUp();
             }
 
-            _oldState = newState;
-            base.Update(gameTime);
+            if (IsPressed(Keys.Down))
+            {
+                _mainMenu.ScrollDown();
+            }
+
+            if (IsPressed(Keys.Left))
+            {
+                _mainMenu.SelectedMenuItem.LowerValue();
+            }
+
+            if (IsPressed(Keys.Right))
+            {
+                _mainMenu.SelectedMenuItem.RaiseValue();
+            }
+
+            if (IsPressed(Keys.Escape))
+            {
+                Exit();
+            }
+
+            if (IsPressed(_fullScreenKey))
+            {
+                _graphics.ToggleFullScreen();
+            }
+
+            if (IsPressed(Keys.Enter))
+            {
+                _isMainMenuScreenShowed = false;
+
+                CreatePlayers();
+                CreateGameWorld();
+            }
+        }
+
+        private bool IsPressed(Keys key)
+        {
+            return _newKeyboardState.IsKeyDown(key) && _oldKeyboardState.IsKeyUp(key);
+        }
+
+        private void CreateGameWorld()
+        {
+            _world = new World(_maps[_mainMenu.SelectedMap], _players,
+                               Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"), _countDown);
+            _world.Map.Laps = _mainMenu.NrOfLaps;
+            World.RaceTimer.Reset();
+            World.RaceTimer.Resume();
+        }
+
+        private void CreatePlayers()
+        {
+            _players = new List<Player>();
+            var player1 = CreatePlayer(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[0]);
+            var player2 = CreatePlayer(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[1]);
+            var player3 = CreatePlayer(new Control(Keys.None, Keys.None, Keys.None, Keys.None), _cars[3]);
+            var player4 = CreatePlayer(new Control(Keys.None, Keys.None, Keys.None, Keys.None), _cars[4]);
+
+            if (_mainMenu.NrOfPlayers == 1)
+                _players.Add(player1);
+            else
+            {
+                _players.Add(player1);
+                _players.Add(player2);
+            }
+
+            switch (_mainMenu.NrOfBots)
+            {
+                case 1:
+                    _players.Add(player3);
+                    _computerPlayer.Players.Add(player3);
+                    break;
+                case 2:
+                    _players.Add(player3);
+                    _computerPlayer.Players.Add(player3);
+                    _players.Add(player4);
+                    _computerPlayer.Players.Add(player4);
+                    break;
+            }
+        }
+
+        private Player CreatePlayer(Control control, Texture2D carTexture)
+        {
+            return new Player(control, carTexture, new Vector2(_maps[_mainMenu.SelectedMap].StartX, _maps[_mainMenu.SelectedMap].StartY),
+                _maps[_mainMenu.SelectedMap].StartRotation);
         }
 
         /// <summary>
@@ -371,22 +370,23 @@ namespace RaceGame
         {
             GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin();
+            _spriteBatch.Begin();
+
             if (_isMainMenuScreenShowed)
             {
-                _mainMenu.Draw(spriteBatch);
+                _mainMenu.Draw(_spriteBatch);
             }
             else
             {
-                world.Draw(spriteBatch);
+                _world.Draw(_spriteBatch);
 
                 if (_isPauseScreenShowed)
                 {
-                    _pauseMenu.Draw(spriteBatch);
+                    _pauseMenu.Draw(_spriteBatch);
                 }
             }
 
-            spriteBatch.End();
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }

@@ -5,7 +5,7 @@ using System.Text;
 using NUnit.Framework;
 
 
-namespace RaceGame_Tests.Menu.Main
+namespace RaceGame_Tests.Menu
 {
     // ReSharper disable InconsistentNaming
 
