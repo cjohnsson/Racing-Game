@@ -82,11 +82,11 @@ namespace RaceGame
 
         public void Accelerate()
         {
-            if (_speed < MAXSPEED)
-                _speed += ACCELERATION;
+           // if (_speed < MAXSPEED)
+            //    _speed += ACCELERATION;
 
-            if (_speed > MAXSPEED)
-                _speed = MAXSPEED;
+           // if (_speed > MAXSPEED)
+           //     _speed = MAXSPEED;
         }
 
         private void Decelerate()
