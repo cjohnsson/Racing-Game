@@ -20,32 +20,35 @@ namespace RaceGame
 
         public static void Update()
         {
-            KeyboardState newKeyboardState = Keyboard.GetState();
-
-            if (SetKeyboardState.GetPressedKeys().Length > 0)
-                newKeyboardState = SetKeyboardState;
-
-            Keys[] pressedKeys = newKeyboardState.GetPressedKeys();
-
-            foreach (Keys key in pressedKeys)
+            if (!FinishedTyping)
             {
-                if (_oldKeyboardState.IsKeyUp(key))
+                KeyboardState newKeyboardState = Keyboard.GetState();
+
+                if (SetKeyboardState.GetPressedKeys().Length > 0)
+                    newKeyboardState = SetKeyboardState;
+
+                Keys[] pressedKeys = newKeyboardState.GetPressedKeys();
+
+                foreach (Keys key in pressedKeys)
                 {
-                    if (key == Keys.Back && !_textString.Equals(string.Empty))
-                        _textString = _textString.Remove(_textString.Length - 1, 1);
-                    else if (key == Keys.Space)
-                        _textString += " ";
-                    else if (key == Keys.Enter)
-                        FinishedTyping = true;
-                    else
+                    if (_oldKeyboardState.IsKeyUp(key))
                     {
-                        if (ValidKey(key))
-                            _textString += key.ToString().ToUpper();
+                        if (key == Keys.Back && !_textString.Equals(string.Empty))
+                            _textString = _textString.Remove(_textString.Length - 1, 1);
+                        else if (key == Keys.Space)
+                            _textString += " ";
+                        else if (key == Keys.Enter)
+                            FinishedTyping = true;
+                        else
+                        {
+                            if (ValidKey(key))
+                                _textString += key.ToString().ToUpper();
+                        }
                     }
                 }
-            }
 
-            _oldKeyboardState = newKeyboardState;
+                _oldKeyboardState = newKeyboardState;
+            }
         }
 
         private static bool ValidKey(Keys key)

@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace RaceGame
 {
+    //TODO: Eventuella tester ska göras
     public class Info : IInfo
     {
         private Map _map;
@@ -18,14 +19,11 @@ namespace RaceGame
         private Texture2D _hud;
 
         public Info(SpriteFont newFont, Map newMap, List<Player> newPlayers, Texture2D hud)
-        //public Info(SpriteFont newFont, Map newMap, List<Player> newPlayers)
         {
-
             if (newFont == null) throw new ArgumentNullException("newFont");
             if (newMap == null) throw new ArgumentNullException("newMap");
             if (newPlayers == null) throw new ArgumentNullException("newPlayers");
             if (hud == null) throw new ArgumentNullException("hud");
-
 
             _font = newFont;
             _map = newMap;
@@ -44,6 +42,5 @@ namespace RaceGame
                 spriteBatch.DrawString(_font, "P2 Lap : " + _players[1].Lap + "/" + _map.Laps, new Vector2(650, 10), Color.Black);
             }
         }
-
     }
 }
