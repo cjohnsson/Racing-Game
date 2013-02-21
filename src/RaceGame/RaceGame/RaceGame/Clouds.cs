@@ -12,22 +12,26 @@ namespace RaceGame
         const float XSPEED = 0.1f;
         const float YSPEED = 0.075f;
         Texture2D image;
-        int height, width;
+        private int height;
+        private int width;
         private float[] x = new float[4];
         private float[] y = new float[4];
+
+        public Clouds()
+        {}
 
         public Clouds(Texture2D image)
         {
             this.image = image;
-            height = image.Bounds.Height;
-            width = image.Bounds.Width;
+            Height = image.Bounds.Height;
+            Width = image.Bounds.Width;
             X[0] = 0;
             Y[0] = 0;
-            X[1] = width;
-            Y[1] = -height;
+            X[1] = Width;
+            Y[1] = -Height;
             X[2] = 0;
-            Y[2] = -height;
-            X[3] = width;
+            Y[2] = -Height;
+            X[3] = Width;
             Y[3] = 0;
         }
 
@@ -43,52 +47,84 @@ namespace RaceGame
             set { y = value; }
         }
 
+        public int Height
+        {
+            get { return height; }
+            set { height = value; }
+        }
+
+        public int Width
+        {
+            get { return width; }
+            set { width = value; }
+        }
+
         public void Update()
         {
 
             UpdatePostitionFirstPicture();
 
-            if (X[1] + width < 0 && Y[1] > height)
-            {
-                X[1] = width;
-                Y[1] = -height;
-            }
+            UpdatePositionSecondPicture();
 
-            if (X[2] + width < 0)
-            {
-                X[2] = 0;
-                Y[2] = -height;
-            }
+            UpdatePositionThirdPicture();
 
-            if (Y[3] > height)
-            {
-                X[3] = width;
-                Y[3] = 0;
-            }
+            UpdatePositionFourthPicture();
 
+            SetSpeed(); 
+        }
+
+        private void SetSpeed()
+        {
             for (int i = 0; i < X.Length; i++)
             {
                 X[i] -= XSPEED;
                 Y[i] += YSPEED;
-            } 
+            }
+        }
+
+        private void UpdatePositionFourthPicture()
+        {
+            if (Y[3] > Height)
+            {
+                X[3] = Width;
+                Y[3] = 0;
+            }
+        }
+
+        private void UpdatePositionThirdPicture()
+        {
+            if (X[2] + Width < 0)
+            {
+                X[2] = 0;
+                Y[2] = -Height;
+            }
+        }
+
+        private void UpdatePositionSecondPicture()
+        {
+            if (X[1] + Width < 0 && Y[1] > Height)
+            {
+                X[1] = Width;
+                Y[1] = -Height;
+            }
         }
 
         private void UpdatePostitionFirstPicture()
         {
-            if (X[0] + width < 0 && Y[0] > height)
-            {
-                X[0] = width;
-                Y[0] = -height;
+            if (X[0] + Width < 0 && Y[0] > Height)
+            {                
+                X[0] = Width;
+                Y[0] = -Height;
             }
         }
 
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, new Rectangle((int)X[0], (int)Y[0], width, height), Color.White);
-            spriteBatch.Draw(image, new Rectangle((int)X[1], (int)Y[1], width, height), Color.White);
-            spriteBatch.Draw(image, new Rectangle((int)X[2], (int)Y[2], width, height), Color.White);
-            spriteBatch.Draw(image, new Rectangle((int)X[3], (int)Y[3], width, height), Color.White);
+            spriteBatch.Draw(image, new Rectangle((int)X[0], (int)Y[0], Width, Height), Color.White);
+            spriteBatch.Draw(image, new Rectangle((int)X[1], (int)Y[1], Width, Height), Color.White);
+            spriteBatch.Draw(image, new Rectangle((int)X[2], (int)Y[2], Width, Height), Color.White);
+            spriteBatch.Draw(image, new Rectangle((int)X[3], (int)Y[3], Width, Height), Color.White);
         }
 
     }
