@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using RaceGame;
+using RaceGame.Holders;
+using RaceGame_Tests.Holders;
 
 namespace RaceGame_Tests
 {
@@ -12,7 +14,7 @@ namespace RaceGame_Tests
     {
         private Map MakeMap()
         {
-            return new Map(null, null,null, null,0,0,0f);
+            return new Map(null, null, null, new StubTexture2DHolder(), 0, 0, 0f);
         }
 
         // StartX

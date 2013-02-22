@@ -2,7 +2,7 @@
 
 namespace RaceGame.Holders
 {
-    public class Texture2DHolder
+    public class Texture2DHolder : ITexture2DHolder
     {
         private Texture2D _texture2D;
 

@@ -24,7 +24,7 @@ namespace RaceGame
         private const float DECELERATION = 0.01f;
         private const float BREAK_DECELERATION = 0.1f;
         private const float TERRAIN_SPEED = 0.01f;
-       
+
         public Car(Texture2D newImage, Vector2 position)
         {
             _image = newImage;
@@ -33,7 +33,7 @@ namespace RaceGame
             _x = position.X;
             _y = position.Y;
         }
-  
+
         public Rectangle Position
         {
             get
@@ -41,7 +41,7 @@ namespace RaceGame
                 return new Rectangle((int)_x, (int)_y, _width, _height);
             }
         }
-        
+
         public bool HasFinishedLap
         {
             get
@@ -82,11 +82,11 @@ namespace RaceGame
 
         public void Accelerate()
         {
-           // if (_speed < MAXSPEED)
-            //    _speed += ACCELERATION;
+            if (_speed < MAXSPEED)
+                _speed += ACCELERATION;
 
-           // if (_speed > MAXSPEED)
-           //     _speed = MAXSPEED;
+            if (_speed > MAXSPEED)
+                _speed = MAXSPEED;
         }
 
         private void Decelerate()
@@ -152,11 +152,11 @@ namespace RaceGame
             Decelerate();
         }
 
-       public TerrainTypes GetTerrain(Vector2 position)
+        public TerrainTypes GetTerrain(Vector2 position)
         {
             //kollar så att inte bilens mitt inte är utanför vänster/höger/up/ner kanten
             if (position.X >= World.CollisionImage.Width || position.Y >= World.CollisionImage.Height || position.X <= 0 || position.Y <= 0)
-               return TerrainTypes.Obstacle;
+                return TerrainTypes.Obstacle;
 
             System.Drawing.Color color = World.CollisionImage.GetPixel((int)position.X, (int)position.Y);
 

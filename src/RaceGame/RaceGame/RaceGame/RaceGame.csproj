@@ -80,6 +80,7 @@
     <Compile Include="Control.cs" />
     <Compile Include="CountDown.cs" />
     <Compile Include="HighScore.cs" />
+    <Compile Include="Holders\ITexture2DHolder.cs" />
     <Compile Include="Holders\Texture2DHolder.cs" />
     <Compile Include="Holders\Texture2DIsNullException.cs" />
     <Compile Include="Menu\MainMenu.cs" />
