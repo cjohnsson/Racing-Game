@@ -25,6 +25,11 @@ namespace RaceGame
         private const float BREAK_DECELERATION = 0.1f;
         private const float TERRAIN_SPEED = 0.01f;
        
+
+        public Car()
+        {
+        }
+
         public Car(Texture2D newImage, Vector2 position)
         {
             _image = newImage;
@@ -82,11 +87,11 @@ namespace RaceGame
 
         public void Accelerate()
         {
-           // if (_speed < MAXSPEED)
-            //    _speed += ACCELERATION;
+            if (_speed < MAXSPEED)
+                _speed += ACCELERATION;
 
-           // if (_speed > MAXSPEED)
-           //     _speed = MAXSPEED;
+            if (_speed > MAXSPEED)
+                _speed = MAXSPEED;
         }
 
         private void Decelerate()
