@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using RaceGame.Holders;
 
 namespace RaceGame
 {
@@ -21,11 +20,11 @@ namespace RaceGame
         public Clouds()
         {}
 
-        public Clouds(ITexture2DHolder image)
+        public Clouds(Texture2D image)
         {
-            this.image = image.GetTexture2D();
-            Height = image.GetTexture2DHeight();
-            Width = image.GetTexture2DWidth();
+            this.image = image;
+            Height = image.Bounds.Height;
+            Width = image.Bounds.Width;
             X[0] = 0;
             Y[0] = 0;
             X[1] = Width;

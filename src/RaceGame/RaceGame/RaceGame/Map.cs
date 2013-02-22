@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using Microsoft.Xna.Framework.Graphics;
-using RaceGame.Holders;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
@@ -22,7 +21,7 @@ namespace RaceGame
         public Texture2D ForegroundImage { get; set; }
         public Bitmap CollisionImage { get; set; }
 
-        public Map(Texture2D backgroundImage, Texture2D foregroundImage, Bitmap collisionImage, ITexture2DHolder cloudImage, int startX, int startY, float startRotation)
+        public Map(Texture2D backgroundImage, Texture2D foregroundImage, Bitmap collisionImage, Texture2D cloudImage, int startX, int startY, float startRotation)
         {
             BackgroundImage = backgroundImage;
             ForegroundImage = foregroundImage;
