@@ -20,6 +20,8 @@ namespace RaceGame
             player3.IsHuman = false;
             var player4 = CreatePlayer(new Control(Keys.None, Keys.None, Keys.None, Keys.None), ContentLoader.GetCarTexture(3), map);
             player4.IsHuman = false;
+            var player5 = CreatePlayer(new Control(Keys.None, Keys.None, Keys.None, Keys.None), ContentLoader.GetCarTexture(4), map);
+            player5.IsHuman = false;
 
             if (numberOfPlayers == 1)
                 players.Add(player1);
@@ -37,6 +39,11 @@ namespace RaceGame
                 case 2:
                     players.Add(player3);
                     players.Add(player4);
+                    break;
+                case 3:
+                    players.Add(player3);
+                    players.Add(player4);
+                    players.Add(player5);
                     break;
             }
             return players;
