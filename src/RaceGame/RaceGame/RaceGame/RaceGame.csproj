@@ -85,6 +85,7 @@
     <Compile Include="Holders\Texture2DIsNullException.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\PauseMenu.cs" />
+    <Compile Include="PlayerFactory.cs" />
     <Compile Include="RaceTimer.cs" />
     <Compile Include="ICar.cs" />
     <Compile Include="IClouds.cs" />
