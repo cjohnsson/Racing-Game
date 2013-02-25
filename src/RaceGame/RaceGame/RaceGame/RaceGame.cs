@@ -125,18 +125,6 @@ namespace RaceGame
                 bitmaps[i] = new Bitmap(stream);
             }
 
-            _startPositions[0] = new Point(80, 270);
-            _startPositions[1] = new Point(732, 216);
-            _startPositions[2] = new Point(384, 550);
-            _startPositions[3] = new Point(435, 545);
-            _startPositions[4] = new Point(80, 270);
-
-            _startRotations[0] = 8.0f;
-            _startRotations[1] = 8.0f;
-            _startRotations[2] = 0.0f;
-            _startRotations[3] = 3.2f;
-            _startRotations[4] = 8.0f;
-
             for (int i = 0; i < _maps.Length; i++)
             {
                 _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"), _startPositions[i].X, _startPositions[i].Y, _startRotations[i]);
