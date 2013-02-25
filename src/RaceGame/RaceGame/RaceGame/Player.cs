@@ -11,10 +11,12 @@ namespace RaceGame
     {
         public Car Car { get; set; }
         public int Lap { get; set; }
+        public bool isHuman { get; set; }
         public Control Control { get; set; }
 
         public Player(Control control, Texture2D carImage, Vector2 position, float startRotation)
         {
+            isHuman = true;
             Control = control;
             Car = new Car(carImage, position);
             Car.X = position.X;
