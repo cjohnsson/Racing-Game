@@ -2,9 +2,9 @@
 
 namespace RaceGame
 {
-    public interface IComputerPlayer
+    public interface IComputerPlayersAI
     {
-        List<Player> Players { get; set; }
+        List<Player> ComputerPlayers { get; set; }
         void Update();
     }
 }

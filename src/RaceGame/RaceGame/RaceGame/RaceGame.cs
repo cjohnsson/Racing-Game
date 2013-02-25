@@ -28,29 +28,17 @@ namespace RaceGame
         private Keys _menuKey;
         private Keys _fullScreenKey;
         private Menu.Menu _pauseMenu;
-        private const int NR_OF_MAPS = 5;
-        private const int NR_OF_CARS = 5;
-        private Map[] _maps;
-        private Texture2D[] _cars;
-        private ComputerPlayer _computerPlayer;
+        private ComputerPlayersAi _computerPlayersComputerPlayersAi;
         private bool _isPauseScreenShowed;
         private bool _isMainMenuScreenShowed;
         private Menu.Menu _mainMenu;
-        private List<Player> _players;
         private CountDown _countDown;
-        private Point[] _startPositions;
-        private float[] _startRotations;
 
         public RaceGame()
             : base()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-            _menuKey = Keys.Escape;
-            _fullScreenKey = Keys.F;
-            _isMainMenuScreenShowed = true;
-            _oldKeyboardState = Keyboard.GetState();
 
             //Initialize screen size to an ideal resolution for the projector
             _graphics.PreferredBackBufferWidth = 800;
@@ -66,6 +54,17 @@ namespace RaceGame
         /// </summary>
         protected override void Initialize()
         {
+            MapFactory.Initilize();
+            ContentLoader.Load(Content);
+
+            _menuKey = Keys.Escape;
+            _fullScreenKey = Keys.F;
+            _isMainMenuScreenShowed = true;
+            _oldKeyboardState = Keyboard.GetState();
+            _countDown = new CountDown(ContentLoader.CountDownFont);
+            _computerPlayersComputerPlayersAi = new ComputerPlayersAi();
+            _pauseMenu = new PauseMenu(ContentLoader.TransparentBackground, ContentLoader.MenuFont);
+            _mainMenu = new MainMenu(ContentLoader.TransparentBackground, ContentLoader.MenuFont);
             base.Initialize();
         }
 
@@ -78,57 +77,6 @@ namespace RaceGame
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _computerPlayer = new ComputerPlayer();
-
-            _pauseMenu = new PauseMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"));
-            _mainMenu = new MainMenu(Content.Load<Texture2D>("transparentBackground"), Content.Load<SpriteFont>("SpriteFont1"));
-
-            Texture2D[] mapCollisions = new Texture2D[NR_OF_MAPS];
-            Texture2D[] mapBackgrounds = new Texture2D[NR_OF_MAPS];
-            Texture2D[] mapForegrounds = new Texture2D[NR_OF_MAPS];
-            Bitmap[] bitmaps = new Bitmap[NR_OF_MAPS];
-            _maps = new Map[NR_OF_MAPS];
-            _cars = new Texture2D[NR_OF_CARS];
-            _countDown = new CountDown() { Font = Content.Load<SpriteFont>("CountDownFont") };
-            _startPositions = new Point[NR_OF_MAPS];
-            _startRotations = new float[NR_OF_MAPS];
-
-            _cars[0] = Content.Load<Texture2D>("car1");
-            _cars[1] = Content.Load<Texture2D>("car2");
-            _cars[2] = Content.Load<Texture2D>("car3");
-            _cars[3] = Content.Load<Texture2D>("car4");
-            _cars[4] = Content.Load<Texture2D>("car6");
-
-            mapCollisions[0] = Content.Load<Texture2D>("map1_collision");
-            mapCollisions[1] = Content.Load<Texture2D>("map2_collision");
-            mapCollisions[2] = Content.Load<Texture2D>("map4_collision");
-            mapCollisions[3] = Content.Load<Texture2D>("map6_collision");
-            mapCollisions[4] = Content.Load<Texture2D>("map7_collision");
-
-            mapBackgrounds[0] = Content.Load<Texture2D>("map1_background");
-            mapBackgrounds[1] = Content.Load<Texture2D>("map2_background");
-            mapBackgrounds[2] = Content.Load<Texture2D>("map4_background");
-            mapBackgrounds[3] = Content.Load<Texture2D>("map6_background");
-            mapBackgrounds[4] = Content.Load<Texture2D>("map7_background");
-
-            mapForegrounds[0] = Content.Load<Texture2D>("map1_foreground1");
-            mapForegrounds[1] = Content.Load<Texture2D>("default_foreground");
-            mapForegrounds[2] = Content.Load<Texture2D>("default_foreground");
-            mapForegrounds[3] = Content.Load<Texture2D>("default_foreground");
-            mapForegrounds[4] = Content.Load<Texture2D>("map7_foreground1");
-
-            for (int i = 0; i < bitmaps.Length; i++)
-            {
-                MemoryStream stream = new MemoryStream();
-
-                mapCollisions[i].SaveAsPng(stream, mapCollisions[i].Bounds.Width, mapCollisions[i].Bounds.Height);
-                bitmaps[i] = new Bitmap(stream);
-            }
-
-            for (int i = 0; i < _maps.Length; i++)
-            {
-                _maps[i] = new Map(mapBackgrounds[i], mapForegrounds[i], bitmaps[i], Content.Load<Texture2D>("clouds"), _startPositions[i].X, _startPositions[i].Y, _startRotations[i]);
-            }
         }
 
         /// <summary>
@@ -247,13 +195,12 @@ namespace RaceGame
                         player.Car.TurnRight();
                     }
                 }
-                _computerPlayer.Update();
+                _computerPlayersComputerPlayersAi.Update();
                 _world.Update();
 
                 if (_world.Winner != null)
                 {
                     _isMainMenuScreenShowed = true;
-                    //Spelet är över... spara tiden till highscoren och celebrate
                 }
             }
         }
@@ -294,7 +241,7 @@ namespace RaceGame
             {
                 _isMainMenuScreenShowed = false;
 
-                CreatePlayers();
+
                 CreateGameWorld();
             }
         }
@@ -306,8 +253,18 @@ namespace RaceGame
 
         private void CreateGameWorld()
         {
-            _world = new World(_maps[_mainMenu.SelectedMap], _players,
-                               Content.Load<SpriteFont>("spritefont1"), Content.Load<Texture2D>("HUD"), _countDown);
+            Map map = MapFactory.Create(_mainMenu.SelectedMap);
+
+            List<Player> players = PlayersFactory.CreatePlayers(_mainMenu.NrOfPlayers, _mainMenu.NrOfBots, map);
+
+            foreach (var player in players )
+            {
+                if (!player.IsHuman)
+                    _computerPlayersComputerPlayersAi.ComputerPlayers.Add(player);
+            }
+
+            _world = new World(map, players,
+                               ContentLoader.MenuFont, ContentLoader.Hud, _countDown);
             _world.Map.Laps = _mainMenu.NrOfLaps;
             World.RaceTimer.Reset();
             World.RaceTimer.Resume();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using RaceGame.Holders;
 
 namespace RaceGame
 {
@@ -31,7 +32,7 @@ namespace RaceGame
 
         public static Map Create(int index)
         {
-            return new Map(ContentLoader.GetMapBackground(index), ContentLoader.GetMapForeground(index), ContentLoader.GetMapCollision(index), ContentLoader.GetCloudTexture(), _startPositions[index].X, _startPositions[index].Y, _startRotations[index]);
+            return new Map(ContentLoader.GetMapBackground(index), ContentLoader.GetMapForeground(index), ContentLoader.GetMapCollision(index), new Texture2DHolder(ContentLoader.CloudTexture), _startPositions[index].X, _startPositions[index].Y, _startRotations[index]);
         }
     }
 }

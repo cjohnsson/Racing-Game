@@ -9,7 +9,7 @@ using RaceGame.Holders;
 
 namespace RaceGame
 {
-    public static class PlayerFactory
+    public static class PlayersFactory
     {
         public static List<Player> CreatePlayers(int numberOfPlayers, int numberOfBots, Map map)
         {
@@ -17,9 +17,9 @@ namespace RaceGame
             var player1 = CreatePlayer(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), ContentLoader.GetCarTexture(0), map);
             var player2 = CreatePlayer(new Control(Keys.W, Keys.S, Keys.A, Keys.D), ContentLoader.GetCarTexture(1), map);
             var player3 = CreatePlayer(new Control(Keys.None, Keys.None, Keys.None, Keys.None), ContentLoader.GetCarTexture(2), map);
-            player3.isHuman = false;
+            player3.IsHuman = false;
             var player4 = CreatePlayer(new Control(Keys.None, Keys.None, Keys.None, Keys.None), ContentLoader.GetCarTexture(3), map);
-            player4.isHuman = false;
+            player4.IsHuman = false;
 
             if (numberOfPlayers == 1)
                 players.Add(player1);
