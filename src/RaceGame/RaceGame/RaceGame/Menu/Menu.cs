@@ -15,6 +15,7 @@ namespace RaceGame.Menu
         protected MenuItem[] MenuItems;
         protected RolloverUtility RolloverUtility;
         protected string Description = string.Empty;
+        protected string Credits = string.Empty;
         public MenuItem SelectedMenuItem { get { return MenuItems[RolloverUtility.Value]; } }
         public int NrOfPlayers { get { return MenuItems[0].GetValue(); } }
         public int NrOfBots { get { return MenuItems[1].GetValue(); } }
@@ -73,6 +74,8 @@ namespace RaceGame.Menu
 
                 spriteBatch.DrawString(_font, MenuItems[i].ToString(), _menuItemPositions[i], color);
             }
+
+            spriteBatch.DrawString(_font, Credits, new Vector2(0, _backgroundImage.Bounds.Height / 2 + 75), Color.White);
         }
     }
 }

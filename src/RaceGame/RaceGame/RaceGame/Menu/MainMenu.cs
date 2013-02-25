@@ -29,6 +29,7 @@ namespace RaceGame.Menu
 
             Description =
                 "Controls: \nQuit game = Escape \nStart game = Enter \nSelect a value = Up & Down \nChange selected value = Left & Right \nToggle fullscreen = F";
+            Credits = "Credits:\nChristoffer\nEmil\nFredrik\nMagnus\nManuel\nMattias\nPhilip\nTobias";
         }
     }
 }
