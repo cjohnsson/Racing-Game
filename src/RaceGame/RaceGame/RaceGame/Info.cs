@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.GamerServices;
 
+
 namespace RaceGame
 {
     //TODO: Eventuella tester ska göras
@@ -37,7 +38,7 @@ namespace RaceGame
             spriteBatch.DrawString(_font, string.Format("Time: {0}:{1}:{2} ", World.ElapsedTime.Minutes, World.ElapsedTime.Seconds , World.ElapsedTime.Milliseconds), new Vector2(300, 10), Color.Black);
 
             spriteBatch.DrawString(_font, "P1 Lap : " + _players[0].Lap + "/" + _map.Laps, new Vector2(10, 10), Color.Black);
-            if (_players.Count > 1)
+            if (_players[1].Control.Accelerate == Keys.W)
             {
                 spriteBatch.DrawString(_font, "P2 Lap : " + _players[1].Lap + "/" + _map.Laps, new Vector2(650, 10), Color.Black);
             }
