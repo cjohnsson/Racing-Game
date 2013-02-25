@@ -27,48 +27,18 @@ namespace RaceGame_Tests
         }
 
 
-       //[Test]
-       // [ExpectedException(typeof(Exception))]
-       //public void CheckScore_CheckIfTimespanisNull_IsNull()
-       //{
-       //    TimeSpan nullTime = new TimeSpan(null,null);
-           
-       //    list.CheckScore(nullTime);
-           
-       //    Assert.That(list.scoreArray[0], Is.GreaterThanOrEqualTo(newTime));
-       //}
+       
 
-        [Test]
-       public void CheckScore_BetterThanExisting_IsTrue()
-       {
-           FillArray();
-           TimeSpan newTime = new TimeSpan(0, 0, 02);
-           Assert.That(list.CheckScore(newTime) , Is.True);
-       }
-
-       [Test]
-       public void CheckScore_WorseThanExisting_IsFalse()
-       {
-           FillArray();
-           TimeSpan newTime = new TimeSpan(17, 0, 02);
-           
-           Assert.That(list.CheckScore(newTime), Is.False);
-       }
+     
 
     
        #region SaveScore
-       [Test]
-       public void SaveScore_AddScore_ScoreIsAdded()
-       {
-           Score newScore = new Score("Nisse", new TimeSpan(0, 1, 10));
-           //list.SaveScore(newScore);
-           Assert.That(list.scoreArray, Has.Member(newScore));
-       }
+      
 
        [Test]
        public void SaveScore_AddFasterScore_FasterScoreIsAddedFirst()
        {
-           Score newScore2 = new Score("Olle", new TimeSpan(0, 0, 10));
+           Score newScore2 = new Score("Olle", new TimeSpan(0, 0, 01));
            //list.SaveScore(newScore2);
            Assert.That(list.scoreArray[0].Time,  Is.EqualTo(newScore2.Time));
 
@@ -77,12 +47,7 @@ namespace RaceGame_Tests
       
        #endregion
 
-        [Test]
-        public void CheckScore_CheckScoreInEmptyList_ReturnIndex0()
-        {
-            TimeSpan time = new TimeSpan(0,0,2,0);
-            Assert.That(list.CheckScore(time), Is.EqualTo(0));
-        }
+      
 
         [Test]
         public void CheckScore_CheckScoreInFullList_ReturnIndexNegativeOne() {

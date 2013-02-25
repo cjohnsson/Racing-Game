@@ -12,6 +12,8 @@ namespace RaceGame.Menu
         private Vector2[] _menuItemPositions;
         private SpriteFont _font;
         private const int MENU_ITEM_HEIGHT = 50;
+        protected int instructionsPositionX = 5;
+        protected int instructionsPositionY = 47;
         protected MenuItem[] MenuItems;
         protected RolloverUtility RolloverUtility;
         protected string Description = string.Empty;
@@ -63,7 +65,7 @@ namespace RaceGame.Menu
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_backgroundImage, new Rectangle(0, 0, _backgroundImage.Bounds.Width, _backgroundImage.Bounds.Height), Color.White);
-            spriteBatch.DrawString(_font, Description, new Vector2(5, 5), Color.White);
+            spriteBatch.DrawString(_font, Description, new Vector2(instructionsPositionX, instructionsPositionY), Color.White);
 
             for (int i = 0; i < MenuItems.Length; i++)
             {

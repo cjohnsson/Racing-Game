@@ -24,6 +24,8 @@ namespace RaceGame.Menu
             MenuItems = new MenuItem[2];
             MenuItems[0] = new MenuItem("Continue", RolloverUtility);
             MenuItems[1] = new MenuItem("Main Menu", RolloverUtility);
+            instructionsPositionX = 5;
+            instructionsPositionY = 47;
 
             Description =
                 "Controls: \nConfirm = Enter \nSelect a value = Up & Down";

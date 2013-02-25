@@ -26,14 +26,15 @@ namespace RaceGame_Tests
         }
 
         [Test]
-        public void Accelerate_SpeedAcceleration_AllowToAccelerate()
+        public void Accelerate_SpeedAcceleration_Accelerate()
         {
             var car = CreateCar();
-            var currentSpeed = car.Speed;
+            var oldSpeed = car.Speed;
             car.Accelerate();
             var newSpeed = car.Speed;
-            Assert.That(newSpeed, Is.InRange(currentSpeed, MAXSPEED));
+            Assert.That(newSpeed, Is.GreaterThan(oldSpeed));
         }
+      
 
         #endregion
 
