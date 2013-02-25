@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RaceGame.Holders;
 
 namespace RaceGame
 {
@@ -26,15 +24,11 @@ namespace RaceGame
         private const float TERRAIN_SPEED = 0.01f;
        
 
-        public Car()
+        public Car(ITexture2DHolder newImage, Vector2 position)
         {
-        }
-
-        public Car(Texture2D newImage, Vector2 position)
-        {
-            _image = newImage;
-            _width = newImage.Bounds.Width;
-            _height = newImage.Bounds.Height;
+            _image = newImage.GetTexture2D();
+            _width = newImage.GetTexture2DWidth();
+            _height = newImage.GetTexture2DHeight();
             _x = position.X;
             _y = position.Y;
         }
