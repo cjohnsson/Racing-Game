@@ -27,18 +27,7 @@ namespace RaceGame_Tests
         }
 
 
-       //[Test]
-       // [ExpectedException(typeof(Exception))]
-       //public void CheckScore_CheckIfTimespanisNull_IsNull()
-       //{
-       //    TimeSpan nullTime = new TimeSpan(null,null);
-           
-       //    list.CheckScore(nullTime);
-           
-       //    Assert.That(list.scoreArray[0], Is.GreaterThanOrEqualTo(newTime));
-       //}
-
-        [Test]
+       [Test]
        public void CheckScore_BetterThanExisting_IsTrue()
        {
            FillArray();
