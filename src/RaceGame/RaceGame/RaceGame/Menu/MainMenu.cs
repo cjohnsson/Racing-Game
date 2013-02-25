@@ -26,7 +26,8 @@ namespace RaceGame.Menu
             MenuItems[1] = new MenuItem("Number of bots: {0}", new RolloverUtility(2, 0, 2));
             MenuItems[2] = new MenuItem("Selected map: {0}", new RolloverUtility(0, 0, 4));
             MenuItems[3] = new MenuItem("Number of laps: {0}", new RolloverUtility(1, 1, 9));
-
+            instructionsPositionX = 5;
+            instructionsPositionY = 5;
             Description =
                 "Controls: \nQuit game = Escape \nStart game = Enter \nSelect a value = Up & Down \nChange selected value = Left & Right \nToggle fullscreen = F";
         }
