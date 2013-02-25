@@ -16,6 +16,7 @@ namespace RaceGame
 
         public Player(Control control, Texture2D carImage, Vector2 position, float startRotation)
         {
+            isHuman = true;
             Control = control;
             Car = new Car(carImage, position);
             Car.X = position.X;
