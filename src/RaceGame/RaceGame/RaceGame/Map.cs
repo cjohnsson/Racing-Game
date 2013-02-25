@@ -1,4 +1,5 @@
 ﻿using System;
+using RaceGame.Holders;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,12 +22,12 @@ namespace RaceGame
         public Texture2D ForegroundImage { get; set; }
         public Bitmap CollisionImage { get; set; }
 
-        public Map(Texture2D backgroundImage, Texture2D foregroundImage, Bitmap collisionImage, Texture2D cloudImage, int startX, int startY, float startRotation)
+        public Map(Texture2D backgroundImage, Texture2D foregroundImage, Bitmap collisionImage, ITexture2DHolder cloudImage, int startX, int startY, float startRotation)
         {
             BackgroundImage = backgroundImage;
             ForegroundImage = foregroundImage;
             CollisionImage = collisionImage;
-            clouds = new Clouds(cloudImage);
+            clouds = new Clouds(cloudImage.GetTexture2D());
             StartX = startX;
             StartY = startY;
             StartRotation = startRotation;
