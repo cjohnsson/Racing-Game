@@ -22,7 +22,11 @@ namespace RaceGame
        private static Texture2D[] _cars;
        private static Texture2D[] _mapBackgrounds;
        private static Texture2D[] _mapForegrounds;
-       private static Bitmap[] _bitmaps;   
+       private static Bitmap[] _bitmaps;
+       public static Texture2D TransparentBackground { get; set; }
+       public static Texture2D CloudTexture { get; set; }
+       public static SpriteFont MenuFont { get; set; }
+       public static SpriteFont CountDownFont { get; set; }
 
         public static void Load(ContentManager manager)
         {
@@ -67,6 +71,14 @@ namespace RaceGame
                 }
                 
             }
+
+            //Övrigt
+            TransparentBackground = manager.Load<Texture2D>("transparentBackground");
+            CloudTexture = manager.Load<Texture2D>("clouds");
+
+            //Fonts
+            MenuFont = manager.Load<SpriteFont>("MenuFont");
+            CountDownFont = manager.Load<SpriteFont>("CountDownFont");
 
         }
 
