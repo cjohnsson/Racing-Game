@@ -52,17 +52,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Car_Test.cs" />
-    <Compile Include="Menu\Main\MainMenu_Test.cs" />
-    <Compile Include="Menu\Main\MenuItem_Test.cs" />
-    <Compile Include="Menu\Main\PauseMenu_Test.cs" />
-    <Compile Include="Menu\Main\RolloverUtility_Test.cs" />
+    <Compile Include="Clouds_Test.cs" />
+    <Compile Include="HighScore_Test.cs" />
+    <Compile Include="Menu\MainMenu_Test.cs" />
+    <Compile Include="Menu\MenuItem_Test.cs" />
+    <Compile Include="Menu\PauseMenu_Test.cs" />
+    <Compile Include="Menu\RolloverUtility_Test.cs" />
     <Compile Include="RaceTimer_Test.cs" />
     <Compile Include="Info_Test.cs" />
     <Compile Include="Map_Test.cs" />
     <Compile Include="Player_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScoreList_Test.cs" />
+    <Compile Include="Holders\StubTexture2DHolder.cs" />
     <Compile Include="TextTyper_Test.cs" />
+    <Compile Include="Holders\Texture2DHolderTests.cs" />
     <Compile Include="World_Test.cs" />
   </ItemGroup>
   <ItemGroup>

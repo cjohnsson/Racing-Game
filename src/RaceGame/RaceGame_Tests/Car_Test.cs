@@ -1,4 +1,6 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
+using Moq;
 using NUnit.Framework;
 using RaceGame;
 
@@ -7,31 +9,30 @@ namespace RaceGame_Tests
     [TestFixture]
     public class Car_Test
     {
-        const float MAXSPEED = 1.5f;
+        private const float MAXSPEED = 1.5f;
 
-        public Car CreateCarInstance()
+        private Car CreateCar()
         {
             return new Car();
         }
 
-        #region Acclerate_Method_Tests      
+        #region Acclerate_Method_Tests
 
         [Test]
         public void Accelerate_IncreaseSpeed_SpeedIncreases()
         {
-            var car = CreateCarInstance();
-            car.Accelerate();
+            var car = CreateCar();
             Assert.That(car.Speed, Is.LessThanOrEqualTo(MAXSPEED));
         }
 
         [Test]
         public void Accelerate_SpeedAcceleration_AllowToAccelerate()
         {
-            var car = CreateCarInstance();
-            float carStartSpeed = car.Speed;
+            var car = CreateCar();
+            var currentSpeed = car.Speed;
             car.Accelerate();
-            float carAccelerated = car.Speed;
-            Assert.That(carAccelerated, Is.InRange(carStartSpeed, MAXSPEED));
+            var newSpeed = car.Speed;
+            Assert.That(newSpeed, Is.InRange(currentSpeed, MAXSPEED));
         }
 
         #endregion
@@ -41,25 +42,28 @@ namespace RaceGame_Tests
         [Test]
         public void Break_AllowBreak_BreakAllowed()
         {
-            var car = CreateCarInstance();
-            float carSpeedStart = car.Speed;
+            var car = CreateCar();
+            var currentBreakSpeed = car.Speed;
             car.Break();
-            float carSpeedSlowed = car.Speed;
+            var speedAfterBreak = car.Speed;
 
-            if (carSpeedStart == 0)
+
+            if (currentBreakSpeed == 0)
             {
-                Assert.That(carSpeedStart, Is.LessThanOrEqualTo(carSpeedStart));
+                Assert.That(currentBreakSpeed, Is.LessThanOrEqualTo(currentBreakSpeed));
             }
             else
-                Assert.That(carSpeedSlowed, Is.LessThan(carSpeedStart));
+                Assert.That(speedAfterBreak, Is.LessThan(currentBreakSpeed));
         }
 
         [Test]
         public void Break_NotNegativValueAndStoped_CarStoped()
         {
-            var car = CreateCarInstance();
+            var car = CreateCar();            
+            var newSpeedAfterBreak = car.Speed;
             car.Break();
-            Assert.That(car.Speed, Is.Not.Negative.Or.GreaterThan(0));
+
+            Assert.That(newSpeedAfterBreak, Is.Not.Negative.Or.GreaterThan(0));
         }
 
         #endregion
@@ -69,14 +73,16 @@ namespace RaceGame_Tests
         [Test]
         public void CheckCarSpeed_IsNotNull_CarSpeedHasValue()
         {
-            var car = CreateCarInstance();
+            var car = CreateCar();
+
             Assert.That(car.Speed, !Is.Null);
         }
 
         [Test]
         public void CheckRotation_IsNotNull_RotationHasValue()
         {
-            var car = CreateCarInstance();
+            var car = CreateCar();
+
             Assert.That(car.Rotation, !Is.Null);
         }
 
@@ -87,21 +93,24 @@ namespace RaceGame_Tests
         [Test]
         public void TurnLeft_RotationDeceses_CarTurnsLeft()
         {
-            var car = CreateCarInstance();
-            float currentRotationPosition = car.Rotation;
+
+            var car = CreateCar();
+            float currentPosition = car.Rotation;
             car.TurnLeft();
-            float newRotationPosition = car.Rotation;
-            Assert.That(newRotationPosition, Is.LessThan(currentRotationPosition));
+            float newPosition = car.Rotation;
+
+            Assert.That(newPosition, Is.LessThan(currentPosition));
         }
 
         [Test]
         public void TurnRight_RotationIncreases_CarTurnRight()
         {
-            var car = CreateCarInstance();
-            float currentRotationPosition = car.Rotation;
+            var car = CreateCar();
+            float currentPosition = car.Rotation;
             car.TurnRight();
-            float newRotationPosition = car.Rotation;
-            Assert.That(newRotationPosition, Is.GreaterThan(currentRotationPosition));
+            float newPosition = car.Rotation;
+
+            Assert.That(newPosition, Is.GreaterThan(currentPosition));
         }
 
         #endregion

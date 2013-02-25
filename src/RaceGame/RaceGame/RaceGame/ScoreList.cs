@@ -20,46 +20,58 @@ namespace RaceGame
 
         public void SetScore(TimeSpan newTime)
         {
-            _time = newTime;
-            if (CheckScore(_time)) {
-                SaveScore();
-            }
+
+            throw new NotImplementedException();
+
+            //_time = newTime;
+            //if (CheckScore(_time)) {
+            //    SaveScore();
+            //}
         }
 
         public void SaveScore()
         {
-            int tempIndex = _index;
-            string name = TextTyper.GetText();
-            Score score = new Score(name, _time);
 
-            for (int i = tempIndex; i < scoreArray.Length - 1; i++)
-            {
-                Score temp = scoreArray[tempIndex];
-                if (tempIndex < scoreArray.Length-1)
-                {
-                    scoreArray[tempIndex] = scoreArray[_index + 1];
-                }
-                scoreArray[tempIndex + 1] = temp;
-            }
-            scoreArray[_index] = score;
-        }
-
-        public bool CheckScore(TimeSpan time)
-        {
-            for (int i = 0; i < scoreArray.Length-1; i++)
-                {
-                    if (time <= scoreArray[i].Time || scoreArray[i] == null)
-                    {
-                        _index = i;
-                        return true;
-                    }
-                }
-            return false;
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
             throw new NotImplementedException();
+
+        //    int tempIndex = _index;
+        //    string name = TextTyper.GetText();
+        //    Score score = new Score(name, _time);
+
+        //    for (int i = tempIndex; i < scoreArray.Length - 1; i++)
+        //    {
+        //        Score temp = scoreArray[tempIndex];
+        //        if (tempIndex < scoreArray.Length-1)
+        //        {
+        //            scoreArray[tempIndex] = scoreArray[_index + 1];
+        //        }
+        //        scoreArray[tempIndex + 1] = temp;
+        //    }
+        //    scoreArray[_index] = score;
+        }
+
+        public void Ïnsert(Score score, int index)
+        {
+            Score tempScore = scoreArray[index];
+            scoreArray[index] = score;
+            for (int i = index + 1; i < scoreArray.Length - 1; i++)
+            {
+                scoreArray[i] = tempScore;
+                if (i < scoreArray.Length - 1)
+                {
+                    tempScore = scoreArray[i + 1];
+                }
+            }
+        }
+
+        public int CheckScore(TimeSpan time)
+        {
+            for (int i = 0; i < scoreArray.Length - 1; i++) {
+                if (scoreArray[i] == null || time <= scoreArray[i].Time) {
+                        return i;
+                }
+            }
+            return -1;
         }
     }
 }

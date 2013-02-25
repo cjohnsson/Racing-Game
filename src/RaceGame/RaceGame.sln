@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceGame", "RaceGame\RaceGame\RaceGame.csproj", "{6B4C05DC-F501-439C-A3BB-749F90E1B000}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "RaceGameContent", "RaceGame\RaceGameContent\RaceGameContent.contentproj", "{6B0DD5E4-7610-4AAC-9E31-3D9BEA6982EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceGameContent", "RaceGame\RaceGameContent\RaceGameContent.contentproj", "{6B0DD5E4-7610-4AAC-9E31-3D9BEA6982EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceGame_Tests", "RaceGame_Tests\RaceGame_Tests.csproj", "{1ADB73EF-6656-4E3E-922F-97DA0A7C6134}"
 EndProject

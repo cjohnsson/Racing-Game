@@ -24,10 +24,10 @@ namespace RaceGame
         private const float DECELERATION = 0.01f;
         private const float BREAK_DECELERATION = 0.1f;
         private const float TERRAIN_SPEED = 0.01f;
+       
 
         public Car()
         {
-
         }
 
         public Car(Texture2D newImage, Vector2 position)
@@ -38,7 +38,7 @@ namespace RaceGame
             _x = position.X;
             _y = position.Y;
         }
-
+  
         public Rectangle Position
         {
             get
@@ -61,7 +61,11 @@ namespace RaceGame
             }
         }
 
-        public float Speed { get { return _speed; } }
+        public float Speed
+        {
+            get { return _speed; }
+            set { _speed = value; }
+        }
 
         public float Rotation
         {

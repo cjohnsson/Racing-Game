@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using NUnit.Framework;
 using RaceGame;
-using System.Threading.Tasks;
+using System.Threading;
 
 
 
@@ -16,23 +16,18 @@ namespace RaceGame_Tests
             return new RaceTimer();
         }
 
-        public Stopwatch CreateStopwatch()
-        {
-            return new Stopwatch();
-        }
 
         [Test]
         public void GetElapsedTime_DefaultTime_ReturnsTimeSpan()
         {
             //Arrange
             var raceTimer = CreateRaceTimer();
-            var expected = CreateStopwatch();
 
             //Act
 
             //Assert
             var result = raceTimer.GetElapsedTime();
-            Assert.AreEqual(expected.Elapsed, result);
+            Assert.AreEqual(TimeSpan.FromSeconds(-3), result);
         }
 
         [Test]
@@ -40,17 +35,15 @@ namespace RaceGame_Tests
         {
             //Arrange
             var raceTimer = CreateRaceTimer();
-            var startTime = CreateStopwatch();
             
             //Act
             raceTimer.Resume();
-            System.Threading.Thread.Sleep(1000);
+            Thread.Sleep(1000);
             raceTimer.Pause();
 
             //Assert
             var result = raceTimer.GetElapsedTime();
-            
-            Assert.Greater(result, startTime.Elapsed);
+            Assert.Greater(result.Seconds, TimeSpan.FromSeconds(-2).Seconds );
         }
 
         [Test]
@@ -62,12 +55,12 @@ namespace RaceGame_Tests
             //Act
             raceTimer.Resume();
             raceTimer.Pause();
-            var result1 = raceTimer.GetElapsedTime();
-            System.Threading.Thread.Sleep(1000);
-            var result2 = raceTimer.GetElapsedTime();
+            var resumeBeforePause = raceTimer.GetElapsedTime();
+            Thread.Sleep(500);
+            var resultAfterResume = raceTimer.GetElapsedTime();
 
             //Assert
-            Assert.AreEqual(result1, result2);
+            Assert.AreEqual(resumeBeforePause, resultAfterResume);
         }
 
         [Test]
@@ -81,12 +74,11 @@ namespace RaceGame_Tests
             raceTimer.Pause();
             raceTimer.Resume();
             var expectLower = raceTimer.GetElapsedTime();
-            System.Threading.Thread.Sleep(1000);
+            Thread.Sleep(500);
             var expectHigher = raceTimer.GetElapsedTime();
 
             //Assert
             Assert.Greater(expectHigher, expectLower);
-
         }
 
     }

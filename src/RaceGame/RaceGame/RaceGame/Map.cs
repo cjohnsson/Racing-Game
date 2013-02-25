@@ -9,6 +9,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace RaceGame
 {
+    //TODO: Tester ska göras
     public class Map : IMap
     {
         private int _startX;

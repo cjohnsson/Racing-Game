@@ -12,68 +12,119 @@ namespace RaceGame
         const float XSPEED = 0.1f;
         const float YSPEED = 0.075f;
         Texture2D image;
-        int height, width;
-        float[] x = new float[4];
-        float[] y = new float[4];
-        Random r = new Random();
+        private int height;
+        private int width;
+        private float[] x = new float[4];
+        private float[] y = new float[4];
+
+        public Clouds()
+        {}
+
         public Clouds(Texture2D image)
         {
             this.image = image;
-            height = image.Bounds.Height;
-            width = image.Bounds.Width;
-            x[0] = 0;
-            y[0] = 0;
-            x[1] = width;
-            y[1] = -height;
-            x[2] = 0;
-            y[2] = -height;
-            x[3] = width;
-            y[3] = 0;
+            Height = image.Bounds.Height;
+            Width = image.Bounds.Width;
+            X[0] = 0;
+            Y[0] = 0;
+            X[1] = Width;
+            Y[1] = -Height;
+            X[2] = 0;
+            Y[2] = -Height;
+            X[3] = Width;
+            Y[3] = 0;
+        }
+
+        public float[] X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+
+        public float[] Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
+
+        public int Height
+        {
+            get { return height; }
+            set { height = value; }
+        }
+
+        public int Width
+        {
+            get { return width; }
+            set { width = value; }
         }
 
         public void Update()
         {
 
-            if (x[0] + width < 0 && y[0] > height)
-            {
-                x[0] = width;
-                y[0] = -height;
-            }
+            UpdatePostitionFirstPicture();
 
-            if (x[1] + width < 0 && y[1] > height)
-            {
-                x[1] = width;
-                y[1] = -height;
-            }
+            UpdatePositionSecondPicture();
 
-            if (x[2] + width < 0)
-            {
-                x[2] = 0;
-                y[2] = -height;
-            }
+            UpdatePositionThirdPicture();
 
-            if (y[3] > height)
-            {
-                x[3] = width;
-                y[3] = 0;
-            }
+            UpdatePositionFourthPicture();
 
-            for (int i = 0; i < x.Length; i++)
-            {
-                x[i] -= XSPEED;
-                y[i] += YSPEED;
-            } 
+            SetSpeed(); 
         }
 
+        private void SetSpeed()
+        {
+            for (int i = 0; i < X.Length; i++)
+            {
+                X[i] -= XSPEED;
+                Y[i] += YSPEED;
+            }
+        }
 
+        private void UpdatePositionFourthPicture()
+        {
+            if (Y[3] > Height)
+            {
+                X[3] = Width;
+                Y[3] = 0;
+            }
+        }
+
+        private void UpdatePositionThirdPicture()
+        {
+            if (X[2] + Width < 0)
+            {
+                X[2] = 0;
+                Y[2] = -Height;
+            }
+        }
+
+        private void UpdatePositionSecondPicture()
+        {
+            if (X[1] + Width < 0 && Y[1] > Height)
+            {
+                X[1] = Width;
+                Y[1] = -Height;
+            }
+        }
+
+        private void UpdatePostitionFirstPicture()
+        {
+            if (X[0] + Width < 0 && Y[0] > Height)
+            {                
+                X[0] = Width;
+                Y[0] = -Height;
+            }
+        }
 
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, new Rectangle((int)x[0], (int)y[0], width, height), Color.White);
-            spriteBatch.Draw(image, new Rectangle((int)x[1], (int)y[1], width, height), Color.White);
-            spriteBatch.Draw(image, new Rectangle((int)x[2], (int)y[2], width, height), Color.White);
-            spriteBatch.Draw(image, new Rectangle((int)x[3], (int)y[3], width, height), Color.White);
+            spriteBatch.Draw(image, new Rectangle((int)X[0], (int)Y[0], Width, Height), Color.White);
+            spriteBatch.Draw(image, new Rectangle((int)X[1], (int)Y[1], Width, Height), Color.White);
+            spriteBatch.Draw(image, new Rectangle((int)X[2], (int)Y[2], Width, Height), Color.White);
+            spriteBatch.Draw(image, new Rectangle((int)X[3], (int)Y[3], Width, Height), Color.White);
         }
 
     }
