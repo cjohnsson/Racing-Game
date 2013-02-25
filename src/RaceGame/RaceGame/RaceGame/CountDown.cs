@@ -6,26 +6,27 @@ namespace RaceGame
 {
     public class CountDown
     {
-     
         private const float COUNTDOWN_TIME = 3.0f;
+        private SpriteFont _font;
+
+        public CountDown(SpriteFont spriteFont)
+        {
+            _font = spriteFont;
+        }
 
         #region Propertys
-
 
         public bool IsFinished
         {
             get { return DateTime.Now.Subtract(StartDate).TotalSeconds > COUNTDOWN_TIME; }
         }
 
-        public string Text
+        private string Text
         {
             get { return ((int)COUNTDOWN_TIME - DateTime.Now.Subtract(StartDate).Seconds).ToString(); }        
         }
 
-        public SpriteFont Font { get; set; }
-
-        public Vector2 Position { get; set; }
-
+        
         public DateTime StartDate { get; set; }
 
         #endregion
@@ -38,7 +39,7 @@ namespace RaceGame
 
         public void Draw(SpriteBatch spriteBatch)
         {        
-            spriteBatch.DrawString(Font, Text, new Vector2(400,150), Color.Red);
+            spriteBatch.DrawString(_font, Text, new Vector2(400,150), Color.Red);
         }
     }
 }

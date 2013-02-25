@@ -76,7 +76,7 @@
   <ItemGroup>
     <Compile Include="Car.cs" />
     <Compile Include="Clouds.cs" />
-    <Compile Include="ComputerPlayer.cs" />
+    <Compile Include="ComputerPlayersAi.cs" />
     <Compile Include="ContentLoader.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="CountDown.cs" />
@@ -87,11 +87,11 @@
     <Compile Include="MapFactory.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\PauseMenu.cs" />
-    <Compile Include="PlayerFactory.cs" />
+    <Compile Include="PlayersFactory.cs" />
     <Compile Include="RaceTimer.cs" />
     <Compile Include="ICar.cs" />
     <Compile Include="IClouds.cs" />
-    <Compile Include="IComputerPlayer.cs" />
+    <Compile Include="IComputerPlayersAI.cs" />
     <Compile Include="IRaceTimer.cs" />
     <Compile Include="IInfo.cs" />
     <Compile Include="Menu\IMenu.cs" />

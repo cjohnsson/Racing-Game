@@ -6,23 +6,23 @@ using Microsoft.Xna.Framework;
 
 namespace RaceGame
 {
-    public class ComputerPlayer : IComputerPlayer
+    public class ComputerPlayersAi : IComputerPlayersAI
     {
-        public List<Player> Players { get; set; }
+        public List<Player> ComputerPlayers { get; set; }
         private const float FORESIGHT = 20.0f;
         private const float FORESIGHT_ANGLE = 0.7f;
-        private DateTime lastMovement = DateTime.Now;
-        private int lastX, lastY;
-        private Random r = new Random();
+        private DateTime _lastMovement = DateTime.Now;
+        private int _lastX, _lastY;
+        private Random _random = new Random();
 
-        public ComputerPlayer()
+        public ComputerPlayersAi()
         {
-            Players = new List<Player>();
+            ComputerPlayers = new List<Player>();
         }
 
         public  void Update()
         {
-            foreach (var player in Players)
+            foreach (var player in ComputerPlayers)
             {
                 float newX = player.Car.X + (float)Math.Cos((double)player.Car.Rotation) * FORESIGHT;
                 float newY = player.Car.Y + (float)Math.Sin((double)player.Car.Rotation) * FORESIGHT;
@@ -51,13 +51,13 @@ namespace RaceGame
 
         private void CheckIfStuck(Player player)
         {
-            if(lastX != player.Car.Position.X || lastY != player.Car.Position.Y)
+            if(_lastX != player.Car.Position.X || _lastY != player.Car.Position.Y)
             {
-                lastMovement = DateTime.Now;
-                lastX = player.Car.Position.X;
-                lastY = player.Car.Position.Y;
+                _lastMovement = DateTime.Now;
+                _lastX = player.Car.Position.X;
+                _lastY = player.Car.Position.Y;
             }
-            else if(DateTime.Now.Subtract(lastMovement).TotalSeconds >= 1)
+            else if(DateTime.Now.Subtract(_lastMovement).TotalSeconds >= 1)
             {
                  player.Car.TurnLeft();
             }
@@ -65,7 +65,7 @@ namespace RaceGame
 
        private void TurnRandom(Player player)
        {
-           int chance = r.Next(50);
+           int chance = _random.Next(50);
            if (chance <= 5)
            {
                player.Car.TurnLeft();
