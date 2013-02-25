@@ -325,43 +325,6 @@ namespace RaceGame
             World.RaceTimer.Resume();
         }
 
-        private void CreatePlayers()
-        {
-            _players = new List<Player>();
-            var player1 = CreatePlayer(new Control(Keys.Up, Keys.Down, Keys.Left, Keys.Right), _cars[0]);
-            var player2 = CreatePlayer(new Control(Keys.W, Keys.S, Keys.A, Keys.D), _cars[1]);
-            var player3 = CreatePlayer(new Control(Keys.None, Keys.None, Keys.None, Keys.None), _cars[3]);
-            var player4 = CreatePlayer(new Control(Keys.None, Keys.None, Keys.None, Keys.None), _cars[4]);
-
-            if (_mainMenu.NrOfPlayers == 1)
-                _players.Add(player1);
-            else
-            {
-                _players.Add(player1);
-                _players.Add(player2);
-            }
-
-            switch (_mainMenu.NrOfBots)
-            {
-                case 1:
-                    _players.Add(player3);
-                    _computerPlayer.Players.Add(player3);
-                    break;
-                case 2:
-                    _players.Add(player3);
-                    _computerPlayer.Players.Add(player3);
-                    _players.Add(player4);
-                    _computerPlayer.Players.Add(player4);
-                    break;
-            }
-        }
-
-        private Player CreatePlayer(Control control, Texture2D carTexture)
-        {
-            return new Player(control, carTexture, new Vector2(_maps[_mainMenu.SelectedMap].StartX, _maps[_mainMenu.SelectedMap].StartY),
-                _maps[_mainMenu.SelectedMap].StartRotation);
-        }
-
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
