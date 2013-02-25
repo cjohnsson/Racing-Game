@@ -77,12 +77,14 @@
     <Compile Include="Car.cs" />
     <Compile Include="Clouds.cs" />
     <Compile Include="ComputerPlayer.cs" />
+    <Compile Include="ContentLoader.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="CountDown.cs" />
     <Compile Include="HighScore.cs" />
     <Compile Include="Holders\ITexture2DHolder.cs" />
     <Compile Include="Holders\Texture2DHolder.cs" />
     <Compile Include="Holders\Texture2DIsNullException.cs" />
+    <Compile Include="MapFactory.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\PauseMenu.cs" />
     <Compile Include="PlayerFactory.cs" />
