@@ -28,7 +28,7 @@ namespace RaceGame
         private Keys _menuKey;
         private Keys _fullScreenKey;
         private Menu.Menu _pauseMenu;
-        private ComputerPlayersAi _computerPlayersComputerPlayersAi;
+        private ComputerPlayersAi _computerPlayersAi;
         private bool _isPauseScreenShowed;
         private bool _isMainMenuScreenShowed;
         private Menu.Menu _mainMenu;
@@ -62,7 +62,7 @@ namespace RaceGame
             _isMainMenuScreenShowed = true;
             _oldKeyboardState = Keyboard.GetState();
             _countDown = new CountDown(ContentLoader.CountDownFont);
-            _computerPlayersComputerPlayersAi = new ComputerPlayersAi();
+            _computerPlayersAi = new ComputerPlayersAi();
             _pauseMenu = new PauseMenu(ContentLoader.TransparentBackground, ContentLoader.MenuFont);
             _mainMenu = new MainMenu(ContentLoader.TransparentBackground, ContentLoader.MenuFont);
             base.Initialize();
@@ -195,7 +195,7 @@ namespace RaceGame
                         player.Car.TurnRight();
                     }
                 }
-                _computerPlayersComputerPlayersAi.Update();
+                _computerPlayersAi.Update();
                 _world.Update();
 
                 if (_world.Winner != null)
@@ -260,7 +260,7 @@ namespace RaceGame
             foreach (var player in players )
             {
                 if (!player.IsHuman)
-                    _computerPlayersComputerPlayersAi.ComputerPlayers.Add(player);
+                    _computerPlayersAi.ComputerPlayers.Add(player);
             }
 
             _world = new World(map, players,
