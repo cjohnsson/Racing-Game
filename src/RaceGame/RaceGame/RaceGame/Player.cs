@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using RaceGame.Holders;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -14,7 +15,7 @@ namespace RaceGame
         public bool isHuman { get; set; }
         public Control Control { get; set; }
 
-        public Player(Control control, Texture2D carImage, Vector2 position, float startRotation)
+        public Player(Control control, ITexture2DHolder carImage, Vector2 position, float startRotation)
         {
             isHuman = true;
             Control = control;

@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Moq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using RaceGame;
+using RaceGame_Tests.Holders;
+using Microsoft.Xna.Framework;
 
 namespace RaceGame_Tests
 {
@@ -13,7 +12,8 @@ namespace RaceGame_Tests
 
         private Car CreateCar()
         {
-            return new Car();
+            var text2D = new StubTexture2DHolder();
+            return new Car(text2D, new Vector2(0, 0));
         }
 
         #region Acclerate_Method_Tests
@@ -59,7 +59,7 @@ namespace RaceGame_Tests
         [Test]
         public void Break_NotNegativValueAndStoped_CarStoped()
         {
-            var car = CreateCar();            
+            var car = CreateCar();
             var newSpeedAfterBreak = car.Speed;
             car.Break();
 

@@ -81,16 +81,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="map1_foreground1.png">
-      <Name>map1_foreground1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="map1_foreground2.png">
-      <Name>map1_foreground2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="map2_background.png">
       <Name>map2_background</Name>
       <Importer>TextureImporter</Importer>
@@ -135,18 +125,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="map6_collision.png">
-      <Name>map6_collision</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="map6_background.png">
-      <Name>map6_background</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="car6.png">
       <Name>car6</Name>
       <Importer>TextureImporter</Importer>
@@ -182,18 +160,33 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="map7_background.png">
-      <Name>map7_background</Name>
+    <Compile Include="map1_foreground.png">
+      <Name>map1_foreground</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="map7_collision.png">
-      <Name>map7_collision</Name>
+    <Compile Include="map3_background.png">
+      <Name>map3_background</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="map7_foreground1.png">
-      <Name>map7_foreground1</Name>
+    <Compile Include="map3_collision.png">
+      <Name>map3_collision</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="map5_background.png">
+      <Name>map5_background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="map5_collision.png">
+      <Name>map5_collision</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="map5_foreground.png">
+      <Name>map5_foreground</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
